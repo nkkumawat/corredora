@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <div class="container"><br><br><br><br>
+      <div class="row">
+        <div class="col s3"></div>
+        <div class="col s6">
+          <div class="card" style="padding: 50px;">
+            <div class="row">
+              <form class="col s12" method="POST" action="/admin/login">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="email" type="email" name="email" class="validate">
+                    <label for="email">Email</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="password" type="password" name="password" class="validate">
+                    <label for="password">Password</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="submit" type="submit" class="validate btn waves-effect waves-light">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col s3"></div>
+      </div>
+    </div>
+  </body>
+</html>

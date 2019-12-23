@@ -1,0 +1,35 @@
+{
+  "production": {
+    "database": {
+      "username": "root",
+      "password": "Root@1234",
+      "database": "samlApp",
+      "host": "localhost",
+      "dialect": "mysql"
+    },
+    "host": "http://local.bsstag.com",
+    "secret":  "dummy"
+  },
+  "staging": {
+    "database": {
+      "username": "root",
+      "password": "Root@1234",
+      "database": "samlApp",
+      "host": "localhost",
+      "dialect": "mysql"
+    },
+    "host": "http://local.bsstag.com",
+    "secret":  "dummy"
+  },
+  "development": {
+    "database": {
+      "username": "root",
+      "password": "Root@1234",
+      "database": "samlApp",
+      "host": "localhost",
+      "dialect": "mysql"
+    },
+    "host": "http://local.bsstag.com",
+    "secret":  "dummy"
+  }
+}
