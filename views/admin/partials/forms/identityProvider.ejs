@@ -1,20 +1,10 @@
+<br><br><br><br>
 <div class="row">
   <div class="col s3"></div>
-  <form class="col s6">
+  <form id="saveIDP" class="col s6" method="POST" action="/admin/dashboard/identity-provider">
     <div class="row">
       <div class="input-field col s12">
-        <select>
-          <option value="" disabled selected>Choose your option</option>
-          <% data.groups.forEach( group => {%>
-            <option value="<%=group.id%>"><%= group.group_name%></option>
-          <%})%>
-        </select>
-        <label>Group</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <input   id="sso_login_url" name="sso_login_url" type="text" class="validate">
+        <input id="sso_login_url" name="sso_login_url" type="text" class="validate">
         <label for="sso_login_url">SSO Login URL</label>
       </div>
     </div>
@@ -25,8 +15,28 @@
       </div>
     </div>
     <div class="row">
+      <div class="input-field col s6">
+        <select name="group_id" form="saveIDP">
+          <option value="" disabled selected>Choose your option</option>
+          <% data.groups.forEach( group => {%>
+            <option value="<%=group.id%>|<%=group.group_name%>"><%= group.group_name%></option>
+          <%})%>
+        </select>
+        <label>Group</label>
+      </div>
+      <div class="input-field col s6">
+        <select name="nameid_policies" form="saveIDP">
+          <option value="" disabled selected>Choose your option</option>
+          <% Object.keys(data.nameIdPolicies).forEach( nameIdpolicy => {%>
+            <option value="<%=data.nameIdPolicies[nameIdpolicy]%>"><%= nameIdpolicy%></option>
+          <%})%>
+        </select>
+        <label>Name Id Policies</label>
+      </div>
+    </div>
+    <div class="row">
       <div class="col s12">
-        <label>Force Authentications</label>
+        <label>Force Authentication</label>
         <div class="switch">
           <label>
             Off
@@ -37,46 +47,20 @@
         </div>
       </div>
     </div>
-   
-
-
-    <div class="row">
-      <div class="input-field col s12">
-        <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-        <label for="disabled">Disabled</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <input id="password" type="password" class="validate">
-        <label for="password">Password</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <input id="email" type="email" class="validate">
-        <label for="email">Email</label>
-      </div>
-    </div>
     <div class="row">
       <div class="col s12">
-        This is an inline input field:
-        <div class="input-field inline">
-          <input id="email_inline" type="email" class="validate">
-          <label for="email_inline">Email</label>
-          <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea form="saveIDP" id="textarea" name="certificates" class="materialize-textarea"></textarea>
+            <label for="textarea">Certificate</label>
+          </div>
         </div>
       </div>
     </div>
     <div class="row">
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field col s12">
-            <textarea id="textarea1" class="materialize-textarea"></textarea>
-            <label for="textarea1">Certificate</label>
-          </div>
-        </div>
-      </form>
+      <div class="input-field col s12">
+        <input id="" type="submit" value="Save" class="validate waves-effect waves-light btn">
+      </div>
     </div>
   </form>
 </div>

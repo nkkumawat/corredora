@@ -22,7 +22,6 @@ module.exports = {
   getAllGroups: () => {
     return new Promise((resolve, reject) => {
       models.group.findAll().then(groups => {
-        console.log(groups)
         resolve(groups)
       }).catch(err => {
         reject(err)

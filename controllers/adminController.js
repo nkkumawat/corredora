@@ -79,7 +79,8 @@ module.exports = {
   },
   renderIdentityProvider: (req, res, next) => {
     var data = {
-      page: "createIdentityProvider"
+      page: "createIdentityProvider",
+      nameIdPolicies: constants.NAMEID_POLICIES
     }
     groupService.getAllGroups().then(groups => {
       data['groups'] = groups;
