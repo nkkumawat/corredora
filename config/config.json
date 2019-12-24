@@ -24,7 +24,7 @@
   "development": {
     "database": {
       "username": "root",
-      "password": "Root@1234",
+      "password": "",
       "database": "samlApp",
       "host": "localhost",
       "dialect": "mysql"
