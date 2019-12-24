@@ -6,7 +6,6 @@ module.exports = {
         email: param.email,
         group_id: param.group_id
       };
-      console.log(condition, "=========================")
 			models.user.findOne({
 				where: condition
 			}).then((user) => {

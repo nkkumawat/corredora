@@ -8,7 +8,8 @@
       "dialect": "mysql"
     },
     "host": "http://local.bsstag.com",
-    "secret":  "dummy"
+    "secret":  "dummy",
+    "certificate-life": 1000
   },
   "staging": {
     "database": {
@@ -19,7 +20,8 @@
       "dialect": "mysql"
     },
     "host": "http://local.bsstag.com",
-    "secret":  "dummy"
+    "secret":  "dummy",
+    "certificate-life": 1000
   },
   "development": {
     "database": {
@@ -30,6 +32,7 @@
       "dialect": "mysql"
     },
     "host": "http://local.bsstag.com",
-    "secret":  "dummy"
+    "secret":  "dummy",
+    "certificate-life": 1000
   }
 }

@@ -1,13 +1,38 @@
+var saml2 = require('saml2-js');
+var passport = require('../utils/passport');
+var constants = require('../config/constants');
+var logger = require('../utils/logger');
+var userController = require("./userController");
 var spDataHelper = require("../helpers/spDataHelper");
 var idpDataHelper = require("../helpers/idpDataHelper");
-var passport = require('../utils/passport');
-var saml2 = require('saml2-js');
 var responseHelper = require('../helpers/responseHelper');
 var samlDataHelper = require('../helpers/samlDataHelper');
-var fs = require('fs');
-var userController = require("./userController");
 var groupService = require('../services/groupService');
+var spDataService = require('../services/spDataService');
+var idpDataService = require('../services/idpDataService');
+var certificateHelper = require('../helpers/certificateHelper');
 
+var createSPMetadata = (params) => { // Use this after IDP creation // send group_name from body params (hidden field)
+  return new Promise((resolve, reject) => {
+    var data = {
+      group_id: params.group_id,
+      entity_id: constants.HOST_NAME,
+      assert_endpoint: constants.HOST_NAME + "/saml/" + params.group_name + "/assert",
+      nameid_format: params.nameid_format
+    }
+    certificateHelper.getCertificates().then(cert => {
+      data['private_key'] = cert.serviceKey;
+      data['certificate'] = cert.certificate;
+      spDataService.createSPData(data).then(spData => {
+        resolve(spData);
+      }).catch(err => {
+        reject(err);
+      })
+    }).catch(err => {
+      reject(err);
+    })
+  })
+}
 
 module.exports = {
   initLogin: (req, res, next) => {
@@ -21,7 +46,6 @@ module.exports = {
           return res.redirect(login_url);
         });
       }).catch(err => {
-        console.log(err, "========================")
         return res.sendStatus(500).json(responseHelper.withFailure(err))
       })
     }).catch(err => {
@@ -48,12 +72,12 @@ module.exports = {
     })
   },
   passportAuth: passport.passport.authenticate(
-      'saml',
-      {
-        failureRedirect: '/saml/logout',
-        failureFlash: true,
-      }
-    ),
+    'saml',
+    {
+      failureRedirect: '/saml/logout',
+      failureFlash: true,
+    }
+  ),
   assertionLogin: (req, res, next) => {
     // return res.send(req.body)
     var nameID = req.session.passport.user.nameID;
@@ -80,6 +104,37 @@ module.exports = {
     }).catch(err => {
       console.log(err)
       return res.sendStatus(500).json(responseHelper.withFailure(err))
+    })
+  },
+  createIdentityProvider: (req, res, next) => {
+    // use this for create idp data
+    // also call createSPMetadata after creating IDP metadata
+    // make sure on successfull operation this will redirect to /admin/dashboard/identity-providers
+    var params = req.body;
+    var group = params.group_id.split("|")
+    var idpData = {
+      group_id: group[0],
+      sso_login_url: params.sso_login_url,
+      sso_logout_url: params.sso_logout_url,
+      certificates: params.certificates,
+      force_authn: params.force_authn === 'on' ? true : false
+    }
+    var spData = {
+      group_id: group[0],
+      group_name: group[1],
+      nameid_format: params.nameid_policies
+    }
+    logger.info("IDP metadata: ", idpData)
+    logger.info("SP Meta data: ", spData)
+    idpDataService.createIdpData(idpData).then(idpData => {
+      createSPMetadata(spData).then(spData => {
+        return res.redirect(`/admin/dashboard/identity-provider/${idpData.id}`)
+      }).catch(err => {
+        return res.render("error", {error: err})
+      })
+    }).catch(err => {
+      console.log(err)
+      return res.render("error", {error: err})
     })
   }
 }

@@ -1,5 +1,6 @@
 var constants = require("../config/constants");
 var tokenHelper = require('../helpers/tokenHelper');
+var logger = require('../utils/logger');
 
 module.exports = {
   varifyRequest: (req, res, next) => {
@@ -8,7 +9,8 @@ module.exports = {
     if(token != null) {
       tokenHelper.decodeToken(token).then((decoded) => {
         if(decoded.email != null) {
-          req.currentUser = decoded;;
+          req.currentUser = decoded;
+          logger.info(decoded)
           if(url === "/admin/login" || url === "/admin/signup"){
             return res.redirect("/admin/dashboard")
           } else {
