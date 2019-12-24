@@ -81,6 +81,11 @@ module.exports = {
     var data = {
       page: "createIdentityProvider"
     }
-    return res.render('admin/dashboard', resultHelper.withSuccess(data))
+    groupService.getAllGroups().then(groups => {
+      data['groups'] = groups;
+      return res.render('admin/dashboard', resultHelper.withSuccess(data))
+    }).catch(err => {
+      return res.render("error", {error: err})
+    })
   }
 }

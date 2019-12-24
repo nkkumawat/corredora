@@ -15,6 +15,8 @@ router.get('/dashboard', adminController.renderDashboard);
 router.get('/dashboard/group', adminController.renderCreateGroup); // get group create form
 router.get('/dashboard/groups', adminController.renderGroups); // get all groups
 router.post('/dashboard/group', adminController.createGroup); // create group
+router.get('/dashboard/group/:id'); // get group details
+router.delete('/dashboard/group/:id'); // delete group details
 
 // identity routes
 router.get('/dashboard/identity-provider', adminController.renderIdentityProvider); // get group create form
