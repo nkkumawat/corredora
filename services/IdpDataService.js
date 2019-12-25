@@ -52,5 +52,43 @@ module.exports = {
         reject(constants.DEFAULT_ERROR);
       })
     })
+  },
+  getAllIdpData: () => {
+    return new Promise((resolve, reject) => {
+      models.idp_data.findAll({
+        include: [{
+          model: models.sp_data
+        }, {
+          model: models.group
+        }],
+        raw: true
+      }).then(idpData => {
+        resolve(idpData);
+      }).catch(err => {
+        logger.error(err)
+        reject(constants.DEFAULT_ERROR);
+      })
+    })
+  },
+  getIdpDataWithGroups: (params) => {
+    return new Promise((resolve, reject) => {
+      if(params.id == null || params.id == 'undefined') {
+        reject(constants.MISSING_PARAMS.GROUP_ID);
+      }
+      models.idp_data.findOne({
+        include: [{
+          model: models.sp_data
+        }, {
+          model: models.group
+        }],
+        where: {id: params.id},
+        raw: true
+      }).then(idpData => {
+        resolve(idpData);
+      }).catch(err => {
+        logger.error(err)
+        reject(constants.DEFAULT_ERROR);
+      })
+    })
   }
 }
