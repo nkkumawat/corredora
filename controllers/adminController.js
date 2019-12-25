@@ -2,7 +2,9 @@ var adminUserService = require('../services/admin/adminUserService');
 var groupService = require('../services/groupService');
 var tokenHelper = require('../helpers/tokenHelper');
 var constants = require("../config/constants");
-var resultHelper = require("../helpers/responseHelper");
+var responseHelper = require("../helpers/responseHelper");
+var idpdataService = require("../services/IdpDataService");
+var logger = require('../utils/logger');
 
 module.exports = {
   renderLogin: (req, res, next) => {
@@ -47,13 +49,13 @@ module.exports = {
     var data = {
       page: "dashboard"
     }
-    return res.render("admin/dashboard", resultHelper.withSuccess(data) )
+    return res.render("admin/dashboard", responseHelper.withSuccess(data) )
   },
   renderCreateGroup: (req, res, next) => {
     var data = {
       page: "createGroup"
     }
-    return res.render("admin/dashboard", resultHelper.withSuccess(data) )
+    return res.render("admin/dashboard", responseHelper.withSuccess(data) )
   },
   createGroup: (req, res, next) => {
     groupService.createGroup(req.body).then(group => {
@@ -72,19 +74,40 @@ module.exports = {
         page: "allGroups",
         groups: groups
       }
-      return res.render('admin/dashboard', resultHelper.withSuccess(data))
+      return res.render('admin/dashboard', responseHelper.withSuccess(data))
     }).catch(err => {
       return res.render("error", {error: err})
     })
   },
-  renderIdentityProvider: (req, res, next) => {
+  renderCreateIdentityProvider: (req, res, next) => {
     var data = {
       page: "createIdentityProvider",
       nameIdPolicies: constants.NAMEID_POLICIES
     }
     groupService.getAllGroups().then(groups => {
       data['groups'] = groups;
-      return res.render('admin/dashboard', resultHelper.withSuccess(data))
+      return res.render('admin/dashboard', responseHelper.withSuccess(data))
+    }).catch(err => {
+      return res.render("error", {error: err})
+    })
+  },
+  renderIdentityProviders: (req, res, next) => {
+    idpdataService.getAllIdpData().then(data => {
+      
+    }).catch(err => {
+      return res.render("error", {error: err})
+    })
+  },
+  renderIdentityProvider: (req, res, next) => {
+    var id = req.params.id;
+    idpdataService.getIdpDataWithGroups({id: id}).then(allData => {
+      var data = {
+        idpData: allData,
+        page: "identityProvider",
+        host: constants.HOST_NAME
+      };
+      logger.info(allData)
+      return res.render('admin/dashboard', responseHelper.withSuccess(data))
     }).catch(err => {
       return res.render("error", {error: err})
     })

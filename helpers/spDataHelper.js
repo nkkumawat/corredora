@@ -18,6 +18,7 @@ module.exports = {
             if(spData.nameid_format) { spConfig['nameid_format'] = spData.nameid_format }
             if(spData.sign_get_request) { spConfig['sign_get_request'] = spData.sign_get_request }
             if(spData.allow_unencrypted_assertion) { spConfig['allow_unencrypted_assertion'] = spData.allow_unencrypted_assertion }
+            console.log(spConfig)
             resolve(spConfig);
           }).catch(err => {
             reject({error: err})

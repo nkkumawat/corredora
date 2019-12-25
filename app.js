@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({
 app.use(passport.initialize())
 
 app.use(function(req, res, next) {
-  logger.info(req.originalUrl + "    Params: " + JSON.stringify(req.query))
+  logger.info(req.method + " : " + req.originalUrl + "    Params: " + JSON.stringify(req.query))
   if (req.method == 'POST') {
       console.log('\x1b[36m%s\x1b[0m', 'Request URL:', req.originalUrl);
       console.log(req.body);

@@ -70,6 +70,7 @@ module.exports = function(sequelize, DataTypes) {
 
 	spData.associate = function(models) {
     spData.belongsTo(models.group, {foreignKey: 'group_id'});
+    spData.belongsTo(models.idp_data, { foreignKey: 'group_id', targetKey: 'group_id' })
 	}  
 	return spData;
 };

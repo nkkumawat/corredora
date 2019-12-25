@@ -20,8 +20,10 @@ router.get('/dashboard/group/:id'); // get group details
 router.delete('/dashboard/group/:id'); // delete group details
 
 // identity routes
-router.get('/dashboard/identity-provider', adminController.renderIdentityProvider); // get group create form
+router.get('/dashboard/identity-provider', adminController.renderCreateIdentityProvider); // get group create form
 router.post('/dashboard/identity-provider', samlController.createIdentityProvider); // get group create form
+router.get('/dashboard/identity-providers', adminController.renderIdentityProviders); // get group create form
+router.get('/dashboard/identity-provider/:id', adminController.renderIdentityProvider); // get group create form
 
 
 module.exports = router;

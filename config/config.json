@@ -19,19 +19,19 @@
       "host": "localhost",
       "dialect": "mysql"
     },
-    "host": "http://local.bsstag.com",
+    "host": "http://local.bsstag.com:3000",
     "secret":  "dummy",
     "certificate-life": 1000
   },
   "development": {
     "database": {
       "username": "root",
-      "password": "Root@1234",
+      "password": "",
       "database": "samlApp",
       "host": "localhost",
       "dialect": "mysql"
     },
-    "host": "http://local.bsstag.com",
+    "host": "http://local.bsstag.com:3000",
     "secret":  "dummy",
     "certificate-life": 1000
   }
