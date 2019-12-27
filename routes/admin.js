@@ -2,11 +2,12 @@ var express = require('express');
 var router = express.Router();
 var adminController = require('../controllers/adminController');
 var samlController = require('../controllers/samlController');
-var middleware = require('../middlewares/index')
+var middleware = require('../middlewares/index');
 
 router.use(middleware.varifyRequest);
 
 /* GET home page. */
+
 router.get('/login', adminController.renderLogin);
 router.get('/login', adminController.verifyLogin);
 router.get('/signup', adminController.renderSignUp);

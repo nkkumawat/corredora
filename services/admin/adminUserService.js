@@ -34,7 +34,7 @@ module.exports = {
       if(params.email == null) {
         reject(constants.MISSING_PARAMS.DEFAULT_ERROR);
       }
-      models.adminUser.findOne({
+      models.admin_users.findOne({
         where: {email: params.email}
       }).then(usr => {
         if(usr){
@@ -47,6 +47,24 @@ module.exports = {
           });
         } else {
           resolve("No user exist")
+        }
+      }).catch(err => {
+        reject(err);
+      })
+    })
+  },
+  getUserForBasicAuth: (params) => {
+    return new Promise((resolve, reject) => {
+      if(params.email == null) {
+        reject(constants.MISSING_PARAMS.DEFAULT_ERROR);
+      }
+      models.admin_users.findOne({
+        where: params
+      }).then(usr => {
+        if(usr){
+          resolve(usr); 
+        } else {
+          reject("No user exist")
         }
       }).catch(err => {
         reject(err);

@@ -10,6 +10,7 @@ var passport = require('./utils/passport').passport;
 var samlRouter = require('./routes/saml');
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
+var apiRouter = require('./routes/api');
 var logger = require("./utils/logger");
 
 var app = express();
@@ -45,6 +46,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use('/api', apiRouter);
 app.use('/saml', samlRouter);
 app.use('/admin', adminRouter);
 app.use('/', indexRouter);

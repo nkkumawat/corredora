@@ -32,7 +32,7 @@
       "dialect": "mysql"
     },
     "host": "http://local.bsstag.com:3000",
-    "secret":  "dummy",
+    "secret":  "dummy_for_cookie_sign",
     "certificate-life": 1000
   }
 }

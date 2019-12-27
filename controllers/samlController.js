@@ -34,6 +34,7 @@ var createSPMetadata = (params) => { // Use this after IDP creation // send grou
   })
 }
 
+
 module.exports = {
   initLogin: (req, res, next) => {
     var realmName = req.params.realmName
@@ -138,3 +139,5 @@ module.exports = {
     })
   }
 }
+
+module.exports.createSPMetadata = createSPMetadata;
