@@ -69,5 +69,24 @@ module.exports = {
     }).catch(err => {
       return res.json(responseHelper.withFailure({error: err}))
     })
+  },
+  createGroup: (req, res, next) => {
+    // parmas = {
+    //   "group_name": "STRING",
+    //   "succ_callback": "STRING",
+    //   "fail_callback": "STRING"
+    // }
+
+    var params = req.body;
+    if(!params.group_name ||
+       !params.succ_callback ||
+       !params.fail_callback){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.DEFAULT_ERROR}))
+    }
+    groupService.createGroup(params).then(group => {
+      return res.json(responseHelper.withSuccess({group: group}))
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}))
+    })
   }
 }
