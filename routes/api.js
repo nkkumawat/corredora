@@ -9,7 +9,8 @@ router.use(middleware.apiAuth);
 router.get('/', (req, res, next) => {
   return res.json({})
 })
-router.post('/idp', apiController.createIdentityProvider);
+router.post('/idp', apiController.createIdentityProvider); //create identityProvider
+router.post('/group', apiController.createGroup); // create group
 
 
 module.exports = router;
