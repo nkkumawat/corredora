@@ -6,13 +6,11 @@
   <body>
     <% include ../partials/navbar %>
     <div class="content">
-      <div class="row">
-        <div id="site-layout-example-top" class="col s12">
-        </div>
-        <div id="site-layout-example-left" class="col s2 indigo">
+      <div class="row indigo" style="min-height: 100vh;">
+        <div id="site-layout-example-left" class="col s2 ">
           <% include ./partials/sidebar %>
         </div>
-        <div id="site-layout-example-right" class="col s10 grey lighten-4">
+        <div id="site-layout-example-right" class="col s10 grey lighten-4" style="min-height: 100vh;">
           <% if(data.page) {%>
             <% if(data.page === "createGroup"){%>
               <% include ./partials/forms/group %>
@@ -20,6 +18,8 @@
                 <% include ./partials/groups %>
             <%} else  if(data.page === "createIdentityProvider")  {%>
               <% include ./partials/forms/identityProvider %>
+            <%} else if(data.page === "identityProvider") { %>
+              <% include ./partials/identityProvider %>
             <%}%>
           <%}%>
         </div>

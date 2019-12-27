@@ -10,5 +10,11 @@ module.exports = {
     REALM_NAME: "Realm Name is not present",
     DEFAULT_ERROR: "Some params are missing"
   },
-  DEFAULT_ERROR: "Something went wrong!"
+  DEFAULT_ERROR: "Something went wrong!",
+  CERTIFICATE_LIFE: config['certificate-life'],
+  NAMEID_POLICIES: {
+    persistent: "string:urn:oasis:names:tc:SAML:2.0:nameid-format:persistent",
+    email: "string:urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+    unspecified : "string:urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
+  }
 }

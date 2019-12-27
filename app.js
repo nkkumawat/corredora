@@ -1,15 +1,17 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var fs = require('fs')
 const bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var morgan = require('morgan');
 var passport = require('./utils/passport').passport;
 
 var samlRouter = require('./routes/saml');
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
-
+var apiRouter = require('./routes/api');
+var logger = require("./utils/logger");
 
 var app = express();
 
@@ -19,7 +21,10 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 
-app.use(logger('dev'));
+app.use(morgan('combined', {
+  stream: fs.createWriteStream(path.join(__dirname, '/logs/access.log'), { flags: 'a' })
+}))
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json({
@@ -31,7 +36,17 @@ app.use(bodyParser.urlencoded({
 })); 
 app.use(passport.initialize())
 
+app.use(function(req, res, next) {
+  logger.info(req.method + " : " + req.originalUrl + "    Params: " + JSON.stringify(req.query))
+  if (req.method == 'POST') {
+      console.log('\x1b[36m%s\x1b[0m', 'Request URL:', req.originalUrl);
+      console.log(req.body);
+      logger.info(req.body)
+  }
+  next();
+});
 
+app.use('/api', apiRouter);
 app.use('/saml', samlRouter);
 app.use('/admin', adminRouter);
 app.use('/', indexRouter);
@@ -47,13 +62,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.use(function(req, res, next) {
-  if (req.method == 'POST') {
-      console.log('\x1b[36m%s\x1b[0m', 'Request URL:', req.originalUrl);
-      console.log(req.body);
-      console.log('\x1b[33m%s\x1b[0m', '<------->');
-  }
-  next();
-});
 
 module.exports = app;

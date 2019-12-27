@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "basic-auth": "^2.0.1",
     "bcrypt": "^3.0.7",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -15,13 +16,16 @@
     "inspect": "0.0.2",
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.5.1",
+    "logger": "0.0.1",
     "morgan": "~1.9.1",
     "mysql2": "^2.0.2",
     "passport": "^0.4.1",
     "passport-http": "^0.3.0",
     "passport-saml": "^1.2.0",
+    "pem": "^1.14.3",
     "saml2-js": "^2.0.5",
     "sequelize": "^5.21.3",
+    "tsscmp": "^1.0.6",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
