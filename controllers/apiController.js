@@ -3,6 +3,7 @@ var responseHelper = require('../helpers/responseHelper');
 var tokenHelper = require('../helpers/tokenHelper');
 var idpDataService = require('../services/IdpDataService');
 var groupService = require('../services/groupService');
+var mapperService = require('../services/mapperService');
 var samlController = require('../controllers/samlController');
 var logger = require('../utils/logger');
 
@@ -67,6 +68,25 @@ module.exports = {
       }).catch(err => {
         return res.json(responseHelper.withFailure({error: err}))
       })
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}))
+    })
+  },
+  createMapper: (req, res, next) => {
+    // parmas = {
+    //   "group_id": "STRING",
+    //   "saml_attribute": "STRING",
+    //   "user_attribute": "STRING"
+    // }
+
+    var params = req.body;
+    if(!params.group_id ||
+       !params.saml_attribute ||
+       !params.user_attribute){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.DEFAULT_ERROR}))
+    }
+    mapperService.createMapper(params).then(mapper => {
+      return res.json(responseHelper.withSuccess({mapper: mapper}))
     }).catch(err => {
       return res.json(responseHelper.withFailure({error: err}))
     })
