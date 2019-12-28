@@ -22,8 +22,8 @@ module.exports = function(sequelize, DataTypes) {
 	});
 
 	Group.associate = function(models) {
-    Group.hasMany(models.user, {foreignKey: 'group_id'});
-    Group.hasMany(models.mapper, {foreignKey: 'group_id'});
+    Group.hasMany(models.user, {foreignKey: 'group_id', onDelete: 'cascade'});
+    Group.hasMany(models.mapper, {foreignKey: 'group_id', onDelete: 'cascade'});
 	}  
 	return Group;
 };

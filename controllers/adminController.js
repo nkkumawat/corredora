@@ -84,8 +84,15 @@ module.exports = {
       page: "createIdentityProvider",
       nameIdPolicies: constants.NAMEID_POLICIES
     }
+    var currentGroupId = req.params.group_id;
     groupService.getAllGroups().then(groups => {
       data['groups'] = groups;
+      groups.forEach(g => {
+        if(g.id == currentGroupId){
+          data['group'] = g;
+        }
+        console.log(g.id, currentGroupId, data['group'], "--------")
+      })
       return res.render('admin/dashboard', responseHelper.withSuccess(data))
     }).catch(err => {
       return res.render("error", {error: err})
@@ -110,6 +117,18 @@ module.exports = {
       return res.render('admin/dashboard', responseHelper.withSuccess(data))
     }).catch(err => {
       return res.render("error", {error: err})
+    })
+  },
+  deleteGroup: (req, res, next) => {
+    var group_id = req.params.id;
+    logger.info(`deleting group ${group_id}`)
+    if(!group_id){
+      return res.render("error", {error: constants.MISSING_PARAMS.GROUP_ID})
+    }
+    groupService.deleteGroup({id: group_id}).then(gd => {
+      return res.json(responseHelper.withSuccess(true))
+    }).catch(err => {
+      return res.json(responseHelper.withFailure(false))
     })
   }
 }

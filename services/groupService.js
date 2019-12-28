@@ -68,5 +68,19 @@ module.exports = {
         reject(err);
       })
     })
+  },
+  deleteGroup: (params) => {
+    return new Promise((resolve, reject) => {
+      if(params.group_id == null || params.group_id == 'undefined') {
+        reject(constants.MISSING_PARAMS.GROUP_ID)
+      }
+      models.group.destroy({
+        where: params
+      }).then(group => {
+        resolve(group)
+      }).catch(err => {
+        reject(err)
+      })
+    })
   }
 }
