@@ -60,7 +60,21 @@
       <%}%>
     </div>
     <div id="test-swipe-3" class="col s12 ">
-      <xmp></xmp>
+      <table>
+        <tbody>
+          <% if(data.mappers) {%>
+            <% data.mappers.forEach(mapper => {%>
+              <tr>
+                <td><%= mapper.saml_attribute%></td>
+                <td><%= mapper.user_attribute%></td>
+                <td>
+                  <button type="submit" onclick="deleteRequest('/admin/dashboard/group/<%= data.group.id%>/mapper/<%=mapper.id%>')">Delete</button>
+                </td>
+              </tr>
+            <%})%>
+          <%}%>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

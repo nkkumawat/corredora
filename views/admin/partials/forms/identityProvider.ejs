@@ -1,8 +1,7 @@
 <br><br><br><br>
 <div class="row">
   <div class="col s3"></div>
-  <input id="url" hidden value="/admin/dashboard/group/<%= data.group.id%>/identity-provider">
-  <form id="saveIDP" class="col s6">
+  <form id="saveIDP" class="col s6" method="POST" action="/admin/dashboard/group/<%= data.group.id%>/identity-provider">
     <div class="row">
       <div class="input-field col s12">
         <input id="sso_login_url" name="sso_login_url" type="text" class="validate">

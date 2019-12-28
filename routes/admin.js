@@ -17,7 +17,7 @@ router.get('/dashboard', adminController.renderDashboard);
 router.get('/dashboard/group', adminController.renderCreateGroup); // get group create form
 router.post('/dashboard/group', adminController.createGroup); // create group
 router.get('/dashboard/groups', adminController.renderGroups); // get all groups
-router.get('/dashboard/group/:id'); // get group details
+router.get('/dashboard/group/:id', adminController.renderGroup); // get group details
 router.delete('/dashboard/group/:id', adminController.deleteGroup); // delete group details
 
 // identity routes
@@ -27,12 +27,9 @@ router.get('/dashboard/identity-providers', adminController.renderIdentityProvid
 router.get('/dashboard/group/:group_id/identity-provider/:id', adminController.renderIdentityProvider); // get idp
 
 // mappers
-router.get('/dashboard/mapper', adminController.renderCreateMapper); // get mapper create form
-router.post('/dashboard/mapper', adminController.createMapper); // create mapper
-router.get('/dashboard/mappers', adminController.getGroupMappers); // get group for mappers
-router.post('/dashboard/mappers', adminController.renderMappers); // get all mapper for group
-router.get('/dashboard/mapper/:id', adminController.renderEditMapper); // get edit mapper form
-router.post('/dashboard/editMapper', adminController.editMapper);
-router.post('/dashboard/deleteMapper', adminController.deleteMapper); // delete mapper details
+router.get('/dashboard/group/:group_id/mapper', adminController.renderCreateMapper); // get mapper create form
+router.post('/dashboard/group/:group_id/mapper', adminController.createMapper); // create mapper
+router.get('/dashboard/group/:group_id/mappers', adminController.renderMappers); // get all group mappers
+router.delete('/dashboard/group/:group_id/mapper/:id', adminController.deleteMapper); // delete mapper details
 
 module.exports = router;

@@ -18,12 +18,10 @@
                 <% include ./partials/groups %>
             <%} else if(data.page === "createMapper"){%>
                 <% include ./partials/forms/mapper %>
-            <%} else if(data.page === "allGroupMappers"){%>
-                <% include ./partials/mappers %>
-            <%} else if(data.page === "getGroupMapper"){%>
-                <% include ./partials/forms/getGroupmapper %>
-            <%} else if(data.page === "editMapper"){%>
-                <% include ./partials/forms/editmapper %>
+            <%} else if(data.page === "groupMappers"){%>
+              <% include ./partials/mappers %>
+            <%} else if(data.page === "getGroup"){%>
+              <% include ./partials/group %>
             <%} else  if(data.page === "createIdentityProvider")  {%>
               <% include ./partials/forms/identityProvider %>
             <%} else if(data.page === "identityProvider") { %>
@@ -33,7 +31,9 @@
         </div>
       </div>
     </div>
+    <% include ../partials/footer %>
     <script type="text/javascript" src="/js/admin.js" ></script>
+
   </body>
 
 </html>

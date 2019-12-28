@@ -62,13 +62,26 @@ module.exports = {
     var data = {
       page: "createMapper"
     }
-    return res.render("admin/dashboard", responseHelper.withSuccess(data) )
-  },
-  getGroupMappers: (req, res, next) => {
+    var group_id = req.params.group_id;
+    groupService.getGroupById({id: group_id}).then(group => {
+      data['group'] = group;
+      return res.render("admin/dashboard", responseHelper.withSuccess(data) )
+    }).catch(err => {
+      return res.render("error", {error: err})
+    })
+  },  
+  renderGroup: (req, res, next) => {
+    var group_id = req.params.id;
     var data = {
-      page: "getGroupMapper"
+      page: "getGroup"
     }
-    return res.render("admin/dashboard", responseHelper.withSuccess(data) )
+    groupService.getGroupById({id: group_id}).then(group => {
+      data['group'] = group;
+      return res.render("admin/dashboard", responseHelper.withSuccess(data) )
+    }).catch(err => {
+      logger.error(err)
+      return res.render("error", {error: "Something went wrong"})
+    })
   },
   createGroup: (req, res, next) => {
     groupService.createGroup(req.body).then(group => {
@@ -82,9 +95,12 @@ module.exports = {
     })
   },
   createMapper: (req, res, next) => {
-    mapperService.createMapper(req.body).then(mapper => {
+    var params = req.body;
+    var group_id = req.params.group_id;
+    params['group_id'] = group_id;
+    mapperService.createMapper(params).then(mapper => {
       if(mapper) {
-        return res.redirect("/admin/dashboard/mappers");
+        return res.redirect(`/admin/dashboard/group/${group_id}/mappers`);
       } else {
         return res.render("error", {error: "Something went wrong"})
       }
@@ -103,39 +119,6 @@ module.exports = {
       return res.render("error", {error: err})
     })
   },
-  renderMappers: (req, res, next) => {
-    mapperService.getGroupMappers(req.body).then(mappers => {
-      var data = {
-        page: "allGroupMappers",
-        mappers: mappers
-      }
-      return res.render('admin/dashboard', responseHelper.withSuccess(data))
-    }).catch(err => {
-      return res.render("error", {error: err})
-    })
-  },
-  renderEditMapper: (req, res, next) => {
-    mapperService.getMapper(req.params).then(mapper => {
-      var data = {
-        page: "editMapper",
-        mapper: mapper
-      }
-      return res.render('admin/dashboard', responseHelper.withSuccess(data))
-    }).catch(err => {
-      return res.render("error", {error: err})
-    })
-  },
-  editMapper: (req, res, next) => {
-    mapperService.editMapper(req.body).then(mapper => {
-      if(mapper) {
-        return res.redirect("/admin/dashboard/mappers");
-      } else {
-        return res.render("error", {error: "Something went wrong"})
-      }
-    }).catch(err => {
-      return res.render("error", {error: err})
-    })
-  },
   renderCreateIdentityProvider: (req, res, next) => {
     var data = {
       page: "createIdentityProvider",
@@ -148,8 +131,8 @@ module.exports = {
         if(g.id == currentGroupId){
           data['group'] = g;
         }
-        console.log(g.id, currentGroupId, data['group'], "--------")
       })
+      console.log(data);
       return res.render('admin/dashboard', responseHelper.withSuccess(data))
     }).catch(err => {
       return res.render("error", {error: err})
@@ -162,16 +145,41 @@ module.exports = {
       return res.render("error", {error: err})
     })
   },
+  renderMappers: (req, res, next) => {
+    var group_id = req.params.group_id;
+    groupService.getGroupById({id: group_id}).then(group => {
+      mapperService.getGroupMappers({group_id: group_id}).then(mappers => {
+        var data = {
+          page: "groupMappers",
+          group: group,
+          mappers: mappers
+        }
+        return res.render('admin/dashboard', responseHelper.withSuccess(data))
+      })
+    }).catch(err => {
+      return res.render("error", {error: err})
+    })
+  },
   renderIdentityProvider: (req, res, next) => {
-    var id = req.params.id;
-    idpdataService.getIdpDataWithGroups({id: id}).then(allData => {
+    // var id = req.params.id;
+    var group_id = req.params.group_id;
+    idpdataService.getIdpDataWithGroups({group_id: group_id}).then(allData => {
+      if(!allData){
+        return res.render("error", {error: "No IDP Present"});
+      }
       var data = {
         idpData: allData,
         page: "identityProvider",
-        host: constants.HOST_NAME
+        host: constants.HOST_NAME,
+        group: {id: allData['group.id'], group_name: allData['group.group_name'], 'idp_data.id': allData.id}
       };
       logger.info(allData)
-      return res.render('admin/dashboard', responseHelper.withSuccess(data))
+      mapperService.getGroupMappers({group_id: group_id}).then(mappers => {
+        data['mappers'] = mappers;
+        return res.render('admin/dashboard', responseHelper.withSuccess(data))
+      }).catch(err => {
+        return res.render("error", {error: err})
+      })
     }).catch(err => {
       return res.render("error", {error: err})
     })
@@ -189,15 +197,15 @@ module.exports = {
     })
   },
   deleteMapper: (req, res, next) => {
-    var mapper_id = req.body.id;
+    var mapper_id = req.params.id;
     logger.info(`deleting mapper ${mapper_id}`)
     if(!mapper_id){
       return res.render("error", {error: constants.MISSING_PARAMS.MAPPER_ID})
     }
     mapperService.deleteMapper({id: mapper_id}).then(response => {
-      return res.redirect("/admin/dashboard/mappers");
+      return res.json(responseHelper.withSuccess(true));
     }).catch(err => {
-      return res.render("error", {error: "Something went wrong"})
+      return res.json(responseHelper.withFailure(false))
     })
   }
 }

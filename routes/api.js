@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
 })
 router.post('/idp', apiController.createIdentityProvider); //create identityProvider
 router.post('/group', apiController.createGroup); // create group
-router.post('/mapper', apiController.createMapper); // create group
+router.post('/mapper', apiController.createMapper); // create mapper
 router.post('/verify-request', apiController.verifyRequest); // varify the request
 
 
