@@ -14,7 +14,7 @@ module.exports = {
       tokenHelper.decodeToken(token).then((decoded) => {
         if(decoded.email != null) {
           req.currentUser = decoded;
-          logger.info(decoded)
+          logger.info(`Session value: ${JSON.stringify(decoded)}`)
           if(url === "/admin/login" || url === "/admin/signup"){
             return res.redirect("/admin/dashboard")
           } else {
