@@ -1,7 +1,8 @@
 <br><br><br><br>
 <div class="row">
   <div class="col s3"></div>
-  <form id="saveIDP" class="col s6" method="POST" action="/admin/dashboard/identity-provider">
+  <input id="url" hidden value="/admin/dashboard/group/<%= data.group.id%>/identity-provider">
+  <form id="saveIDP" class="col s6">
     <div class="row">
       <div class="input-field col s12">
         <input id="sso_login_url" name="sso_login_url" type="text" class="validate">
@@ -15,15 +16,6 @@
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s6">
-        <select name="group_id" form="saveIDP">
-          <option value="" disabled selected>Choose your option</option>
-          <% data.groups.forEach( group => {%>
-            <option value="<%=group.id%>|<%=group.group_name%>"><%= group.group_name%></option>
-          <%})%>
-        </select>
-        <label>Group</label>
-      </div>
       <div class="input-field col s6">
         <select name="nameid_policies" form="saveIDP">
           <option value="" disabled selected>Choose your option</option>
@@ -59,7 +51,9 @@
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <input id="" type="submit" value="Save" class="validate waves-effect waves-light btn">
+        <input  type="text" hidden name="group_id" value="<%= data.group.id%>">
+        <input  type="text" hidden name="group_name" value="<%= data.group.group_name%>">
+        <input  type="submit" value="Save" class="validate waves-effect waves-light btn">
       </div>
     </div>
   </form>

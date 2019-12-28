@@ -11,6 +11,9 @@ var groupService = require('../services/groupService');
 var spDataService = require('../services/spDataService');
 var idpDataService = require('../services/idpDataService');
 var certificateHelper = require('../helpers/certificateHelper');
+var tokenHelper = require('../helpers/tokenHelper');
+var request = require('request-promise');
+const queryString = require('query-string');
 
 var createSPMetadata = (params) => { // Use this after IDP creation // send group_name from body params (hidden field)
   return new Promise((resolve, reject) => {
@@ -88,11 +91,25 @@ module.exports = {
     var assertionJs = req.session.passport.user.getAssertion();
     var userAttributes = samlDataHelper.getAttributes(assertionJs);
     userAttributes["nameID"] = nameID;
-    groupService.getGroupRealm({group_name: req.params.realmName}).then(groupID => {
-      var user = userController.createUser(groupID, userAttributes);
-      return res.json({attr: userAttributes, nameID: nameID, user: user})
+    groupService.getGroupByName({group_name: req.params.realmName}).then(group => {
+      userController.createUser(group.id, userAttributes).then(user => {
+        var data = {
+          user: user
+        }
+        tokenHelper.getToken(data, 15 * 60).then(token => {
+        var qry = queryString.stringify({token: token});
+        logger.info("Calling external URl: " + group.succ_callback + "?" + qry)
+        return res.redirect(group.succ_callback + "?" + qry)
+        }).catch(err => {
+          logger.error(err)
+          return res.redirect(group.fail_callback)
+        })
+      }).catch(err => {
+        logger.error(err)
+        return res.json({err: err})
+      })
     }).catch(err => {
-      console.log(err)
+      logger.error(err)
       return res.json({err: err})
     })
   },
@@ -112,24 +129,23 @@ module.exports = {
     // also call createSPMetadata after creating IDP metadata
     // make sure on successfull operation this will redirect to /admin/dashboard/identity-providers
     var params = req.body;
-    var group = params.group_id.split("|")
     var idpData = {
-      group_id: group[0],
+      group_id: params.group_id,
       sso_login_url: params.sso_login_url,
       sso_logout_url: params.sso_logout_url,
       certificates: params.certificates,
       force_authn: params.force_authn === 'on' ? true : false
     }
     var spData = {
-      group_id: group[0],
-      group_name: group[1],
+      group_id: params.group_id,
+      group_name: params.group_name,
       nameid_format: params.nameid_policies
     }
     logger.info("IDP metadata: ", idpData)
     logger.info("SP Meta data: ", spData)
     idpDataService.createIdpData(idpData).then(idpData => {
       createSPMetadata(spData).then(spData => {
-        return res.redirect(`/admin/dashboard/identity-provider/${idpData.id}`)
+        return res.redirect(`/admin/dashboard/group/${params.group_id}/identity-provider/${idpData.id}`)
       }).catch(err => {
         return res.render("error", {error: err})
       })

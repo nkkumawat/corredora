@@ -11,12 +11,12 @@ var logger = require('../utils/logger');
 module.exports = {
   verifyRequest: (req, res, next) => {
     // params = {
-    //   token: STRING // Jwt token
+    //   token: "STRING" // Jwt token
     // }
     var data = req.body.token;
     tokenHelper.decodeToken(data).then(token => {
-      if(token.email === req.basicAuth.name) {
-        return res.json(responseHelper.withSuccess({valid: true}))
+      if(token) {
+        return res.json(responseHelper.withSuccess({valid: true, data: token.user}))
       } else {
         return res.json(responseHelper.withSuccess({valid: false}))
       }
@@ -24,6 +24,7 @@ module.exports = {
       return res.sendStatus(500).json(responseHelper.withFailure({error: err}))
     })
   },
+
   createIdentityProvider: (req, res, next) => {
     // params = {
     //   group_id : INT,

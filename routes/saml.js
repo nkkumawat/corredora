@@ -9,5 +9,8 @@ router.get('/:realmName/login', samlController.initLogin);
 router.post("/:realmName/assert", samlController.initAuth, samlController.passportAuth, samlController.assertionLogin)
 
 router.get('/:realmName/metadata.xml', samlController.metaData);
+router.post('/:realmName/metadata.xml', (req, res) => {
+  return res.redirect("/hello");
+} );
 
 module.exports = router;

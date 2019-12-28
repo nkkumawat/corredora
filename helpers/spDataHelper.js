@@ -5,9 +5,9 @@ module.exports = {
    init: (realmName) => {
      return new Promise((resolve , reject) => {
       var spConfig = {};
-      groupService.getGroupRealm({group_name: realmName}).then(groupId => {
-        if(groupId){
-          spDataService.getSpData({group_id: groupId}).then(spData => {
+      groupService.getGroupByName({group_name: realmName}).then(group => {
+        if(group){
+          spDataService.getSpData({group_id: group.id}).then(spData => {
             if(spData.entity_id) { spConfig['entity_id'] = spData.entity_id }
             if(spData.private_key) { spConfig['private_key'] = "-----BEGIN CERTIFICATE-----\n" + spData.private_key +"\n-----END CERTIFICATE-----" }
             if(spData.certificate) { spConfig['certificate'] = "-----BEGIN CERTIFICATE-----\n" + spData.certificate +"\n-----END CERTIFICATE-----" }

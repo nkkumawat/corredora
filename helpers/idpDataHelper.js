@@ -1,13 +1,12 @@
 var idpDataService = require('../services/idpDataService');
 var groupService = require('../services/groupService');
-var fs = require('fs');
 module.exports = {
   init: (realmName) => {
     return new Promise((resolve , reject) => {
       var idpConfig = {};
-      groupService.getGroupRealm({group_name: realmName}).then(groupId => {
-        if(groupId){
-          idpDataService.getIdpData({group_id: groupId}).then(idpData => {
+      groupService.getGroupByName({group_name: realmName}).then(group => {
+        if(group){
+          idpDataService.getIdpData({group_id: group.id}).then(idpData => {
             if(idpData.sso_login_url) { idpConfig['sso_login_url'] = idpData.sso_login_url }
             if(idpData.sso_logout_url) { idpConfig['sso_logout_url'] = idpData.sso_logout_url }      
             if(idpData.force_authn) { idpConfig['force_authn'] = idpData.force_authn }
@@ -19,7 +18,7 @@ module.exports = {
             reject({error: err})
           })
         } else {
-          reject({error: err})
+          reject({error: "err"})
         }
       }).catch(err => {
         reject({error: err})

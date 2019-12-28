@@ -94,3 +94,39 @@ POST /api/group
     }
 }
 ```
+
+## Verify the token sent by app
+
+### request
+
+```
+POST /api/verify-request
+```
+
+#### body
+```json
+   {
+      "token" : "STRING" 
+    }
+```
+### response
+
+```json
+{
+    "status": true,
+    "data": {
+        "valid": true,
+        "data": {
+            "id": 5,
+            "group_id": 1,
+            "email": "narendra@something.com",
+            "username": "username",
+            "attributes": "{\"firstName\":\"Narendra\",\"last\":\"Kumawat\"}",
+            "saml_attributes": "{\"firstName\":\"Narendra\",\"lastName\":\"Kumawat\",\"nameID\":\"narendra@something.com\"}",
+            "createdAt": "2019-12-24T16:55:39.000Z",
+            "updatedAt": "2019-12-24T16:55:39.000Z"
+        }
+    }
+}
+
+```

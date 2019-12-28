@@ -2,7 +2,7 @@ var constants = require("../config/constants");
 const models = require('../models');
 
 module.exports = {
-  getGroupRealm: (params) => {
+  getGroupByName: (params) => {
     return new Promise((resolve, reject) => {
       if(params.group_name == null || params.group_name == 'undefined') {
         reject(constants.MISSING_PARAMS.REALM_NAME)
@@ -12,7 +12,7 @@ module.exports = {
         raw: true
       }).then(group => {
         if(group){
-          resolve(group.id)
+          resolve(group)
         }
       }).catch(err => {
         reject(err)
@@ -66,6 +66,20 @@ module.exports = {
       }).catch(err => {
         console.log(err)
         reject(err);
+      })
+    })
+  },
+  deleteGroup: (params) => {
+    return new Promise((resolve, reject) => {
+      if(params.group_id == null || params.group_id == 'undefined') {
+        reject(constants.MISSING_PARAMS.GROUP_ID)
+      }
+      models.group.destroy({
+        where: params
+      }).then(group => {
+        resolve(group)
+      }).catch(err => {
+        reject(err)
       })
     })
   }
