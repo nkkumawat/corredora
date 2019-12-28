@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col s2"></div>
+  <div class="col s8">
+    <table>
+      <tbody>
+        <% if(data.mappers) {%>
+          <% data.mappers.forEach(mapper => {%>
+            <tr>
+              <td><a href="/admin/dashboard/mapper/<%=mapper.id%>"><%=mapper.id%></a></td>
+              <td><%= mapper.saml_attribute%></td>
+              <td><%= mapper.user_attribute%></td>
+              <td>
+                <form method="POST" id="deleteMapper" action="/admin/dashboard/deleteMapper">
+                  <input name="id" value=<%=mapper.id%> hidden/>
+                  <input type="submit" value="Delete">
+                </form>
+              </td>
+            </tr>
+          <%})%>
+        <%}%>
+      </tbody>
+    </table>
+  </div>
+</div>
