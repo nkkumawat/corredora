@@ -26,4 +26,13 @@ router.post('/dashboard/group/:group_id/identity-provider', samlController.creat
 router.get('/dashboard/identity-providers', adminController.renderIdentityProviders); // get all idps
 router.get('/dashboard/group/:group_id/identity-provider/:id', adminController.renderIdentityProvider); // get idp
 
+// mappers
+router.get('/dashboard/mapper', adminController.renderCreateMapper); // get mapper create form
+router.post('/dashboard/mapper', adminController.createMapper); // create mapper
+router.get('/dashboard/mappers', adminController.getGroupMappers); // get group for mappers
+router.post('/dashboard/mappers', adminController.renderMappers); // get all mapper for group
+router.get('/dashboard/mapper/:id', adminController.renderEditMapper); // get edit mapper form
+router.post('/dashboard/editMapper', adminController.editMapper);
+router.post('/dashboard/deleteMapper', adminController.deleteMapper); // delete mapper details
+
 module.exports = router;

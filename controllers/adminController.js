@@ -1,5 +1,6 @@
 var adminUserService = require('../services/admin/adminUserService');
 var groupService = require('../services/groupService');
+var mapperService = require('../services/mapperService');
 var tokenHelper = require('../helpers/tokenHelper');
 var constants = require("../config/constants");
 var responseHelper = require("../helpers/responseHelper");
@@ -57,10 +58,33 @@ module.exports = {
     }
     return res.render("admin/dashboard", responseHelper.withSuccess(data) )
   },
+  renderCreateMapper: (req, res, next) => {
+    var data = {
+      page: "createMapper"
+    }
+    return res.render("admin/dashboard", responseHelper.withSuccess(data) )
+  },
+  getGroupMappers: (req, res, next) => {
+    var data = {
+      page: "getGroupMapper"
+    }
+    return res.render("admin/dashboard", responseHelper.withSuccess(data) )
+  },
   createGroup: (req, res, next) => {
     groupService.createGroup(req.body).then(group => {
       if(group) {
         return res.redirect("/admin/dashboard/groups");
+      } else {
+        return res.render("error", {error: "Something went wrong"})
+      }
+    }).catch(err => {
+      return res.render("error", {error: err})
+    })
+  },
+  createMapper: (req, res, next) => {
+    mapperService.createMapper(req.body).then(mapper => {
+      if(mapper) {
+        return res.redirect("/admin/dashboard/mappers");
       } else {
         return res.render("error", {error: "Something went wrong"})
       }
@@ -75,6 +99,39 @@ module.exports = {
         groups: groups
       }
       return res.render('admin/dashboard', responseHelper.withSuccess(data))
+    }).catch(err => {
+      return res.render("error", {error: err})
+    })
+  },
+  renderMappers: (req, res, next) => {
+    mapperService.getGroupMappers(req.body).then(mappers => {
+      var data = {
+        page: "allGroupMappers",
+        mappers: mappers
+      }
+      return res.render('admin/dashboard', responseHelper.withSuccess(data))
+    }).catch(err => {
+      return res.render("error", {error: err})
+    })
+  },
+  renderEditMapper: (req, res, next) => {
+    mapperService.getMapper(req.params).then(mapper => {
+      var data = {
+        page: "editMapper",
+        mapper: mapper
+      }
+      return res.render('admin/dashboard', responseHelper.withSuccess(data))
+    }).catch(err => {
+      return res.render("error", {error: err})
+    })
+  },
+  editMapper: (req, res, next) => {
+    mapperService.editMapper(req.body).then(mapper => {
+      if(mapper) {
+        return res.redirect("/admin/dashboard/mappers");
+      } else {
+        return res.render("error", {error: "Something went wrong"})
+      }
     }).catch(err => {
       return res.render("error", {error: err})
     })
@@ -129,6 +186,18 @@ module.exports = {
       return res.json(responseHelper.withSuccess(true))
     }).catch(err => {
       return res.json(responseHelper.withFailure(false))
+    })
+  },
+  deleteMapper: (req, res, next) => {
+    var mapper_id = req.body.id;
+    logger.info(`deleting mapper ${mapper_id}`)
+    if(!mapper_id){
+      return res.render("error", {error: constants.MISSING_PARAMS.MAPPER_ID})
+    }
+    mapperService.deleteMapper({id: mapper_id}).then(response => {
+      return res.redirect("/admin/dashboard/mappers");
+    }).catch(err => {
+      return res.render("error", {error: "Something went wrong"})
     })
   }
 }

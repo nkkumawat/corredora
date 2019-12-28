@@ -7,6 +7,9 @@ module.exports = {
   SERVER_SUPER_SECRET: config['secret'],
   MISSING_PARAMS: {
     GROUP_ID: "Group ID is not present in params",
+    MAPPER_ID: "Group ID is not present in params",
+    SAML_ATTR: "SAML Attribute is not present in params",
+    USER_ATTR: "User Attribute is not present in params",
     REALM_NAME: "Realm Name is not present",
     DEFAULT_ERROR: "Some params are missing"
   },
