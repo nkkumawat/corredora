@@ -39,6 +39,40 @@ POST /api/group
 <hr>
 
 
+## Create a mapper
+
+### request
+```
+POST /api/mapper
+```
+#### body
+```json
+  {
+    "group_id": "STRING",
+    "saml_attribute": "STRING",
+    "user_attribute": "STRING"
+  }
+
+```
+
+### response
+```json
+{
+    "status": true,
+    "data": {
+        "group": {
+            "id": 10,
+            "group_id": 10,
+            "saml_attribute": "EMaiL",
+            "user_attribute": "email",
+            "updatedAt": "2019-12-28T17:43:25.894Z",
+            "createdAt": "2019-12-28T17:43:25.894Z"
+        }
+    }
+}
+```
+<hr>
+
 ## Create a Identity provider
 ### request
  ```
