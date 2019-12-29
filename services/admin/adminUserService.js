@@ -46,7 +46,7 @@ module.exports = {
             }
           });
         } else {
-          resolve("No user exist")
+          reject("No user exist")
         }
       }).catch(err => {
         reject(err);

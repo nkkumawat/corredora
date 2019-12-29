@@ -9,7 +9,7 @@ router.use(middleware.varifyRequest);
 /* GET home page. */
 
 router.get('/login', adminController.renderLogin);
-router.get('/login', adminController.verifyLogin);
+router.post('/login', adminController.verifyLogin);
 router.get('/signup', adminController.renderSignUp);
 router.post('/signup', adminController.signUp);
 router.get('/dashboard', adminController.renderDashboard);

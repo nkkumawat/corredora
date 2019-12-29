@@ -13,7 +13,9 @@ var idpDataService = require('../services/idpDataService');
 var certificateHelper = require('../helpers/certificateHelper');
 var tokenHelper = require('../helpers/tokenHelper');
 var request = require('request-promise');
-const queryString = require('query-string');
+var queryString = require('query-string');
+var sessionService = require('../services/sessionService');
+
 
 var createSPMetadata = (params) => { // Use this after IDP creation // send group_name from body params (hidden field)
   return new Promise((resolve, reject) => {
@@ -37,7 +39,6 @@ var createSPMetadata = (params) => { // Use this after IDP creation // send grou
   })
 }
 
-
 module.exports = {
   initLogin: (req, res, next) => {
     var realmName = req.params.realmName
@@ -60,18 +61,23 @@ module.exports = {
     var realmName = req.params.realmName;
     // console.log(req.body)
     idpDataHelper.init(realmName).then(idpData => {
-      passport.createInstance({
-        path: idpData.sso_login_url,
-        entityPoint: idpData.sso_login_url,
-        issuer: "passport-saml",
-        // decryptionPvk: fs.readFileSync('scripts/acme_tools_com.key', 'utf-8'), // ADFS case (if data encrypted)
-        // privateCert: fs.readFileSync('scripts/acme_tools_com.key', 'utf-8'), // ADFS case (if data encrypted)
-        cert:  "-----BEGIN CERTIFICATE-----\n" + idpData.certificates[0]+ "\n-----END CERTIFICATE-----", 
-        signatureAlgorithm: 'sha256',
+      spDataHelper.init(realmName).then(spData => {
+        passport.createInstance({
+          path: idpData.sso_login_url,
+          entityPoint: idpData.sso_login_url,
+          issuer: "passport-saml",
+          decryptionPvk: spData.private_key, // ADFS case (if data encrypted)
+          privateCert: spData.certificate, // ADFS case (if data encrypted)
+          cert:  "-----BEGIN CERTIFICATE-----\n" + idpData.certificates[0]+ "\n-----END CERTIFICATE-----", 
+          signatureAlgorithm: 'sha256',
+        })
+        next();
+      }).catch(err => {
+        logger.error(err)
+        return res.sendStatus(500).json(responseHelper.withFailure(err))
       })
-      next();
     }).catch(err => {
-      console.log(err)
+      logger.error(err)
       return res.sendStatus(500).json(responseHelper.withFailure(err))
     })
   },
@@ -97,12 +103,27 @@ module.exports = {
           user: user
         }
         tokenHelper.getToken(data, 15 * 60).then(token => {
-        var qry = queryString.stringify({token: token});
-        logger.info("Calling external URl: " + group.succ_callback + "?" + qry)
-        return res.redirect(group.succ_callback + "?" + qry)
+          createSPMetadata(spData).then(spData => {
+            var sessionData = {
+              group_id: user.group_id,
+              user_id: user.id,
+              session_id: sessionIndex
+            }
+            sessionService.createDession(sessionData).then(sess => {
+              var qry = queryString.stringify({token: token});
+              logger.info("Calling external URl: " + group.succ_callback + "?" + qry)
+              return res.redirect(group.succ_callback + "?" + qry)
+            }).catch(err => {
+              logger.error(err)
+              return res.redirect(group.fail_callback)
+            })
+          }).catch(err => {
+            logger.error(err)
+            return res.redirect(group.fail_callback)
+          })
         }).catch(err => {
           logger.error(err)
-          return res.redirect(group.fail_callback)
+          return res.json({err: err})
         })
       }).catch(err => {
         logger.error(err)
@@ -144,13 +165,8 @@ module.exports = {
     logger.info("IDP metadata: ", idpData)
     logger.info("SP Meta data: ", spData)
     idpDataService.createIdpData(idpData).then(idpData => {
-      createSPMetadata(spData).then(spData => {
-        return res.redirect(`/admin/dashboard/group/${params.group_id}/identity-provider/${idpData.id}`)
-      }).catch(err => {
-        return res.render("error", {error: err})
-      })
+      return res.redirect(`/admin/dashboard/group/${params.group_id}/identity-provider/${idpData.id}`)
     }).catch(err => {
-      console.log(err)
       return res.render("error", {error: err})
     })
   }

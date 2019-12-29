@@ -17,14 +17,16 @@ module.exports = {
   verifyLogin: (req, res, next) => {
     params = req.body;
     adminUserService.getUser(params).then(user => {
-      tokenHelper.getToken(tok).then((token) => {
+      tokenHelper.getToken(user).then((token) => {
         var maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
         res.cookie(constants.APP_NAME, token, { maxAge: maxAge, httpOnly: true });
         return res.redirect("/")
       }).catch((err) => {
+        
         return res.render('error', {error: err})
       })
     }).catch(err => {
+      logger.error(err);
       return res.redirect("/admin/login")
     })
   },
