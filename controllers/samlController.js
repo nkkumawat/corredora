@@ -103,27 +103,22 @@ module.exports = {
           user: user
         }
         tokenHelper.getToken(data, 15 * 60).then(token => {
-          createSPMetadata(spData).then(spData => {
-            var sessionData = {
-              group_id: user.group_id,
-              user_id: user.id,
-              session_id: sessionIndex
-            }
-            sessionService.createDession(sessionData).then(sess => {
-              var qry = queryString.stringify({token: token});
-              logger.info("Calling external URl: " + group.succ_callback + "?" + qry)
-              return res.redirect(group.succ_callback + "?" + qry)
-            }).catch(err => {
-              logger.error(err)
-              return res.redirect(group.fail_callback)
-            })
+          var sessionData = {
+            group_id: user.group_id,
+            user_id: user.id,
+            session_id: sessionIndex
+          }
+          sessionService.createDession(sessionData).then(sess => {
+            var qry = queryString.stringify({token: token});
+            logger.info("Calling external URl: " + group.succ_callback + "?" + qry)
+            return res.redirect(group.succ_callback + "?" + qry)
           }).catch(err => {
             logger.error(err)
             return res.redirect(group.fail_callback)
           })
         }).catch(err => {
           logger.error(err)
-          return res.json({err: err})
+          return res.redirect(group.fail_callback)
         })
       }).catch(err => {
         logger.error(err)
@@ -165,7 +160,11 @@ module.exports = {
     logger.info("IDP metadata: ", idpData)
     logger.info("SP Meta data: ", spData)
     idpDataService.createIdpData(idpData).then(idpData => {
-      return res.redirect(`/admin/dashboard/group/${params.group_id}/identity-provider/${idpData.id}`)
+      createSPMetadata(spData).then(spData => {
+        return res.redirect(`/admin/dashboard/group/${params.group_id}/identity-provider/${idpData.id}`)
+      }).catch(err => {
+        return res.render("error", {error: err})
+      })
     }).catch(err => {
       return res.render("error", {error: err})
     })

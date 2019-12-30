@@ -10,7 +10,7 @@ module.exports = {
       }
       models.session.findAll({
         where: params,
-        raw: true
+        include: [{model: models.user}]
       }).then(session => {
         if(session){
           resolve(session)

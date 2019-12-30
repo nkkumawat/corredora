@@ -26,6 +26,10 @@
               <% include ./partials/forms/identityProvider %>
             <%} else if(data.page === "identityProvider") { %>
               <% include ./partials/identityProvider %>
+            <%} else if(data.page === "showUsers") { %>
+              <% include ./partials/users %>
+            <%} else if(data.page === "showSessions") { %>
+              <% include ./partials/sessions %>
             <%}%>
           <%}%>
         </div>

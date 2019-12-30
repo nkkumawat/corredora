@@ -5,6 +5,8 @@ var tokenHelper = require('../helpers/tokenHelper');
 var constants = require("../config/constants");
 var responseHelper = require("../helpers/responseHelper");
 var idpdataService = require("../services/IdpDataService");
+var userService = require('../services/userService');
+var sessionService = require('../services/sessionService');
 var logger = require('../utils/logger');
 
 module.exports = {
@@ -165,6 +167,8 @@ module.exports = {
   renderIdentityProvider: (req, res, next) => {
     // var id = req.params.id;
     var group_id = req.params.group_id;
+
+    
     idpdataService.getIdpDataWithGroups({group_id: group_id}).then(allData => {
       if(!allData){
         return res.render("error", {error: "No IDP Present"});
@@ -178,12 +182,12 @@ module.exports = {
       logger.info(allData)
       mapperService.getGroupMappers({group_id: group_id}).then(mappers => {
         data['mappers'] = mappers;
-        return res.render('admin/dashboard', responseHelper.withSuccess(data))
+        return res.render('admin/dashboard', responseHelper.withSuccess(data));
       }).catch(err => {
-        return res.render("error", {error: err})
+        return res.render("error", {error: err});
       })
     }).catch(err => {
-      return res.render("error", {error: err})
+      return res.render("error", {error: err});
     })
   },
   deleteGroup: (req, res, next) => {
@@ -208,6 +212,42 @@ module.exports = {
       return res.json(responseHelper.withSuccess(true));
     }).catch(err => {
       return res.json(responseHelper.withFailure(false))
+    })
+  },
+  renderUsers: (req, res, next) => {
+    var group_id = req.params.group_id;
+    userService.getUsersByGroupId({group_id: group_id}).then(users => {
+      var data = {
+        page: "showUsers",
+        users: users
+      }
+      console.log(users)
+      groupService.getGroupById({id: group_id}).then(group => {
+        data['group'] = group;
+        return res.render('admin/dashboard', responseHelper.withSuccess(data));
+      }).catch(err => {
+        return res.render("error", {error: err});
+      })
+    }).catch(err => {
+      return res.render("error", {error: err});
+    })
+  },
+  renderSessions: (req, res, next) => {
+    var group_id = req.params.group_id;
+    sessionService.getSessionByGroup({group_id: group_id}).then(sessions => {
+      var data = {
+        page: "showSessions",
+        sessions: sessions
+      }
+      console.log(sessions)
+      groupService.getGroupById({id: group_id}).then(group => {
+        data['group'] = group;
+        return res.render('admin/dashboard', responseHelper.withSuccess(data));
+      }).catch(err => {
+        return res.render("error", {error: err});
+      })
+    }).catch(err => {
+      return res.render("error", {error: err});
     })
   }
 }

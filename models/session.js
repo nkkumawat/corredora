@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
 	});
 
 	Session.associate = function(models) {
-    Session.belongsTo(models.user, {foreignKey: 'use_id', onDelete: 'cascade'});
+    Session.belongsTo(models.user, {foreignKey: 'user_id', onDelete: 'cascade'});
     Session.belongsTo(models.group, {foreignKey: 'group_id', onDelete: 'cascade'});
 	}  
 	return Session;

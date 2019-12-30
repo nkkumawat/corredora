@@ -13,8 +13,8 @@
           <% data.groups.forEach(group => {%>
             <tr>
               <td><a href="/admin/dashboard/group/<%=group.id%>"><%= group.group_name%></a></td>
-              <td><%= group.succ_callback.substr(0,20)%>...</td>
-              <td><%= group.fail_callback.substr(0,20)%>...</td>
+              <td style="word-break: break-all;"><%= group.succ_callback%></td>
+              <td style="word-break: break-all;"><%= group.fail_callback%></td>
               <td>
                 <button type="submit" onclick="deleteRequest('/admin/dashboard/group/<%=group.id%>');">Delete</button>
               </td>

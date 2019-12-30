@@ -11,8 +11,8 @@
         <% if(data.group) {%>
           <tr>
             <td><a href="/admin/dashboard/group/<%=data.group.id%>"><%= data.group.group_name%></a></td>
-            <td><%= data.group.succ_callback.substr(0,20)%>...</td>
-            <td><%= data.group.fail_callback.substr(0,20)%>...</td>
+            <td style="word-break: break-all;"><%= data.group.succ_callback%>...</td>
+            <td style="word-break: break-all;"><%= data.group.fail_callback%>...</td>
           </tr>
         <%}%>
       </tbody>

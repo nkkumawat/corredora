@@ -26,6 +26,7 @@ module.exports = function(sequelize, DataTypes) {
     Group.hasMany(models.idp_data, {foreignKey: 'group_id', onDelete: 'cascade'});
     Group.hasMany(models.sp_data, {foreignKey: 'group_id', onDelete: 'cascade'});
     Group.hasMany(models.mapper, {foreignKey: 'group_id', onDelete: 'cascade'});
+    Group.hasMany(models.session, {foreignKey: 'group_id', onDelete: 'cascade'});
 	}  
 	return Group;
 };

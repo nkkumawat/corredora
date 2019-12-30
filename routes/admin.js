@@ -32,4 +32,10 @@ router.post('/dashboard/group/:group_id/mapper', adminController.createMapper); 
 router.get('/dashboard/group/:group_id/mappers', adminController.renderMappers); // get all group mappers
 router.delete('/dashboard/group/:group_id/mapper/:id', adminController.deleteMapper); // delete mapper details
 
+// users
+router.get('/dashboard/group/:group_id/users', adminController.renderUsers); // get all group users
+
+// sessions
+router.get('/dashboard/group/:group_id/sessions', adminController.renderSessions); // get all group sessions
+
 module.exports = router;
