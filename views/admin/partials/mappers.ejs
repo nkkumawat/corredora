@@ -2,6 +2,12 @@
   <div class="col s2"></div>
   <div class="col s8">
     <table>
+      <thead>
+        <th>Mapper id</th>
+        <th>SAML Attribute</th>
+        <th>User Attribute</th>
+        <th>Action</th>
+      </thead>
       <tbody>
         <% if(data.mappers) {%>
           <% data.mappers.forEach(mapper => {%>

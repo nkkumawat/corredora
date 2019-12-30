@@ -31,6 +31,7 @@ module.exports = function(sequelize, DataTypes) {
 
 	User.associate = function(models) {
     User.belongsTo(models.group, {foreignKey: 'group_id'});
+    User.hasMany(models.session, {foreignKey: 'user_id', onDelete: 'cascade'});
 	}  
 	return User;
 };

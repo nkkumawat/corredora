@@ -33,6 +33,7 @@ module.exports = {
           resolve(group)
         }
       }).catch(err => {
+        console.log(err)
         reject(err)
       })
     })

@@ -23,4 +23,20 @@ module.exports = {
       })
     })
   },
+  getUsersByGroupId: (params) => {
+    return new Promise((resolve, reject) => {
+      if( params.group_id == null) {
+        reject(constants.MISSING_PARAMS.GROUP_ID);
+      }
+      models.user.findAll({
+        where: params,
+        include: [{model: models.session}]
+      }).then(user => {
+
+          resolve(user);
+      }).catch(err => {
+        reject(err);
+      })
+    })
+  },
 }
