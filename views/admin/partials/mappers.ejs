@@ -10,10 +10,7 @@
               <td><%= mapper.saml_attribute%></td>
               <td><%= mapper.user_attribute%></td>
               <td>
-                <form method="POST" id="deleteMapper" action="/admin/dashboard/deleteMapper">
-                  <input name="id" value=<%=mapper.id%> hidden/>
-                  <input type="submit" value="Delete">
-                </form>
+                <button type="submit" onclick="deleteRequest('/admin/dashboard/group/<%= data.group.id%>/mapper/<%=mapper.id%>')">Delete</button>
               </td>
             </tr>
           <%})%>

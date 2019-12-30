@@ -14,20 +14,22 @@
       </ul>
     </div>
   </li>
+  <% if(data.group){%>
   <li class="bold"><a class="collapsible-header waves-effect waves-teal" tabindex="0">Identity Provider</a>
     <div class="collapsible-body white">
       <ul class="collection" style="margin: -30px;">
-        <li class="collection-item"><a href="/admin/dashboard/identity-provider">New</a></li>
-        <li class="collection-item"><a href="/admin/dashboard/groups">All</a></li>
+        <li class="collection-item"><a href="/admin/dashboard/group/<%= data.group.id%>/identity-provider">New</a></li>
+        <li class="collection-item"><a href="/admin/dashboard/group/<%= data.group.id%>/identity-provider/<%= data.group['idp_data.id']%>">All</a></li>
       </ul>
     </div>
   </li>
   <li class="bold"><a class="collapsible-header waves-effect waves-teal" tabindex="0">Mappers</a>
     <div class="collapsible-body white">
       <ul class="collection" style="margin: -30px;">
-        <li class="collection-item"><a href="/admin/dashboard/mapper">New</a></li>
-        <li class="collection-item"><a href="/admin/dashboard/mappers">All</a></li>
+        <li class="collection-item"><a href="/admin/dashboard/group/<%= data.group.id%>/mapper">New</a></li>
+        <li class="collection-item"><a href="/admin/dashboard/group/<%= data.group.id%>/mappers">All</a></li>
       </ul>
     </div>
   </li>
+  <%}%>
 </ul>

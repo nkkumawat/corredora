@@ -43,7 +43,7 @@ module.exports = function(sequelize, DataTypes) {
 	idpData.associate = function(models) {
     idpData.belongsTo(models.group, {foreignKey: 'group_id'});
     idpData.belongsTo(models.sp_data, { foreignKey: 'group_id', targetKey: 'group_id' })
-
+    idpData.hasMany(models.mapper, { foreignKey: 'group_id', targetKey: 'group_id' })
 	}  
 	return idpData;
 };

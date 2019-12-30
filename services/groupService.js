@@ -26,6 +26,7 @@ module.exports = {
       }
       models.group.findOne({
         where: params,
+        include: [{model: models.idp_data}],
         raw: true
       }).then(group => {
         if(group){
@@ -38,7 +39,10 @@ module.exports = {
   },
   getAllGroups: () => {
     return new Promise((resolve, reject) => {
-      models.group.findAll().then(groups => {
+      models.group.findAll({
+        include: [{model: models.idp_data}],
+        raw: true
+      }).then(groups => {
         resolve(groups)
       }).catch(err => {
         reject(err)

@@ -23,6 +23,8 @@ module.exports = function(sequelize, DataTypes) {
 
 	Mapper.associate = function(models) {
     Mapper.belongsTo(models.group, {foreignKey: 'group_id'});
+    Mapper.belongsTo(models.idp_data, { foreignKey: 'group_id', targetKey: 'group_id' })
+    Mapper.belongsTo(models.sp_data, { foreignKey: 'group_id', targetKey: 'group_id' })
 	}  
 	return Mapper;
 };

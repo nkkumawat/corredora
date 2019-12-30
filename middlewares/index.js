@@ -12,6 +12,7 @@ module.exports = {
     const url = req.originalUrl;
     if(token != null) {
       tokenHelper.decodeToken(token).then((decoded) => {
+        logger.info(decoded)
         if(decoded.email != null) {
           req.currentUser = decoded;
           logger.info(`Session value: ${JSON.stringify(decoded)}`)
@@ -21,15 +22,18 @@ module.exports = {
             next();
           }
         } else {
+          res.clearCookie(constants.APP_NAME);
           return res.redirect('/admin/logout');
         }
       }).catch((err) => {
-        console.log(err)
+        logger.error(err)
+        res.clearCookie(constants.APP_NAME);
         return res.redirect('/admin/login');
       })
     } else {
       console.log(url)
       if(url == "/admin/login" || url == "/admin/signup"){
+        console.log("============")
         next();
       } else {
         return res.redirect('/admin/login');

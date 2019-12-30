@@ -9,8 +9,8 @@ module.exports = {
         if(group){
           spDataService.getSpData({group_id: group.id}).then(spData => {
             if(spData.entity_id) { spConfig['entity_id'] = spData.entity_id }
-            if(spData.private_key) { spConfig['private_key'] = "-----BEGIN CERTIFICATE-----\n" + spData.private_key +"\n-----END CERTIFICATE-----" }
-            if(spData.certificate) { spConfig['certificate'] = "-----BEGIN CERTIFICATE-----\n" + spData.certificate +"\n-----END CERTIFICATE-----" }
+            if(spData.private_key) { spConfig['private_key'] =  spData.private_key }
+            if(spData.certificate) { spConfig['certificate'] =  spData.certificate  }
             if(spData.assert_endpoint) { spConfig['assert_endpoint'] = spData.assert_endpoint }
             if(spData.audience) { spConfig['audience'] = spData.audience }
             if(spData.notbefore_skew) { spConfig['notbefore_skew'] = spData.notbefore_skew }

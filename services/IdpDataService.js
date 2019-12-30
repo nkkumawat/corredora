@@ -72,7 +72,7 @@ module.exports = {
   },
   getIdpDataWithGroups: (params) => {
     return new Promise((resolve, reject) => {
-      if(params.id == null || params.id == 'undefined') {
+      if(params.group_id == null || params.group_id == 'undefined') {
         reject(constants.MISSING_PARAMS.GROUP_ID);
       }
       models.idp_data.findOne({
@@ -81,7 +81,7 @@ module.exports = {
         }, {
           model: models.group
         }],
-        where: {id: params.id},
+        where: params,
         raw: true
       }).then(idpData => {
         resolve(idpData);
