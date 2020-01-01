@@ -9,19 +9,9 @@
     },
     "host": "http://local.bsstag.com",
     "secret":  "dummy",
-    "certificate-life": 1000
-  },
-  "staging": {
-    "database": {
-      "username": "root",
-      "password": "Root@1234",
-      "database": "samlApp",
-      "host": "localhost",
-      "dialect": "mysql"
-    },
-    "host": "http://local.bsstag.com:3000",
-    "secret":  "dummy",
-    "certificate-life": 1000
+    "certificate-life": 1000,
+    "token-life": 900,
+    "password-salt-rounds": 10
   },
   "development": {
     "database": {
@@ -33,6 +23,8 @@
     },
     "host": "http://local.bsstag.com:3000",
     "secret":  "dummy_for_cookie_sign",
-    "certificate-life": 1000
+    "certificate-life": 1000,
+    "token-life": 900,
+    "password-salt-rounds": 10
   }
 }

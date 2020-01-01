@@ -31,9 +31,7 @@ module.exports = {
         return res.redirect('/admin/login');
       })
     } else {
-      console.log(url)
       if(url == "/admin/login" || url == "/admin/signup"){
-        console.log("============")
         next();
       } else {
         return res.redirect('/admin/login');

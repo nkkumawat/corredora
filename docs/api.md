@@ -36,8 +36,35 @@ POST /api/group
     }
 }
 ```
-<hr>
 
+
+## Get a group
+
+### request
+```
+GET /api/group
+```
+#### query
+```json
+  "group_id"
+```
+
+### response
+```json
+{
+    "status": true,
+    "data": {
+        "group": {
+            "id": 10,
+            "group_name": "group_name",
+            "succ_callback": "https://google.com",
+            "fail_callback": "https://google.com",
+            "updatedAt": "2019-12-27T11:43:25.894Z",
+            "createdAt": "2019-12-27T11:43:25.894Z"
+        }
+    }
+}
+```
 
 ## Create a mapper
 
@@ -129,12 +156,32 @@ POST /api/mapper
 }
 ```
 
+## Get the token
+
+### request
+
+```
+POST /api/get-token
+```
+
+### response
+
+```json
+{
+    "status": true,
+    "data": {
+        "token: 'token-string'
+    }
+}
+
+```
+
 ## Verify the token sent by app
 
 ### request
 
 ```
-POST /api/verify-request
+POST /api/verify-token
 ```
 
 #### body

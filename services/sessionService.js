@@ -22,6 +22,26 @@ module.exports = {
         reject(err)
       })
     })
+  },  
+  getSessionBySessionId: (params) => {
+    return new Promise((resolve, reject) => {
+      if(params.session_id == null || params.session_id == 'undefined') {
+        reject(constants.MISSING_PARAMS.SESSION_ID)
+      }
+      models.session.findAll({
+        where: params,
+        include: [{model: models.user}]
+      }).then(session => {
+        if(session){
+          resolve(session)
+        } else {
+          reject(null)
+        }
+      }).catch(err => {
+        logger.error(err);
+        reject(err)
+      })
+    })
   },
   createDession: (params) => {
     return new Promise((resolve, reject) => {

@@ -6,23 +6,23 @@ var groupService = require('../services/groupService');
 var mapperService = require('../services/mapperService');
 var samlController = require('../controllers/samlController');
 var logger = require('../utils/logger');
-
+var uuidv4 = require('uuid/v4');
 
 
 module.exports = {
-  verifyRequest: (req, res, next) => {
+  verifyToken: (req, res, next) => {
     // params = {
     //   token: "STRING" // Jwt token
     // }
     var data = req.body.token;
     tokenHelper.decodeToken(data).then(token => {
       if(token) {
-        return res.json(responseHelper.withSuccess({valid: true, data: token.user}))
+        return res.json(responseHelper.withSuccess({valid: true, data: token}))
       } else {
         return res.json(responseHelper.withSuccess({valid: false}))
       }
     }).catch(err => {
-      return res.sendStatus(500).json(responseHelper.withFailure({error: err}))
+      return res.json(responseHelper.withFailure({error: err}))
     })
   },
 
@@ -97,7 +97,6 @@ module.exports = {
     //   "succ_callback": "STRING",
     //   "fail_callback": "STRING"
     // }
-
     var params = req.body;
     if(!params.group_name ||
        !params.succ_callback ||
@@ -108,6 +107,33 @@ module.exports = {
       return res.json(responseHelper.withSuccess({group: group}))
     }).catch(err => {
       return res.json(responseHelper.withFailure({error: err}))
+    })
+  },
+  getGroup: (req, res, next) => {
+    // parmas = {
+    //   "group_id": "STRING",
+    // }
+    var params = req.query;
+    if(!params.group_id){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.GROUP_ID}))
+    }
+    groupService.getOnlyGroupById({id: params.group_id}).then(group => {
+      return res.json(responseHelper.withSuccess({group: group}))
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
+  getToken: (req, res, next) => {
+    var params = req.basicAuth;
+    if(!params.name ||
+      !params.pass){
+     return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.DEFAULT_ERROR}))
+    }
+    params['_uuid'] = uuidv4();
+    tokenHelper.getToken({token: params}, constants.TOKEN_LIFE).then(token => {
+      return res.json(responseHelper.withSuccess({token: token}));
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
     })
   }
 }

@@ -1,7 +1,7 @@
 var constants = require("../../config/constants");
 const models = require('../../models');
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
+const uuidv4 = require('uuid/v4');
 
 module.exports = {
   createUser: (params) => {
@@ -9,11 +9,12 @@ module.exports = {
       if(params.email == null || params.password == null) {
         reject(constants.MISSING_PARAMS.DEFAULT_ERROR);
       }
+      params['user_token'] = uuidv4();
       models.admin_users.findOne({
         where: {email: params.email}
       }).then(usr => {
         if(!usr) {
-          bcrypt.hash(params.password, saltRounds, function(err, hash) {
+          bcrypt.hash(params.password, constants.PASSWORD_SALT_ROUND, function(err, hash) {
             params.password = hash;
             models.admin_users.create(params).then(user => {
                 resolve(user);
