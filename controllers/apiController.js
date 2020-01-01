@@ -238,7 +238,10 @@ module.exports = {
       return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.IDP_ID}))
     }
     idpDataService.getIdpDataById({id: params.idp_id}).then(idp => {
-      return res.json(responseHelper.withSuccess({idpData: idp}))
+      var spData = idp['sp_datum'];
+      var idpData = idp.dataValues;
+      delete idpData["sp_datum"];
+      return res.json(responseHelper.withSuccess({idpData: idpData, spData: spData}))
     }).catch(err => {
       return res.json(responseHelper.withFailure({error: err}));
     })
