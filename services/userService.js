@@ -39,4 +39,22 @@ module.exports = {
       })
     })
   },
+  deleteUser: (params) => {
+    return new Promise((resolve, reject) => {
+      if( params.group_id == null || params.id == null) {
+        reject(constants.MISSING_PARAMS.GROUP_ID);
+      }
+      models.user.destroy({
+        where: params
+      }).then(user => {
+        if(user) {
+          resolve(user)
+        } else {
+          reject(constants.NOT_PRESENT.USER)
+        }
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
 }

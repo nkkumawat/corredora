@@ -10,13 +10,15 @@
       <tbody>
         <% if(data.sessions) {%>
           <% data.sessions.forEach(session => {%>
-            <tr>
-              <td><%=session.session_id%></td>
-              <td><a href="/admin/dashboard/group/<%= data.group.id%>/user/<%=session.user.id%>"><%= session.user.username%></td>
-              <td>
-                <button type="submit" onclick="deleteRequest('/admin/dashboard/group/<%= data.group.id%>/session/<%=session.id%>')">Delete</button>
-              </td>
-            </tr>
+            <% if(session.user){%>
+              <tr>
+                <td><%=session.session_id%></td>
+                <td><a href="/admin/dashboard/group/<%= data.group.id%>/user/<%=session.user.id%>"><%= session.user.username%></td>
+                <td>
+                  <button type="submit" onclick="deleteRequest('/admin/dashboard/group/<%= data.group.id%>/session/<%=session.id%>')">Delete</button>
+                </td>
+              </tr>
+            <%}%>
           <%})%>
         <%}%>
       </tbody>

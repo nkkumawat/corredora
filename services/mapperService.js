@@ -40,23 +40,30 @@ module.exports = {
       models.mapper.destroy({
         where: params
       }).then(mapper => {
-        resolve(mapper)
+        if(mapper){
+          resolve(mapper)
+        } else {
+          reject(constants.NOT_PRESENT.MAPPER)
+        }
       }).catch(err => {
         reject(err)
       })
     })
   },
-  editMapper: (params) => {
+  updateMapper: (params) => {
     return new Promise((resolve, reject) => {
       if(params.id == null || params.id == 'undefined') {
         reject(constants.MISSING_PARAMS.MAPPER_ID)
       }
       models.mapper.update(
-          { group_id: params.group_id,
-            saml_attribute: params.saml_attribute,
-            user_attribute: params.user_attribute },
-          { where: { id: params.id } }
-        ).then( mapper => { 
+        params.updateParams,
+        { where: { id: params.id } }
+      ).then( mapper => { 
+        if(mapper && mapper[0]){
+          resolve(mapper);
+        } else {
+          reject(constants.NOT_PRESENT.MAPPER)
+        }
         resolve(mapper);
       }).catch(err => {
         reject(err)

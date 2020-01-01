@@ -18,6 +18,22 @@ module.exports = {
         reject(constants.DEFAULT_ERROR);
       })
     })
+  },  
+  getIdpDataById: (params) => {
+    return new Promise((resolve, reject) => {
+      if(params.id == null || params.id == 'undefined') {
+        reject(constants.MISSING_PARAMS.GROUP_ID);
+      }
+      models.idp_data.findOne({
+        where: params,
+        include: [{model: models.sp_data}]
+      }).then(idpData => {
+         resolve(idpData);
+      }).catch(err => {
+        logger.error(err)
+        reject(constants.DEFAULT_ERROR);
+      })
+    })
   },
   createIdpData: (params) => {
     return new Promise((resolve, reject) => {
