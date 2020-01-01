@@ -367,25 +367,25 @@ DELETE /api/mapper
             "allow_unencrypted_assertion": false,
             "createdAt": "2019-12-30T16:13:32.000Z",
             "updatedAt": "2019-12-30T16:16:47.000Z",
-            "sp_datum": {
-                "id": 1,
-                "group_id": 2,
-                "entity_id": "http://localhost",
-                "private_key": "",
-                "certificate": "",
-                "assert_endpoint": "http://localhost/saml/demoNk/assert",
-                "alt_private_keys": null,
-                "alt_certs": null,
-                "audience": null,
-                "notbefore_skew": null,
-                "force_authn": false,
-                "auth_context": null,
-                "nameid_format": "string:urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
-                "sign_get_request": false,
-                "allow_unencrypted_assertion": false,
-                "createdAt": "2019-12-30T16:16:47.000Z",
-                "updatedAt": "2019-12-30T16:16:47.000Z"
-            }
+        },
+        "spData": {
+            "id": 1,
+            "group_id": 2,
+            "entity_id": "http://localhost",
+            "private_key": "",
+            "certificate": "",
+            "assert_endpoint": "http://localhost/saml/demoNk/assert",
+            "alt_private_keys": null,
+            "alt_certs": null,
+            "audience": null,
+            "notbefore_skew": null,
+            "force_authn": false,
+            "auth_context": null,
+            "nameid_format": "string:urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+            "sign_get_request": false,
+            "allow_unencrypted_assertion": false,
+            "createdAt": "2019-12-30T16:16:47.000Z",
+            "updatedAt": "2019-12-30T16:16:47.000Z"
         }
     }
 }
