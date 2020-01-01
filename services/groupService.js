@@ -38,6 +38,26 @@ module.exports = {
       })
     })
   },
+  getOnlyGroupById: (params) => {
+    return new Promise((resolve, reject) => {
+      if(params.id == null || params.id == 'undefined') {
+        reject(constants.MISSING_PARAMS.REALM_NAME)
+      }
+      models.group.findOne({
+        where: params,
+        raw: true
+      }).then(group => {
+        if(group){
+          resolve(group)
+        } else {
+          reject(null)
+        }
+      }).catch(err => {
+        console.log(err)
+        reject(err)
+      })
+    })
+  },
   getAllGroups: () => {
     return new Promise((resolve, reject) => {
       models.group.findAll({
