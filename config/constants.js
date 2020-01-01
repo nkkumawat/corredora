@@ -16,6 +16,9 @@ module.exports = {
   },
   INVALID_TOKEN: "Invalid token",
   DEFAULT_ERROR: "Something went wrong!",
+  NOT_PRESENT: {
+    GROUP: "Group is not present"
+  },
   CERTIFICATE_LIFE: config['certificate-life'],
   NAMEID_POLICIES: {
     persistent: "string:urn:oasis:names:tc:SAML:2.0:nameid-format:persistent",

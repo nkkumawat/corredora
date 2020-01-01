@@ -111,7 +111,7 @@ module.exports = {
   },
   getGroup: (req, res, next) => {
     // parmas = {
-    //   "group_id": "STRING",
+    //   "group_id": "INT",
     // }
     var params = req.query;
     if(!params.group_id){
@@ -132,6 +132,45 @@ module.exports = {
     params['_uuid'] = uuidv4();
     tokenHelper.getToken({token: params}, constants.TOKEN_LIFE).then(token => {
       return res.json(responseHelper.withSuccess({token: token}));
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
+  deleteGroup: (req, res, next) => {
+    // parmas = {
+    //   "group_id": "INT",
+    // }
+    var params = req.body;
+    if(!params.group_id){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.GROUP_ID}))
+    }
+    groupService.deleteGroup({id: params.group_id}).then(group => {
+      return res.json(responseHelper.withSuccess({deleted: true}))
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
+  updateGroup: (req, res, next) => {
+    // parmas = {
+    //   "group_id": "INT",
+    //   "group_name": "STRING", // optional
+    //   "succ_callback": "STRING", // optional
+    //   "fail_callback": "STRING" //optional
+    // }
+    var params = req.body;
+    var notPresent = 0;
+    var updateParams = {};
+    if(!params.group_id){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.GROUP_ID}))
+    }
+    if(params.group_name) { notPresent ++; updateParams['group_name'] = params.group_name;}
+    if(params.succ_callback) { notPresent ++; updateParams['succ_callback'] = params.succ_callback;}
+    if(params.fail_callback) { notPresent ++; updateParams['fail_callback'] = params.fail_callback;}
+    if(notPresent == 0) {
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.DEFAULT_ERROR}))
+    }
+    groupService.updateGroup({id: params.group_id, updateParams: updateParams}).then(group => {
+      return res.json(responseHelper.withSuccess({updated: true}))
     }).catch(err => {
       return res.json(responseHelper.withFailure({error: err}));
     })

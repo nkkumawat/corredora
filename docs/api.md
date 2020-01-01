@@ -46,7 +46,7 @@ GET /api/group
 ```
 #### query
 ```json
-  "group_id"
+  "group_id": "INT"
 ```
 
 ### response
@@ -62,6 +62,52 @@ GET /api/group
             "updatedAt": "2019-12-27T11:43:25.894Z",
             "createdAt": "2019-12-27T11:43:25.894Z"
         }
+    }
+}
+```
+
+## Delete a group
+
+### request
+```
+DELETE /api/group
+```
+#### body
+```json
+  "group_id": "INT"
+```
+
+### response
+```json
+{
+    "status": true,
+    "data": {
+        "deleted": true
+    }
+}
+```
+## Update a group
+
+### request
+```
+PATCH /api/group
+```
+#### body
+```json
+   parmas = {
+      "group_id": "INT",
+      "group_name": "STRING", // optional
+      "succ_callback": "STRING", // optional
+      "fail_callback": "STRING" //optional
+    }
+```
+
+### response
+```json
+{
+    "status": true,
+    "data": {
+        "updated": true
     }
 }
 ```
