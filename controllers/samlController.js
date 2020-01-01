@@ -112,7 +112,7 @@ module.exports = {
             user_id: user.id,
             session_id: sessionIndex
           }
-          sessionService.createDession(sessionData).then(sess => {
+          sessionService.createSession(sessionData).then(sess => {
             var qry = queryString.stringify({token: token});
             logger.info("Calling external URl: " + group.succ_callback + "?" + qry)
             return res.redirect(group.succ_callback + "?" + qry)

@@ -123,7 +123,6 @@ module.exports = {
           where: { id: params.id } 
         }
       ).then(group => { 
-        console.log(group)
         if(group && group[0]){
           resolve(group);
         } else {

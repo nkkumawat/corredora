@@ -7,7 +7,7 @@
       "host": "localhost",
       "dialect": "mysql"
     },
-    "host": "http://local.bsstag.com",
+    "host": "http://localhost:3000",
     "secret":  "dummy",
     "certificate-life": 1000,
     "token-life": 900,
@@ -21,7 +21,7 @@
       "host": "localhost",
       "dialect": "mysql"
     },
-    "host": "http://local.bsstag.com:3000",
+    "host": "http://localhost:3000",
     "secret":  "dummy_for_cookie_sign",
     "certificate-life": 1000,
     "token-life": 900,
