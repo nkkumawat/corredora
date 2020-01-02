@@ -6,23 +6,23 @@ var groupService = require('../services/groupService');
 var mapperService = require('../services/mapperService');
 var samlController = require('../controllers/samlController');
 var logger = require('../utils/logger');
-
+var uuidv4 = require('uuid/v4');
 
 
 module.exports = {
-  verifyRequest: (req, res, next) => {
+  verifyToken: (req, res, next) => {
     // params = {
     //   token: "STRING" // Jwt token
     // }
     var data = req.body.token;
     tokenHelper.decodeToken(data).then(token => {
       if(token) {
-        return res.json(responseHelper.withSuccess({valid: true, data: token.user}))
+        return res.json(responseHelper.withSuccess({valid: true, data: token}))
       } else {
         return res.json(responseHelper.withSuccess({valid: false}))
       }
     }).catch(err => {
-      return res.sendStatus(500).json(responseHelper.withFailure({error: err}))
+      return res.json(responseHelper.withFailure({error: err}))
     })
   },
 
@@ -97,7 +97,6 @@ module.exports = {
     //   "succ_callback": "STRING",
     //   "fail_callback": "STRING"
     // }
-
     var params = req.body;
     if(!params.group_name ||
        !params.succ_callback ||
@@ -108,6 +107,143 @@ module.exports = {
       return res.json(responseHelper.withSuccess({group: group}))
     }).catch(err => {
       return res.json(responseHelper.withFailure({error: err}))
+    })
+  },
+  getGroup: (req, res, next) => {
+    // parmas = {
+    //   "group_id": "INT",
+    // }
+    var params = req.query;
+    if(!params.group_id){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.GROUP_ID}))
+    }
+    groupService.getOnlyGroupById({id: params.group_id}).then(group => {
+      return res.json(responseHelper.withSuccess({group: group}))
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
+  getToken: (req, res, next) => {
+    var params = req.basicAuth;
+    if(!params.name ||
+      !params.pass){
+     return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.DEFAULT_ERROR}))
+    }
+    params['_uuid'] = uuidv4();
+    tokenHelper.getToken({token: params}, constants.TOKEN_LIFE).then(token => {
+      return res.json(responseHelper.withSuccess({token: token}));
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
+  deleteGroup: (req, res, next) => {
+    // parmas = {
+    //   "group_id": "INT",
+    // }
+    var params = req.body;
+    if(!params.group_id){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.GROUP_ID}))
+    }
+    groupService.deleteGroup({id: params.group_id}).then(group => {
+      return res.json(responseHelper.withSuccess({deleted: true}))
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
+  updateGroup: (req, res, next) => {
+    // parmas = {
+    //   "group_id": "INT",
+    //   "group_name": "STRING", // optional
+    //   "succ_callback": "STRING", // optional
+    //   "fail_callback": "STRING" //optional
+    // }
+    var params = req.body;
+    var notPresent = 0;
+    var updateParams = {};
+    if(!params.group_id){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.GROUP_ID}))
+    }
+    if(params.group_name) { notPresent ++; updateParams['group_name'] = params.group_name;}
+    if(params.succ_callback) { notPresent ++; updateParams['succ_callback'] = params.succ_callback;}
+    if(params.fail_callback) { notPresent ++; updateParams['fail_callback'] = params.fail_callback;}
+    if(notPresent == 0) {
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.DEFAULT_ERROR}))
+    }
+    groupService.updateGroup({id: params.group_id, updateParams: updateParams}).then(group => {
+      return res.json(responseHelper.withSuccess({updated: true}))
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
+  deleteMapper: (req, res, next) => {
+    // parmas = {
+    //   "mapper_id": "INT",
+    // }
+    var params = req.body;
+    if(!params.mapper_id){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.GROUP_ID}))
+    }
+    mapperService.deleteMapper({id: params.mapper_id}).then(mp => {
+      return res.json(responseHelper.withSuccess({deleted: true}))
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
+  getMapper: (req, res, next) => {
+    // query = {
+    //   "mapper_id": "INT",
+    // }
+    var params = req.query;
+    if(!params.mapper_id){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.MAPPER_ID}))
+    }
+    mapperService.getMapper({id: params.mapper_id}).then(mp => {
+      return res.json(responseHelper.withSuccess({mapper: mp}))
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
+  updateMapper: (req, res, next) => {
+    // params = {
+    //   "mapper_id": "INT",
+    //   "group_id": "INT",
+    //   "saml_attribute": "STRING",
+    //   "user_attribute": "STRING"
+    // }
+
+    var params = req.body;
+    var notPresent = 0;
+    var updateParams = {};
+    if(!params.mapper_id){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.MAPPER_ID}))
+    }
+    if(params.group_id) {notPresent ++; updateParams['group_id'] = params.group_id}
+    if(params.saml_attribute) {notPresent ++; updateParams['saml_attribute'] = params.saml_attribute}
+    if(params.user_attribute) {notPresent ++; updateParams['user_attribute'] = params.user_attribute}
+    if(notPresent == 0) {
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.DEFAULT_ERROR}))
+    }
+    mapperService.updateMapper({id: params.mapper_id, updateParams: updateParams}).then(mp => {
+      return res.json(responseHelper.withSuccess({updated: true}))
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
+  getIdentityProvider: (req, res, next) => {
+    // params = {
+    //   "idp_id": "INT",
+    // }
+    var params = req.body;
+    if(!params.idp_id){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.IDP_ID}))
+    }
+    idpDataService.getIdpDataById({id: params.idp_id}).then(idp => {
+      var spData = idp['sp_datum'];
+      var idpData = idp.dataValues;
+      delete idpData["sp_datum"];
+      return res.json(responseHelper.withSuccess({idpData: idpData, spData: spData}))
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
     })
   }
 }

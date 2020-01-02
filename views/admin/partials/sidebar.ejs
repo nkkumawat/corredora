@@ -5,10 +5,12 @@
   <li class="collection-item"><i class="material-icons">whatshot</i>&nbsp;&nbsp;&nbsp; Alvin</li>
 </ul> -->
 
-<ul class="collapsible collapsible-accordion">
-  <li class="bold"><a class="collapsible-header waves-effect waves-teal" tabindex="0">Gorups</a>
-    <div class="collapsible-body white">
-      <ul class="collection" style="margin: -30px;">
+
+
+<ul class="collapsible collapsible-accordion no-padding">
+  <li class="bold indigo"><a class="collapsible-header waves-effect waves-teal " tabindex="0">Gorups</a>
+    <div class="collapsible-body no-padding">
+      <ul class="collection">
         <li class="collection-item"><a href="/admin/dashboard/group">New</a></li>
         <li class="collection-item"><a href="/admin/dashboard/groups">All</a></li>
       </ul>
@@ -16,20 +18,47 @@
   </li>
   <% if(data.group){%>
   <li class="bold"><a class="collapsible-header waves-effect waves-teal" tabindex="0">Identity Provider</a>
-    <div class="collapsible-body white">
-      <ul class="collection" style="margin: -30px;">
+    <div class="collapsible-body no-padding">
+      <ul class="collection" >
         <li class="collection-item"><a href="/admin/dashboard/group/<%= data.group.id%>/identity-provider">New</a></li>
         <li class="collection-item"><a href="/admin/dashboard/group/<%= data.group.id%>/identity-provider/<%= data.group['idp_data.id']%>">All</a></li>
       </ul>
     </div>
   </li>
   <li class="bold"><a class="collapsible-header waves-effect waves-teal" tabindex="0">Mappers</a>
-    <div class="collapsible-body white">
-      <ul class="collection" style="margin: -30px;">
+    <div class="collapsible-body no-padding">
+      <ul class="collection" >
         <li class="collection-item"><a href="/admin/dashboard/group/<%= data.group.id%>/mapper">New</a></li>
         <li class="collection-item"><a href="/admin/dashboard/group/<%= data.group.id%>/mappers">All</a></li>
       </ul>
     </div>
   </li>
+  <li class="bold"><a class="collapsible-header waves-effect waves-teal" tabindex="0">Users</a>
+    <div class="collapsible-body no-padding">
+      <ul class="collection" >
+        <li class="collection-item"><a href="/admin/dashboard/group/<%= data.group.id%>/users">All</a></li>
+      </ul>
+    </div>
+  </li>
+  <li class="bold"><a class="collapsible-header waves-effect waves-teal" tabindex="0">Sessions</a>
+    <div class="collapsible-body no-padding">
+      <ul class="collection" >
+        <li class="collection-item"><a href="/admin/dashboard/group/<%= data.group.id%>/sessions">All</a></li>
+      </ul>
+    </div>
+  </li>
   <%}%>
 </ul>
+<br>
+<div class="user-box">
+  <div class="user-view">
+    <% if(data.currentUser){%>
+      <div>
+        <span class="center-align white-text"><b>Email : </b><%= data.currentUser.email%></span>
+      </div>
+      <div>
+        <span class="center-align white-text"><b>Access Key : </b><%= data.currentUser.user_token%></span>
+      </div>
+    <%}%>
+  </div>
+</div>

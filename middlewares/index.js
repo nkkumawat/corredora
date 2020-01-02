@@ -13,8 +13,8 @@ module.exports = {
     if(token != null) {
       tokenHelper.decodeToken(token).then((decoded) => {
         logger.info(decoded)
-        if(decoded.email != null) {
-          req.currentUser = decoded;
+        if(decoded.user && decoded.user.email != null) {
+          req.currentUser = decoded.user;
           logger.info(`Session value: ${JSON.stringify(decoded)}`)
           if(url === "/admin/login" || url === "/admin/signup"){
             return res.redirect("/admin/dashboard")
@@ -31,9 +31,7 @@ module.exports = {
         return res.redirect('/admin/login');
       })
     } else {
-      console.log(url)
       if(url == "/admin/login" || url == "/admin/signup"){
-        console.log("============")
         next();
       } else {
         return res.redirect('/admin/login');

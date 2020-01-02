@@ -10,7 +10,27 @@ module.exports = {
       }
       models.session.findAll({
         where: params,
-        raw: true
+        include: [{model: models.user}]
+      }).then(session => {
+        if(session){
+          resolve(session)
+        } else {
+          reject(null)
+        }
+      }).catch(err => {
+        logger.error(err);
+        reject(err)
+      })
+    })
+  },  
+  getSessionBySessionId: (params) => {
+    return new Promise((resolve, reject) => {
+      if(params.session_id == null || params.session_id == 'undefined') {
+        reject(constants.MISSING_PARAMS.SESSION_ID)
+      }
+      models.session.findAll({
+        where: params,
+        include: [{model: models.user}]
       }).then(session => {
         if(session){
           resolve(session)
@@ -23,7 +43,7 @@ module.exports = {
       })
     })
   },
-  createDession: (params) => {
+  createSession: (params) => {
     return new Promise((resolve, reject) => {
       if(params.group_id == null || params.group_id == 'undefined') {
         reject(constants.MISSING_PARAMS.GROUP_ID)
@@ -32,6 +52,24 @@ module.exports = {
         resolve(session)
       }).catch(err => {
         logger.error(err);
+        reject(err)
+      })
+    })
+  },
+  deleteSession: (params) => {
+    return new Promise((resolve, reject) => {
+      if( params.group_id == null || params.id == null) {
+        reject(constants.MISSING_PARAMS.GROUP_ID);
+      }
+      models.session.destroy({
+        where: params
+      }).then(session => {
+        if(session) {
+          resolve(session)
+        } else {
+          reject(constants.NOT_PRESENT.SESSION)
+        }
+      }).catch(err => {
         reject(err)
       })
     })

@@ -7,7 +7,7 @@
     <% include ../partials/navbar %>
     <div class="content">
       <div class="row indigo" style="min-height: 100vh;">
-        <div id="site-layout-example-left" class="col s2 ">
+        <div id="site-layout-example-left" class="col s2 no-padding">
           <% include ./partials/sidebar %>
         </div>
         <div id="site-layout-example-right" class="col s10 grey lighten-4" style="min-height: 100vh;">
@@ -26,12 +26,16 @@
               <% include ./partials/forms/identityProvider %>
             <%} else if(data.page === "identityProvider") { %>
               <% include ./partials/identityProvider %>
+            <%} else if(data.page === "showUsers") { %>
+              <% include ./partials/users %>
+            <%} else if(data.page === "showSessions") { %>
+              <% include ./partials/sessions %>
             <%}%>
           <%}%>
         </div>
       </div>
     </div>
-    <% include ../partials/footer %>
+    <% // include ../partials/footer %>
     <script type="text/javascript" src="/js/admin.js" ></script>
 
   </body>

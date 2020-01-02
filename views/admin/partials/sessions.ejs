@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col s2"></div>
+  <div class="col s8">
+    <table>
+      <thead>
+        <th>Session id</th>
+        <th>Username</th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+        <% if(data.sessions) {%>
+          <% data.sessions.forEach(session => {%>
+            <% if(session.user){%>
+              <tr>
+                <td><%=session.session_id%></td>
+                <td><a href="/admin/dashboard/group/<%= data.group.id%>/user/<%=session.user.id%>"><%= session.user.username%></td>
+                <td>
+                  <button type="submit" onclick="deleteRequest('/admin/dashboard/group/<%= data.group.id%>/session/<%=session.id%>')">Delete</button>
+                </td>
+              </tr>
+            <%}%>
+          <%})%>
+        <%}%>
+      </tbody>
+    </table>
+  </div>
+</div>

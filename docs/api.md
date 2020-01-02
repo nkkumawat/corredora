@@ -4,6 +4,62 @@ http basic auth
 curl -u email:user_token -X POST  http://<host_url>/<end_point>
 ```
 
+## Get the token
+
+### request
+
+```
+POST /api/get-token
+```
+
+### response
+
+```json
+{
+    "status": true,
+    "data": {
+        "token: 'token-string'
+    }
+}
+
+```
+
+## Verify the token sent by app
+
+### request
+
+```
+POST /api/verify-token
+```
+
+#### body
+```json
+   {
+      "token" : "STRING" 
+    }
+```
+### response
+
+```json
+{
+    "status": true,
+    "data": {
+        "valid": true,
+        "data": {
+            "id": 5,
+            "group_id": 1,
+            "email": "narendra@something.com",
+            "username": "username",
+            "attributes": "{\"firstName\":\"Narendra\",\"last\":\"Kumawat\"}",
+            "saml_attributes": "{\"firstName\":\"Narendra\",\"lastName\":\"Kumawat\",\"nameID\":\"narendra@something.com\"}",
+            "createdAt": "2019-12-24T16:55:39.000Z",
+            "updatedAt": "2019-12-24T16:55:39.000Z"
+        }
+    }
+}
+
+```
+<hr>
 ## Create a group
 
 ### request
@@ -36,9 +92,82 @@ POST /api/group
     }
 }
 ```
+
+
+## Get a group
+
+### request
+```
+GET /api/group
+```
+#### query
+```json
+  "group_id": "INT"
+```
+
+### response
+```json
+{
+    "status": true,
+    "data": {
+        "group": {
+            "id": 10,
+            "group_name": "group_name",
+            "succ_callback": "https://google.com",
+            "fail_callback": "https://google.com",
+            "updatedAt": "2019-12-27T11:43:25.894Z",
+            "createdAt": "2019-12-27T11:43:25.894Z"
+        }
+    }
+}
+```
+
+## Delete a group
+
+### request
+```
+DELETE /api/group
+```
+#### body
+```json
+  "group_id": "INT"
+```
+
+### response
+```json
+{
+    "status": true,
+    "data": {
+        "deleted": true
+    }
+}
+```
+## Update a group
+
+### request
+```
+PATCH /api/group
+```
+#### body
+```json
+   parmas = {
+      "group_id": "INT",
+      "group_name": "STRING", // optional
+      "succ_callback": "STRING", // optional
+      "fail_callback": "STRING" //optional
+    }
+```
+
+### response
+```json
+{
+    "status": true,
+    "data": {
+        "updated": true
+    }
+}
+```
 <hr>
-
-
 ## Create a mapper
 
 ### request
@@ -68,6 +197,87 @@ POST /api/mapper
             "updatedAt": "2019-12-28T17:43:25.894Z",
             "createdAt": "2019-12-28T17:43:25.894Z"
         }
+    }
+}
+```
+
+## Get a mapper
+
+### request
+```
+GET /api/mapper
+```
+#### query
+```json
+  {
+    "mapper_id": "INT",
+  }
+
+```
+
+### response
+```json
+{
+    "status": true,
+    "data": {
+        "mapper": {
+            "id": 2,
+            "group_id": 2,
+            "saml_attribute": "lastName",
+            "user_attribute": "lname",
+            "createdAt": "2019-12-30T16:17:47.000Z",
+            "updatedAt": "2019-12-30T16:17:47.000Z"
+        }
+    }
+}
+```
+
+## Update a mapper
+
+### request
+```
+PATCH /api/mapper
+```
+#### body
+```json
+{
+    "mapper_id": "INT",
+    "group_id": "INT",
+    "saml_attribute": "STRING",
+    "user_attribute": "STRING"
+}
+```
+
+### response
+```json
+{
+    "status": true,
+    "data": {
+        "updated": true
+    }
+}
+```
+
+## Delete a mapper
+
+### request
+```
+DELETE /api/mapper
+```
+#### body
+```json
+  {
+    "mapper_id": "INT",
+  }
+
+```
+
+### response
+```json
+{
+    "status": true,
+    "data": {
+        "deleted": true
     }
 }
 ```
@@ -109,10 +319,10 @@ POST /api/mapper
         "spData": {
             "id": 5,
             "group_id": "5",
-            "entity_id": "http://local.bsstag.com:3000",
+            "entity_id": "http://localhost",
             "private_key": "",
             "certificate": "",
-            "assert_endpoint": "http://local.bsstag.com:3000/saml/adfs/assert",
+            "assert_endpoint": "http://localhost/saml/adfs/assert",
             "alt_private_keys": null,
             "alt_certs": null,
             "audience": null,
@@ -129,38 +339,54 @@ POST /api/mapper
 }
 ```
 
-## Verify the token sent by app
 
+## Create a Identity provider
 ### request
-
+ ```
+ GET /api/idp
 ```
-POST /api/verify-request
-```
-
-#### body
+##### query 
 ```json
-   {
-      "token" : "STRING" 
+    {
+      "idp_id" : "INT",
     }
 ```
 ### response
-
 ```json
-{
+ {
     "status": true,
     "data": {
-        "valid": true,
-        "data": {
-            "id": 5,
-            "group_id": 1,
-            "email": "narendra@something.com",
-            "username": "username",
-            "attributes": "{\"firstName\":\"Narendra\",\"last\":\"Kumawat\"}",
-            "saml_attributes": "{\"firstName\":\"Narendra\",\"lastName\":\"Kumawat\",\"nameID\":\"narendra@something.com\"}",
-            "createdAt": "2019-12-24T16:55:39.000Z",
-            "updatedAt": "2019-12-24T16:55:39.000Z"
+        "idpData": {
+            "id": 1,
+            "group_id": 2,
+            "sso_login_url": "https://sso/saml",
+            "sso_logout_url": "https://sso/saml",
+            "certificates": "",
+            "force_authn": true,
+            "sign_get_request": false,
+            "allow_unencrypted_assertion": false,
+            "createdAt": "2019-12-30T16:13:32.000Z",
+            "updatedAt": "2019-12-30T16:16:47.000Z",
+        },
+        "spData": {
+            "id": 1,
+            "group_id": 2,
+            "entity_id": "http://localhost",
+            "private_key": "",
+            "certificate": "",
+            "assert_endpoint": "http://localhost/saml/demoNk/assert",
+            "alt_private_keys": null,
+            "alt_certs": null,
+            "audience": null,
+            "notbefore_skew": null,
+            "force_authn": false,
+            "auth_context": null,
+            "nameid_format": "string:urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+            "sign_get_request": false,
+            "allow_unencrypted_assertion": false,
+            "createdAt": "2019-12-30T16:16:47.000Z",
+            "updatedAt": "2019-12-30T16:16:47.000Z"
         }
     }
 }
-
 ```

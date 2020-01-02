@@ -25,6 +25,7 @@ module.exports = {
         userParams['attributes'] = JSON.stringify(userParams['attributes'])
         userParams['group_id'] = groupId;
         userParams['saml_attributes'] = JSON.stringify(attributes);
+        userParams['name_id'] = attributes.nameID
         userService.createUser(userParams).then(user => {
           resolve(user);
         }).catch(err => {

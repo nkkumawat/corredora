@@ -9,6 +9,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true
     },
+    name_id: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: true
@@ -31,6 +35,7 @@ module.exports = function(sequelize, DataTypes) {
 
 	User.associate = function(models) {
     User.belongsTo(models.group, {foreignKey: 'group_id'});
+    User.hasMany(models.session, {foreignKey: 'user_id', onDelete: 'cascade'});
 	}  
 	return User;
 };

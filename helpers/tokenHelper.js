@@ -20,14 +20,17 @@ module.exports = {
 	},
 	decodeToken: function(token) {
 		return new Promise((resolve, reject) => {
-			jwt.verify(token, constants.SERVER_SUPER_SECRET, function(err, token) {      
-	      if(err){
-					console.log(err);
-		  		reject("Something Went Wrong")
-			  } else {
-			  	resolve(token)
-			  }
-	    })
+			try {
+				jwt.verify(token, constants.SERVER_SUPER_SECRET, function(err, token) {      
+					if(err){
+						reject(constants.INVALID_TOKEN)
+					} else {
+						resolve(token)
+					}
+				})
+			} catch(err) {
+				resolve(err)
+			}
 		})
 	}
 }

@@ -33,6 +33,27 @@ module.exports = {
           resolve(group)
         }
       }).catch(err => {
+        console.log(err)
+        reject(err)
+      })
+    })
+  },
+  getOnlyGroupById: (params) => {
+    return new Promise((resolve, reject) => {
+      if(params.id == null || params.id == 'undefined') {
+        reject(constants.MISSING_PARAMS.REALM_NAME)
+      }
+      models.group.findOne({
+        where: params,
+        raw: true
+      }).then(group => {
+        if(group){
+          resolve(group)
+        } else {
+          reject(null)
+        }
+      }).catch(err => {
+        console.log(err)
         reject(err)
       })
     })
@@ -75,16 +96,47 @@ module.exports = {
   },
   deleteGroup: (params) => {
     return new Promise((resolve, reject) => {
-      if(params.group_id == null || params.group_id == 'undefined') {
+      if(params.id == null || params.id == 'undefined') {
         reject(constants.MISSING_PARAMS.GROUP_ID)
       }
       models.group.destroy({
         where: params
       }).then(group => {
-        resolve(group)
+        if(group) {
+          resolve(group)
+        } else {
+          reject(constants.NOT_PRESENT.GROUP)
+        }
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  updateGroup: (params) => {
+    return new Promise((resolve, reject) => {
+      if(params.id == null || params.id == 'undefined') {
+        reject(constants.MISSING_PARAMS.GROUP_ID)
+      }
+      models.group.update(
+        params.updateParams,
+        { 
+          where: { id: params.id } 
+        }
+      ).then(group => { 
+        if(group && group[0]){
+          resolve(group);
+        } else {
+          reject(constants.NOT_PRESENT.GROUP)
+        }
       }).catch(err => {
         reject(err)
       })
     })
   }
 }
+
+
+
+
+
+

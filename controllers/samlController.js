@@ -12,7 +12,6 @@ var spDataService = require('../services/spDataService');
 var idpDataService = require('../services/idpDataService');
 var certificateHelper = require('../helpers/certificateHelper');
 var tokenHelper = require('../helpers/tokenHelper');
-var request = require('request-promise');
 var queryString = require('query-string');
 var sessionService = require('../services/sessionService');
 
@@ -41,20 +40,25 @@ var createSPMetadata = (params) => { // Use this after IDP creation // send grou
 
 module.exports = {
   initLogin: (req, res, next) => {
-    var realmName = req.params.realmName
-    spDataHelper.init(realmName).then(spData => {
-      var sp = new saml2.ServiceProvider(spData);
-      idpDataHelper.init(realmName).then(idpData => {
-        var idp = new saml2.IdentityProvider(idpData);
-        sp.create_login_request_url(idp, {}, function(err, login_url, request_id) {
-          if (err != null) { return res.send(500) }
-          return res.redirect(login_url);
-        });
+    var realmName = req.params.realmName;
+    var token = req.query.token;
+    tokenHelper.decodeToken(token).then(token => {
+      spDataHelper.init(realmName).then(spData => {
+        var sp = new saml2.ServiceProvider(spData);
+        idpDataHelper.init(realmName).then(idpData => {
+          var idp = new saml2.IdentityProvider(idpData);
+          sp.create_login_request_url(idp, {}, function(err, login_url, request_id) {
+            if (err != null) { return res.send(500) }
+            return res.redirect(login_url);
+          });
+        }).catch(err => {
+          return res.json(responseHelper.withFailure(err))
+        })
       }).catch(err => {
-        return res.sendStatus(500).json(responseHelper.withFailure(err))
+        return res.json(responseHelper.withFailure(err))
       })
     }).catch(err => {
-      return res.sendStatus(500).json(responseHelper.withFailure(err))
+      return res.json(responseHelper.withFailure(err))
     })
   },
   initAuth: (req, res, next) => { 
@@ -74,11 +78,11 @@ module.exports = {
         next();
       }).catch(err => {
         logger.error(err)
-        return res.sendStatus(500).json(responseHelper.withFailure(err))
+        return res.json(responseHelper.withFailure(err))
       })
     }).catch(err => {
       logger.error(err)
-      return res.sendStatus(500).json(responseHelper.withFailure(err))
+      return res.json(responseHelper.withFailure(err))
     })
   },
   passportAuth: passport.passport.authenticate(
@@ -102,28 +106,23 @@ module.exports = {
         var data = {
           user: user
         }
-        tokenHelper.getToken(data, 15 * 60).then(token => {
-          createSPMetadata(spData).then(spData => {
-            var sessionData = {
-              group_id: user.group_id,
-              user_id: user.id,
-              session_id: sessionIndex
-            }
-            sessionService.createDession(sessionData).then(sess => {
-              var qry = queryString.stringify({token: token});
-              logger.info("Calling external URl: " + group.succ_callback + "?" + qry)
-              return res.redirect(group.succ_callback + "?" + qry)
-            }).catch(err => {
-              logger.error(err)
-              return res.redirect(group.fail_callback)
-            })
+        tokenHelper.getToken(data, constants.TOKEN_LIFE).then(token => {
+          var sessionData = {
+            group_id: user.group_id,
+            user_id: user.id,
+            session_id: sessionIndex
+          }
+          sessionService.createSession(sessionData).then(sess => {
+            var qry = queryString.stringify({token: token});
+            logger.info("Calling external URl: " + group.succ_callback + "?" + qry)
+            return res.redirect(group.succ_callback + "?" + qry)
           }).catch(err => {
             logger.error(err)
             return res.redirect(group.fail_callback)
           })
         }).catch(err => {
           logger.error(err)
-          return res.json({err: err})
+          return res.redirect(group.fail_callback)
         })
       }).catch(err => {
         logger.error(err)
@@ -142,7 +141,7 @@ module.exports = {
       return res.send(sp.create_metadata());
     }).catch(err => {
       console.log(err)
-      return res.sendStatus(500).json(responseHelper.withFailure(err))
+      return res.json(responseHelper.withFailure(err))
     })
   },
   createIdentityProvider: (req, res, next) => {
@@ -165,9 +164,46 @@ module.exports = {
     logger.info("IDP metadata: ", idpData)
     logger.info("SP Meta data: ", spData)
     idpDataService.createIdpData(idpData).then(idpData => {
-      return res.redirect(`/admin/dashboard/group/${params.group_id}/identity-provider/${idpData.id}`)
+      createSPMetadata(spData).then(spData => {
+        return res.redirect(`/admin/dashboard/group/${params.group_id}/identity-provider/${idpData.id}`)
+      }).catch(err => {
+        return res.render("error", {error: err})
+      })
     }).catch(err => {
       return res.render("error", {error: err})
+    })
+  },
+  logout: (req, res, next) => {
+    // query: session_id and token
+    var sessionId = req.query.session_id;
+    var realmName = req.params.realmName;
+    var token = req.query.token;
+    tokenHelper.decodeToken(token).then(token => {
+      sessionService.getSessionBySessionId({session_id: sessionId}).then(session => {
+        spDataHelper.init(realmName).then(spData => {
+          var sp = new saml2.ServiceProvider(spData);
+          idpDataHelper.init(realmName).then(idpData => {
+            var idp = new saml2.IdentityProvider(idpData);
+            var options = {
+              name_id: session.user.name_id,
+              session_index: sessionId
+            };
+            sp.create_logout_request_url(idp, options, function(err, logout_url) {
+              if (err != null)
+                return res.send(500);
+              res.redirect(logout_url);
+            });
+          }).catch(err => {
+            return res.json(responseHelper.withFailure(err))
+          })
+        }).catch(err => {
+          return res.json(responseHelper.withFailure(err))
+        })
+      }).catch(err => {
+        return res.json(responseHelper.withFailure(err))
+      })
+    }).catch(err => {
+      return res.json(responseHelper.withFailure(err))
     })
   }
 }

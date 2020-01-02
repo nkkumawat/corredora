@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col s1"></div>
+  <div class="col s9">
+    <table>
+      <thead>
+        <th>Useaname</th>
+        <th>Email</th>
+        <th>User Attributes</th>
+        <th>SAML Attributes</th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+        <% if(data.users) {%>
+          <% data.users.forEach(user => {%>
+            <tr>
+              <td><%= user.username%></td>
+              <td><%= user.email%></td>
+              <td style=" word-break: break-all;"><%= user.attributes%></td>
+              <td style=" word-break: break-all;"><%= user.saml_attributes%></td>
+              <td>
+                <button type="submit" onclick="deleteRequest('/admin/dashboard/group/<%= data.group.id%>/user/<%=user.id%>')">Delete</button>
+              </td>
+            </tr>
+          <%})%>
+        <%}%>
+      </tbody>
+    </table>
+  </div>
+</div>
