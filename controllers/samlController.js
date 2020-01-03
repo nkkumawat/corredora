@@ -52,23 +52,20 @@ module.exports = {
             res.redirect(login_url);
           });
         }).catch(err => {
-          console.log(err);
-
+          logger.error(err);
           return res.render("error", {error: err})
         })
       }).catch(err => {
-        console.log(err);
+        logger.error(err);
         return res.render("error", {error: err})
       })
     }).catch(err => {
-      console.log(err);
-
+      logger.error(err);
       return res.render("error", {error: err})
     })
   },
   initAuth: (req, res, next) => { 
     var realmName = req.params.realmName;
-    // console.log(req.body)
     idpDataHelper.init(realmName).then(idpData => {
       spDataHelper.init(realmName).then(spData => {
         passport.createInstance({
@@ -101,8 +98,8 @@ module.exports = {
     // return res.send(req.body)
     var nameID = req.session.passport.user.nameID;
     var sessionIndex = req.session.passport.user.sessionIndex;
-    var xml = req.session.passport.user.getSamlResponseXml();
-    var assertionXml = req.session.passport.user.getAssertionXml();
+    // var xml = req.session.passport.user.getSamlResponseXml();
+    // var assertionXml = req.session.passport.user.getAssertionXml();
     var assertionJs = req.session.passport.user.getAssertion();
     var userAttributes = samlDataHelper.getAttributes(assertionJs);
     userAttributes["nameID"] = nameID;
