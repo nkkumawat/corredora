@@ -122,6 +122,131 @@ GET /api/group
 }
 ```
 
+
+## Get groups in bulk
+
+### request
+```
+GET /api/groups
+```
+#### query
+```json
+    {
+      "offset": "INT",//default 0
+      "limit": "INT",
+    }
+```
+
+### response
+```json
+{
+    "status": true,
+    "data": {
+        "group": [
+            {
+                "id": 2,
+                "group_name": "afs",
+                "succ_callback": "sfsdfsdifsd",
+                "fail_callback": "sehtetewfasfasf",
+                "createdAt": "2019-12-30T16:10:16.000Z",
+                "updatedAt": "2020-01-01T13:13:38.000Z"
+            },
+            {
+                "id": 3,
+                "group_name": "fsdfsdfsd",
+                "succ_callback": "fsdfdsfsdf",
+                "fail_callback": "fsdfsdfsdfsdf",
+                "createdAt": "2019-12-30T16:10:16.000Z",
+                "updatedAt": "2020-01-01T13:13:38.000Z"
+            }
+        ]
+    }
+}
+```
+
+
+## Get groups IDP data
+
+### request
+```
+GET /api/group/<group_id>/idp
+```
+
+### response
+```json
+{
+    "status": true,
+    "data": {
+        "idpData": {
+            "id": 1,
+            "group_id": 2,
+            "sso_login_url": "https://dev.com/app//sso/saml",
+            "sso_logout_url": "https://dev.com/app/sso/saml",
+            "certificates": "",
+            "force_authn": true,
+            "sign_get_request": false,
+            "allow_unencrypted_assertion": false,
+            "createdAt": "2019-12-30T16:13:32.000Z",
+            "updatedAt": "2019-12-30T16:16:47.000Z",
+            "sp_datum": {
+                "id": 1,
+                "group_id": 2,
+                "entity_id": "http://localhost:3000",
+                "private_key": "",
+                "certificate": "",
+                "assert_endpoint": "http://localhost:3000/assert",
+                "alt_private_keys": null,
+                "alt_certs": null,
+                "audience": null,
+                "notbefore_skew": null,
+                "force_authn": false,
+                "auth_context": null,
+                "nameid_format": "string:urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+                "sign_get_request": false,
+                "allow_unencrypted_assertion": false,
+                "createdAt": "2019-12-30T16:16:47.000Z",
+                "updatedAt": "2019-12-30T16:16:47.000Z"
+            },
+            "group": {
+                "id": 2,
+                "group_name": "afs",
+                "succ_callback": "sfsdfsdifsd",
+                "fail_callback": "sehtetewfasfasf",
+                "createdAt": "2019-12-30T16:10:16.000Z",
+                "updatedAt": "2020-01-01T13:13:38.000Z"
+            }
+        }
+    }
+}
+```
+
+
+## Get groups Mappers data
+
+### request
+```
+GET /api/group/<group_id>/mappers
+```
+
+### response
+```json
+{
+    "status": true,
+    "data": {
+        "mappers": [
+            {
+                "id": 2,
+                "group_id": 2,
+                "saml_attribute": "nknknkknknknknnkkn",
+                "user_attribute": "lname",
+                "createdAt": "2019-12-30T16:17:47.000Z",
+                "updatedAt": "2020-01-01T18:15:30.000Z"
+            }
+        ]
+    }
+}
+```
+
 ## Delete a group
 
 ### request
@@ -232,6 +357,40 @@ GET /api/mapper
 }
 ```
 
+## Get mappers in bulk
+
+### request
+```
+GET /api/mapper
+```
+#### query
+```json
+    {
+      "offset": "INT",//default 0
+      "limit": "INT",
+    }
+```
+
+### response
+```json
+{
+    "status": true,
+    "data": {
+        "mappers": [
+            {
+                "id": 2,
+                "group_id": 2,
+                "saml_attribute": "lastName",
+                "user_attribute": "lname",
+                "createdAt": "2019-12-30T16:17:47.000Z",
+                "updatedAt": "2020-01-01T18:15:30.000Z"
+            }
+        ]
+    }
+}
+```
+
+
 ## Update a mapper
 
 ### request
@@ -340,7 +499,7 @@ DELETE /api/mapper
 ```
 
 
-## Create a Identity provider
+## Get a Identity provider
 ### request
  ```
  GET /api/idp
@@ -387,6 +546,61 @@ DELETE /api/mapper
             "createdAt": "2019-12-30T16:16:47.000Z",
             "updatedAt": "2019-12-30T16:16:47.000Z"
         }
+    }
+}
+```
+
+
+## Get Identity providers in bulk
+### request
+ ```
+ GET /api/idp
+```
+##### query 
+```json
+   {
+      "offset": "INT", //default 0
+      "limit": "INT",
+    }
+```
+### response
+```json
+ {
+    "status": true,
+    "data": {
+        "idpData": [
+            {
+                "id": 1,
+                "group_id": 2,
+                "sso_login_url": "https://dev.com/app//exkozo1jhe6uVD5pZ0h7/sso/saml",
+                "sso_logout_url": "https://dev.com/app//sso/saml",
+                "certificates": "",
+                "force_authn": true,
+                "sign_get_request": false,
+                "allow_unencrypted_assertion": false,
+                "createdAt": "2019-12-30T16:13:32.000Z",
+                "updatedAt": "2019-12-30T16:16:47.000Z",
+                "sp_datum": {
+                    "id": 1,
+                    "group_id": 2,
+                    "entity_id": "http://localhost:3000",
+                    "private_key": "",
+                    "certificate": "",
+                    "assert_endpoint": "http://localhost:3000/saml/demoNk/assert",
+                    "alt_private_keys": null,
+                    "alt_certs": null,
+                    "audience": null,
+                    "notbefore_skew": null,
+                    "force_authn": false,
+                    "auth_context": null,
+                    "nameid_format": "string:urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+                    "sign_get_request": false,
+                    "allow_unencrypted_assertion": false,
+                    "createdAt": "2019-12-30T16:16:47.000Z",
+                    "updatedAt": "2019-12-30T16:16:47.000Z"
+                }
+            }
+        ]
     }
 }
 ```

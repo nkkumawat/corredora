@@ -70,6 +70,19 @@ module.exports = {
       })
     })
   },
+  getAllGroupsOffsetLimit: (params) => {
+    return new Promise((resolve, reject) => {
+      models.group.findAll({
+        limit: parseInt(params.limit),
+        offset: parseInt(params.offset),
+        raw: true
+      }).then(groups => {
+        resolve(groups)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
   createGroup: (params) => {
     return new Promise((resolve, reject) => {
       if(params.group_name == null || params.group_name == 'undefined') {

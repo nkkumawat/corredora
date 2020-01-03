@@ -32,6 +32,18 @@ module.exports = {
       })
     })
   },
+  getMappersOffsetLimit: (params) => {
+    return new Promise((resolve, reject) => {
+      models.mapper.findAll({
+        limit: parseInt(params.limit),
+        offset: parseInt(params.offset)
+      }).then(mapperData => {
+         resolve(mapperData);
+      }).catch(err => {
+        reject(constants.DEFAULT_ERROR);
+      })
+    })
+  },
   deleteMapper: (params) => {
     return new Promise((resolve, reject) => {
       if(params.id == null || params.id == 'undefined') {

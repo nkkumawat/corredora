@@ -13,7 +13,8 @@ module.exports = {
     REALM_NAME: "Realm Name is not present",
     DEFAULT_ERROR: "Some params are missing",
     SESSION_ID: "Session Id is not present in params",
-    IDP_ID: "IDP Id is not present in params"
+    IDP_ID: "IDP Id is not present in params",
+    LIMIT: "Data limit is not defined"
   },
   INVALID_TOKEN: "Invalid token",
   DEFAULT_ERROR: "Something went wrong!",
@@ -21,7 +22,8 @@ module.exports = {
     GROUP: "Group is not present",
     USER: "User is not present",
     SESSION: "Session is not present",
-    MAPPER: "Mapper is not present"
+    MAPPER: "Mapper is not present",
+    IDP: "Identity provider is not present"
   },
   CERTIFICATE_LIFE: config['certificate-life'],
   NAMEID_POLICIES: {
