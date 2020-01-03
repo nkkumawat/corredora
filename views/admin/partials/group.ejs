@@ -1,21 +1,25 @@
-<div class="row">
-  <div class="col s2"></div>
-  <div class="col s8">
-    <table>
-      <thead>
-        <th>Group Name</th>
-        <th>Succuss callback</th>
-        <th>Failure callback</th>
-      </thead>
-      <tbody>
-        <% if(data.group) {%>
+<div class="card ui-app__page-content">
+  <div class="card-content">
+    <div class="card-title headline">All Groups</div>
+    <div class="card-body">
+      <table>
+        <thead>
           <tr>
-            <td><a href="/admin/dashboard/group/<%=data.group.id%>"><%= data.group.group_name%></a></td>
-            <td style="word-break: break-all;"><%= data.group.succ_callback%>...</td>
-            <td style="word-break: break-all;"><%= data.group.fail_callback%>...</td>
+            <th>Group Name</th>
+            <th>Succuss callback</th>
+            <th>Failure callback</th>
           </tr>
-        <%}%>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% if(data.group) {%>
+            <tr>
+              <td><a href="/admin/dashboard/group/<%=data.group.id%>"><%= data.group.group_name%></a></td>
+              <td style="word-break: break-all;"><%= data.group.succ_callback%></td>
+              <td style="word-break: break-all;"><%= data.group.fail_callback%></td>
+            </tr>
+          <%}%>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

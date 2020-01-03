@@ -1,0 +1,742 @@
+        /* ////////////////////////   Efnify default theme stylesheet ////////////////////////////// */
+        /*------------------------------------------------------------------
+[Color]
+#3f51b5 - indigo [primary color for theme]
+#303f9f - indigo darken-2
+#7986cb - indigo lighten-2
+#9fa8da - indigo lighten-3
+#c5cae9 - indigo lighten-4
+#ffab40 - orange accent-2 [secondary color]
+#fff3e0 - orange lighten-5
+#d32f2f - red darken-2 [error color]
+#616161 - grey darken-2
+#f8f8f8 - grey (aprox lighten-4)
+#eeeeee - grey lighten-3
+#9F9F9F - [disabled color]
+rgba(0, 0, 0, 0.87) - black [Default color for html]
+#ffffff - white
+#fafafa - grey lighten-5
+
+
+[Table of contents]
+
+1. Body
+2. Navbar / Header
+3. Left Sidenav / Sidebar
+4. Right Sidenav / Sidebar
+5. Content / #content
+	1. Button
+    2. Tabs
+    3. Dropdown
+    4. Collections
+    5. Pagination
+    6. Preloader
+    7. Waves
+    8. Toasts
+    9. Form Element
+    10. Typography
+    11. Card
+    12. carousel
+    13. SweetAlert
+    14. Range Slider
+    15. Grid
+    16. FeatureDiscovery
+    17. DataTable
+	18. Pages (login,signup,....)
+
+
+-------------------------------------------------------------------*/
+        /* =================================================================================
+body
+================================================================================= */
+        /* basic and prepage loader background color */
+        
+        body,
+        #prepage-loader {
+            background-color: #fafafa;
+        }
+        /*text selection*/
+        
+         ::-moz-selection,
+        pre[class*="language-"]::selection,
+        pre[class*="language-"] ::selection,
+        code[class*="language-"]::selection,
+        code[class*="language-"] ::selection {
+            background-color: #c5cae9;
+        }
+        
+         ::selection,
+        pre[class*="language-"]::selection,
+        pre[class*="language-"] ::selection,
+        code[class*="language-"]::selection,
+        code[class*="language-"] ::selection {
+            background-color: #c5cae9;
+        }
+        /* prepage loader color */
+        
+        .ui-app__prepage-loader .double-bounce1,
+        .ui-app__prepage-loader .double-bounce2 {
+            background-color: #3f51b5;
+        }
+        /* Page heading bookmark color */
+        
+        .ui-app__header .ui-app__header__bookmark>i.material-icons {
+            color: rgba(0, 0, 0, 0.87);
+        }
+        /* anchor tag color */
+        
+        a {
+            color: #3f51b5;
+        }
+        /* =================================================================================
+navbar/header
+================================================================================= */
+        /* background color */
+        
+        nav.ui-app__wrapper__navbar {
+            background-color: #3f51b5;
+        }
+        /* search box */
+        
+        .ui-app__wrapper__navbar__leftside__search input[type=search]:not(.browser-default) {
+            background-color: #303f9f;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .ui-app__wrapper__navbar__leftside__search input[type=search]:focus:not(.browser-default) {
+            background-color: #ffffff;
+        }
+        
+        .ui-app__wrapper__navbar__leftside__search input[type=search]:focus+ul+label.active i {
+            color: #444444;
+        }
+        /* User Profile icon background and notification item indicator */
+        
+        .ui-app__wrapper__navbar__rightside--icons .ui-app__wrapper__navbar__rightside--users {
+            background-color: #ffab40;
+        }
+        
+        .notification-badge:after {
+            background-color: #d32f2f;
+        }
+        /* user profile dropdown element color*/
+        
+        .ui-app__wrapper__navbar__rightside--users__dropdown li>a,
+        .ui-app__wrapper__navbar__rightside--users__dropdown.dropdown-content li>span {
+            color: #616161 !important;
+        }
+        /* full menu dropdown item color */
+        
+        .dropdown-content.ui-app__wrapper__navbar__rightside--full-menu__dropdown li a {
+            color: rgba(0, 0, 0, 0.87);
+        }
+        /* =================================================================================
+Left sidenav/sidebar
+================================================================================= */
+        /* sidenav navbar */
+        
+        .ui-app__left-sidenav.sidenav .ui-app__left-sidenav__navbar-menu {
+            background-color: #3f51b5;
+        }
+        
+        .ui-app__left-sidenav__navbar-menu .brand-logo,
+        .ui-app__left-sidenav__navbar__small-toggle>i.material-icons {
+            color: #ffffff;
+        }
+        /* dashboard button */
+        
+        .ui-app__left-sidenav.sidenav .btn-dashboard,
+        .ui-app__left-sidenav.sidenav .btn-dashboard:hover {
+            background-color: #f8f8f8;
+            color: rgba(0, 0, 0, 0.87);
+        }
+        /* left sidenav menu list ripple*/
+        
+        .ui-app__left-sidenav.sidenav .waves-effect .waves-ripple {
+            background-color: #9fa8da;
+        }
+        /* sidenav, quick, main menu and scrollbar background color*/
+        
+        .ui-app__left-sidenav.sidenav,
+        .ui-app__left-sidenav.sidenav .ui-app__left-sidenav__menu,
+        .ui-app__left-sidenav.sidenav .ui-app__left-sidenav__collapsible-quick-menu,
+        .ui-app__left-sidenav.sidenav .ui-app__left-sidenav__collapsible-quick-menu-name,
+        .ui-app__left-sidenav.sidenav .collapsible-body {
+            background-color: #f8f8f8;
+        }
+        
+        .ui-app__left-sidenav.sidenav .ui-app__scrollbar ::-webkit-scrollbar-track-piece {
+            background-color: #f8f8f8;
+        }
+        /* scroolabr  */
+        
+        .ui-app__left-sidenav.sidenav .ui-app__scrollbar::-webkit-scrollbar-thumb {
+            border: 2px solid #f8f8f8;
+        }
+        /* left sidenav active  menu text and icon color */
+        
+        .ui-app__left-sidenav.sidenav .ui-app__left-sidenav__menu>li.active>a,
+        .ui-app__left-sidenav.sidenav .ui-app__left-sidenav__menu>li.active>a>i {
+            color: #3f51b5;
+        }
+        /* left sidenav active  menu color */
+        
+        .ui-app__left-sidenav.sidenav .ui-app__left-sidenav__menu>li.active {
+            background-color: #c5cae9;
+        }
+        
+        .sidenav .collapsible-body>ul:not(.collapsible)>li.active,
+        .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active {
+            background-color: #eeeeee;
+        }
+        
+        .sidenav .collapsible-body>ul:not(.collapsible)>li.active a,
+        .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active a {
+            color: rgba(0, 0, 0, 0.87);
+        }
+        /* =================================================================================
+Right sidenav/sidebar
+================================================================================= */
+        /* right sidenav toggle color */
+        
+        .ui-app__right-sidenav-toggle.btn-floating,
+        .ui-app__right-sidenav-toggle.btn-floating:hover,
+        .ui-app__right-sidenav-toggle.btn-floating:focus,
+        .ui-app__right-sidenav-toggle.btn-floating:active {
+            background-color: #ffffff;
+        }
+        
+        .ui-app__right-sidenav-toggle.btn-floating>i {
+            color: #3f51b5;
+        }
+        
+        .ui-app__right-sidenav__layout__color-body__sidebar {
+            background-color: #f8f8f8;
+        }
+        /* rightsidenav layout */
+        
+        .ui-app__right-sidenav__layout__color-body.active:after {
+            color: #ffab40;
+        }
+        /* =================================================================================
+Content
+================================================================================= */
+        /* ============================================= Button ================================== */
+        
+        .btn,
+        .btn-large,
+        .btn-small,
+        .btn-floating,
+        .btn:hover,
+        .btn-large:hover,
+        .btn-small:hover,
+        .btn-floating:hover,
+        .btn:focus,
+        .btn-large:focus,
+        .btn-small:focus,
+        .btn-floating:focus,
+        .btn:active,
+        .btn-large:active,
+        .btn-small:active,
+        .btn-floating:active {
+            background-color: #3f51b5;
+        }
+        
+        .btn-flat,
+        .btn-flat:hover,
+        .btn-flat:focus,
+        .btn-flat:active {
+            color: #3f51b5
+        }
+        
+        .btn.white,
+        .btn-large.white,
+        .btn-small.white,
+        .btn-floating.white,
+        .btn:hover.white,
+        .btn-large.white:hover,
+        .btn-small.white:hover,
+        .btn-floating.white:hover,
+        .btn.white:focus,
+        .btn-large.white:focus,
+        .btn-small.white:focus,
+        .btn-floating.white:focus,
+        .btn.white:active,
+        .btn-large.white:active,
+        .btn-small.white:active,
+        .btn-floating.white:active {
+            color: rgba(0, 0, 0, 0.87);
+        }
+        /* ============================================= Tabs ================================== */
+        
+        .tabs.tabs-swipe .tab a:hover,
+        .tabs.tabs-swipe .tab a.active {
+            color: initial;
+        }
+        
+        .tabs .tab a:hover,
+        .tabs .tab a.active,
+        .tabs .tab a:focus {
+            background-color: transparent !important;
+        }
+        
+        .tabs .tab a {
+            color: rgba(0, 0, 0, 0.87);
+        }
+        
+        .tabs .tab.disabled a,
+        .tabs .tab.disabled a:hover {
+            color: #9F9F9F;
+        }
+        
+        .tabs .tab>.active {
+            box-shadow: inset 0 -2px #3f51b5;
+        }
+        
+        .tabs .tab>a:hover,
+        .tabs .tab>a.active {
+            color: #3f51b5;
+        }
+        
+        .tabs .indicator {
+            background-color: #3f51b5;
+        }
+        /* ============================================= Dropdown ================================== */
+        
+        .dropdown-content {
+            color: rgba(0, 0, 0, 0.87);
+        }
+        
+        .dropdown-content li>a,
+        .dropdown-content li>span,
+        .dropdown-content li:not(.disabled) span>label {
+            color: #3f51b5;
+        }
+        /* ======================================== Collections ===================================== */
+        
+        .collection a.collection-item {
+            color: rgba(0, 0, 0, 0.87);
+        }
+        
+        .collection .collection-item.active {
+            background-color: #3f51b5;
+        }
+        
+        .secondary-content .material-icons {
+            color: #3f51b5;
+        }
+        /* ====================================Pagination ========================================================== */
+        
+        .pagination li.active {
+            background-color: #3f51b5;
+        }
+        /* ============================== Preloader
+======================================================= */
+        
+        .progress .determinate,
+        .progress .indeterminate,
+        .preloader1-spinner,
+        .preloader2-double-bounce1,
+        .preloader2-double-bounce2,
+        .preloader3-spinner>div,
+        .preloader4-spinner>div,
+        .preloader5-cube-grid .preloader5-cube,
+        .preloader6-folding-cube .preloader6-cube:before {
+            background-color: #3f51b5;
+        }
+        
+        .progress {
+            background: #9fa8da;
+        }
+        /* ============================================= Waves ================================== */
+        
+        .waves-effect.waves-default .waves-ripple {
+            background-color: #3f51b5;
+        }
+        /* ============================================= Toasts ================================== */
+        
+        .toast .toast-action,
+        .toast .toast-action:hover,
+        .toast .toast-action:focus,
+        .toast .toast-action:active {
+            color: #ffab40;
+        }
+        /* ============================================= Form Element ================================== */
+        /* checkbox */
+        
+        [type="checkbox"]:checked+span:not(.lever):before {
+            border-right: 2px solid #3f51b5;
+            border-bottom: 2px solid #3f51b5;
+        }
+        
+        [type="checkbox"]:indeterminate+span:not(.lever):before {
+            border-right: 2px solid #3f51b5;
+        }
+        
+        [type="checkbox"].filled-in:checked+span:not(.lever):after {
+            border: 2px solid #3f51b5;
+            background-color: #3f51b5;
+        }
+        
+        [type="checkbox"].filled-in.tabbed:checked:focus+span:not(.lever):after {
+            background-color: #3f51b5;
+            border-color: #3f51b5;
+        }
+        
+        [type="checkbox"]:not(:checked):disabled+span:not(.lever):before {
+            border: none !important;
+            background-color: rgba(0, 0, 0, 0.42) !important;
+        }
+        
+        [type="checkbox"]:checked:disabled+span:before {
+            border-right: 2px solid rgba(0, 0, 0, 0.42) !important;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.42) !important;
+        }
+        
+        [type="checkbox"]:indeterminate:disabled+span:not(.lever):before {
+            border-right: 2px solid rgba(0, 0, 0, 0.42) !important;
+            background-color: transparent !important;
+        }
+        
+        [type="checkbox"].filled-in:disabled:not(:checked)+span:not(.lever):before {
+            background-color: transparent !important;
+            border: 2px solid transparent !important;
+        }
+        
+        [type="checkbox"].filled-in:disabled:not(:checked)+span:not(.lever):after {
+            border-color: transparent !important;
+            background-color: #949494 !important;
+        }
+        
+        [type="checkbox"].filled-in:disabled:checked+span:not(.lever):before {
+            background-color: transparent !important;
+        }
+        
+        [type="checkbox"].filled-in:disabled:checked+span:not(.lever):after {
+            background-color: #949494 !important;
+            border-color: #949494 !important;
+        }
+        /*radio button*/
+        
+        [type="radio"]:checked+span:after,
+        [type="radio"].with-gap:checked+span:before,
+        [type="radio"].with-gap:checked+span:after {
+            border: 2px solid #3f51b5;
+        }
+        
+        [type="radio"]:checked+span:after,
+        [type="radio"].with-gap:checked+span:after {
+            background-color: #3f51b5;
+        }
+        
+        [type="radio"].with-gap:disabled:checked+span:before {
+            border: 2px solid rgba(0, 0, 0, 0.42) !important;
+        }
+        
+        [type="radio"].with-gap:disabled:checked+span:after {
+            border: none;
+            background-color: rgba(0, 0, 0, 0.42) !important;
+        }
+        
+        [type="radio"]:disabled:not(:checked)+span:before,
+        [type="radio"]:disabled:checked+span:before {
+            background-color: transparent !important;
+            border-color: rgba(0, 0, 0, 0.42) !important;
+        }
+        
+        [type="radio"]:disabled+span {
+            color: rgba(0, 0, 0, 0.42) !important;
+        }
+        
+        [type="radio"]:disabled:not(:checked)+span:before {
+            border-color: rgba(0, 0, 0, 0.42) !important;
+        }
+        
+        [type="radio"]:disabled:checked+span:after {
+            background-color: rgba(0, 0, 0, 0.42) !important;
+            border-color: #949494 !important;
+        }
+        /* switch */
+        
+        .switch label input[type=checkbox]:checked+.lever {
+            background-color: #7986cb;
+        }
+        
+        .switch label input[type=checkbox]:checked+.lever:after {
+            background-color: #3f51b5;
+        }
+        
+        .switch label .lever:before {
+            background-color: #c5cae9;
+        }
+        
+        input[type=checkbox]:checked:not(:disabled)~.lever:active::before,
+        input[type=checkbox]:checked:not(:disabled).tabbed:focus~.lever::before {
+            -webkit-transform: scale(2.4) !important;
+            transform: scale(2.4) !important;
+            background-color: #c5cae9;
+        }
+        
+        input[type=checkbox]:not(:disabled)~.lever:active:before,
+        input[type=checkbox]:not(:disabled).tabbed:focus~.lever::before {
+            -webkit-transform: scale(2.4) !important;
+            transform: scale(2.4) !important;
+            background-color: rgba(0, 0, 0, 0.08);
+        }
+        
+        .switch input[type=checkbox][disabled]+.lever {
+            cursor: default !important;
+            background-color: rgba(0, 0, 0, 0.12) !important;
+        }
+        
+        .switch label input[type=checkbox][disabled]+.lever:after,
+        .switch label input[type=checkbox][disabled]:checked+.lever:after {
+            background-color: #949494 !important;
+        }
+        /* html5 slider */
+        
+        input[type=range]+.thumb {
+            background-color: #3f51b5;
+        }
+        
+        input[type=range]::-webkit-slider-thumb {
+            background-color: #3f51b5;
+        }
+        
+        input[type=range]::-moz-range-thumb {
+            background-color: #3f51b5;
+        }
+        
+        input[type=range]::-ms-thumb {
+            background-color: #3f51b5;
+        }
+        
+        .keyboard-focused input[type=range]:focus:not(.active)::-webkit-slider-thumb {
+            -webkit-box-shadow: 0 0 0 10px #c5cae9;
+            box-shadow: 0 0 0 10px #c5cae9;
+        }
+        
+        .keyboard-focused input[type=range]:focus:not(.active)::-moz-range-thumb {
+            box-shadow: 0 0 0 10px #c5cae9;
+        }
+        
+        .keyboard-focused input[type=range]:focus:not(.active)::-ms-thumb {
+            box-shadow: 0 0 0 10px #c5cae9;
+        }
+        /* picker (date and time)*/
+        
+        .datepicker-date-display,
+        .datepicker-table td.is-selected,
+        .timepicker-digital-display {
+            background-color: #3f51b5;
+        }
+        
+        .datepicker-cancel,
+        .datepicker-clear,
+        .datepicker-today,
+        .datepicker-done,
+        .timepicker-close,
+        .datepicker-table td.is-today {
+            color: #3f51b5;
+        }
+        
+        .timepicker-canvas line {
+            stroke: #3f51b5;
+        }
+        
+        .timepicker-canvas-bearing {
+            fill: #3f51b5;
+        }
+        
+        .timepicker-canvas-bg {
+            fill: #3f51b5;
+        }
+        
+        .datepicker-day-button:focus,
+        .timepicker-tick.active,
+        .timepicker-tick:hover {
+            background-color: #9fa8da;
+        }
+        /* select */
+        
+        .select-wrapper input.select-dropdown:focus {
+            border-bottom: 1px solid #3f51b5;
+        }
+        /* input field */
+        
+        .chips.focus,
+        input:not([type]):focus:not([readonly]),
+        input[type=text]:not(.browser-default):focus:not([readonly]),
+        input[type=password]:not(.browser-default):focus:not([readonly]),
+        input[type=email]:not(.browser-default):focus:not([readonly]),
+        input[type=url]:not(.browser-default):focus:not([readonly]),
+        input[type=time]:not(.browser-default):focus:not([readonly]),
+        input[type=date]:not(.browser-default):focus:not([readonly]),
+        input[type=datetime]:not(.browser-default):focus:not([readonly]),
+        input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+        input[type=tel]:not(.browser-default):focus:not([readonly]),
+        input[type=number]:not(.browser-default):focus:not([readonly]),
+        input[type=search]:not(.browser-default):focus:not([readonly]),
+        textarea.materialize-textarea:focus:not([readonly]) {
+            border-bottom: 1px solid #3f51b5;
+            -webkit-box-shadow: 0 1px 0 0 #3f51b5;
+            box-shadow: 0 1px 0 0 #3f51b5;
+        }
+        
+        input:not([type]):focus:not([readonly])+label,
+        input[type=text]:not(.browser-default):focus:not([readonly])+label,
+        input[type=password]:not(.browser-default):focus:not([readonly])+label,
+        input[type=email]:not(.browser-default):focus:not([readonly])+label,
+        input[type=url]:not(.browser-default):focus:not([readonly])+label,
+        input[type=time]:not(.browser-default):focus:not([readonly])+label,
+        input[type=date]:not(.browser-default):focus:not([readonly])+label,
+        input[type=datetime]:not(.browser-default):focus:not([readonly])+label,
+        input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label,
+        input[type=tel]:not(.browser-default):focus:not([readonly])+label,
+        input[type=number]:not(.browser-default):focus:not([readonly])+label,
+        input[type=search]:not(.browser-default):focus:not([readonly])+label,
+        textarea.materialize-textarea:focus:not([readonly])+label {
+            color: #3f51b5;
+        }
+        
+        .input-field .prefix.active {
+            color: #3f51b5;
+        }
+        /* ========================================= Typography ================================ */
+        /* blockquote left border*/
+        
+        blockquote {
+            border-left: 5px solid #3f51b5;
+        }
+        /* code color with class default */
+        
+        code.default {
+            color: #d32f2f;
+        }
+        /* blockquote, code and pre with language background color */
+        
+        blockquote,
+        code.default,
+         :not(pre)>code[class*="language-"],
+        pre[class*="language-"] {
+            background-color: #eeeeee;
+        }
+        /* ========================================= Card ================================ */
+        
+        .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating),
+        .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating):hover,
+        .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating):active,
+        .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating):focus {
+            color: #ffab40;
+        }
+        /* ============================================= carousel ================================== */
+        
+        .carousel .indicators .indicator-item.active {
+            background-color: #ffab40
+        }
+        
+        .carousel .indicators .indicator-item {
+            background-color: #fff3e0;
+        }
+        /* ============================================= SweetAlert ================================== */
+        
+        .swal-button,
+        .swal-button:focus {
+            color: #fff;
+            border: none;
+            box-shadow: none;
+        }
+        
+        .swal-button,
+        .swal-button:focus,
+        .swal-button:active,
+        .swal-button:not([disabled]):hover {
+            background-color: #3f51b5;
+        }
+        
+        .swal-button--cancel,
+        .swal-button--cancel:focus {
+            color: #555;
+            background-color: #efefef;
+            box-shadow: none;
+        }
+        
+        .swal-button--cancel:not([disabled]):hover {
+            background-color: #e8e8e8;
+        }
+        
+        .swal-button--cancel:active {
+            background-color: #d7d7d7;
+        }
+        
+        .swal-button--danger,
+        .swal-button--danger:focus {
+            background-color: #d32f2f;
+            box-shadow: none;
+        }
+        
+        .swal-button--danger:not([disabled]):hover {
+            background-color: #df4740;
+        }
+        
+        .swal-button--danger:active {
+            background-color: #cf423b;
+        }
+        /* ============================================= Range Slider
+ ================================== */
+        
+        .irs-from,
+        .irs-to,
+        .irs-single {
+            background-color: #3f51b5;
+        }
+        
+        .irs-from:after,
+        .irs-to:after,
+        .irs-single:after {
+            border-top-color: #3f51b5;
+        }
+        /* ============================================= Grid
+ ================================== */
+        
+        .ui-app__grid-demo .col {
+            border: 1px solid #e8e8e8;
+            background-color: #3f51b5;
+        }
+        /* ============================================= FeatureDiscovery
+ ================================== */
+        
+        .tap-target {
+            background-color: #3f51b5;
+            color: #ffffff;
+        }
+        /* ============================================= DataTable ================================== */
+        
+        table.dataTable tbody tr.group td {
+            background: #eeeeee;
+        }
+        
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background: #3f51b5;
+            box-shadow: inset 0 0 3px #3f51b5;
+            border: 1px solid #3f51b5;
+        }
+        
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+            box-shadow: inset 0 0 3px #111;
+        }
+        /* ============================================= Pages (login,signup,....)================================== */
+        /* navbar */
+        
+        .form-brand-logo {
+            color: #3f51b5;
+        }
+        
+        .btn.ui-app__wrapper__navbar-form__signup {
+            background: #ffab40 !important;
+        }
+        /* 404 - Page not found!*/
+        
+        .error-code {
+            color: #ffab40;
+        }
