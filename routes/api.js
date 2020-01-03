@@ -17,6 +17,7 @@ router.get('/idps', apiController.getIdentityProviders); //get identityProviders
 router.get('/group', apiController.getGroup); // get group
 router.get('/group/:group_id/idp', apiController.getGroupIdentityProvider); // get groups iDP
 router.get('/group/:group_id/mappers', apiController.getGroupMappers); // get groups iDP
+router.get('/group/:group_id/users', apiController.getGroupUsers); // get groups iDP
 router.get('/groups', apiController.getGroups); // get groups
 router.post('/group', apiController.createGroup); // create group
 router.delete('/group', apiController.deleteGroup); // delete group
