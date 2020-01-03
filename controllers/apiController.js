@@ -123,6 +123,35 @@ module.exports = {
       return res.json(responseHelper.withFailure({error: err}));
     })
   },
+  getGroupMappers: (req, res, next) => {
+    var params = req.params;
+    if(!params.group_id){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.GROUP_ID}))
+    }
+    mapperService.getGroupMappers(params).then(mappers => {
+      return res.json(responseHelper.withSuccess({mappers: mappers}))
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
+  getGroups: (req, res, next) => {
+    // parmas = {
+    //   "offset": "INT",
+    //   "limit": "INT",
+    // }
+    var params = req.query;
+    if(!params.limit){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.LIMIT}))
+    }
+    if(!params.offset){
+      params.offset = 0;
+    }
+    groupService.getAllGroupsOffsetLimit(params).then(group => {
+      return res.json(responseHelper.withSuccess({group: group}))
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
   getToken: (req, res, next) => {
     var params = req.basicAuth;
     if(!params.name ||
@@ -203,6 +232,24 @@ module.exports = {
       return res.json(responseHelper.withFailure({error: err}));
     })
   },
+  getMappers: (req, res, next) => {
+    // parmas = {
+    //   "offset": "INT",
+    //   "limit": "INT",
+    // }
+    var params = req.query;
+    if(!params.limit){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.LIMIT}))
+    }
+    if(!params.offset){
+      params.offset = 0;
+    }
+    mapperService.getMappersOffsetLimit(params).then(mp => {
+      return res.json(responseHelper.withSuccess({mappers: mp}))
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
   updateMapper: (req, res, next) => {
     // params = {
     //   "mapper_id": "INT",
@@ -233,7 +280,7 @@ module.exports = {
     // params = {
     //   "idp_id": "INT",
     // }
-    var params = req.body;
+    var params = req.query;
     if(!params.idp_id){
       return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.IDP_ID}))
     }
@@ -243,6 +290,44 @@ module.exports = {
       delete idpData["sp_datum"];
       return res.json(responseHelper.withSuccess({idpData: idpData, spData: spData}))
     }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
+  getGroupIdentityProvider: (req, res, next) => {
+    // params = {
+    //   "group_id": "INT",
+    // }
+    var params = req.params;
+    if(!params.group_id){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.GROUP_ID}))
+    }
+    idpDataService.getIdpDataWithGroups(params).then(idp => {
+      // var spData = idp['sp_datum'];
+      var idpData = idp;
+      // delete idpData["sp_datum"];
+      return res.json(responseHelper.withSuccess({idpData: idpData}))
+    }).catch(err => {
+      console.log(err)
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
+  getIdentityProviders: (req, res, next) => {
+    // parmas = {
+    //   "offset": "INT",
+    //   "limit": "INT",
+    // }
+    var params = req.query;
+    if(!params.limit){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.LIMIT}))
+    }
+    if(!params.offset){
+      params.offset = 0;
+    }
+    idpDataService.getAllIdpDataOffsetLimit(params).then(idp => {
+      var idpData = idp;
+      return res.json(responseHelper.withSuccess({idpData: idpData}))
+    }).catch(err => {
+      console.log(err)
       return res.json(responseHelper.withFailure({error: err}));
     })
   }
