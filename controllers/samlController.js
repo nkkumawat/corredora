@@ -49,16 +49,21 @@ module.exports = {
           var idp = new saml2.IdentityProvider(idpData);
           sp.create_login_request_url(idp, {}, function(err, login_url, request_id) {
             if (err != null) { return res.send(500) }
-            return res.redirect(login_url);
+            res.redirect(login_url);
           });
         }).catch(err => {
-          return res.json(responseHelper.withFailure(err))
+          console.log(err);
+
+          return res.render("error", {error: err})
         })
       }).catch(err => {
-        return res.json(responseHelper.withFailure(err))
+        console.log(err);
+        return res.render("error", {error: err})
       })
     }).catch(err => {
-      return res.json(responseHelper.withFailure(err))
+      console.log(err);
+
+      return res.render("error", {error: err})
     })
   },
   initAuth: (req, res, next) => { 

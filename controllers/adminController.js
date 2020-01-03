@@ -88,6 +88,7 @@ module.exports = {
     groupService.getGroupById({id: group_id}).then(group => {
       data['group'] = group;
       data['currentUser'] = req.currentUser;
+      data['host'] = constants.HOST_NAME
       return res.render("admin/dashboard", responseHelper.withSuccess(data));
     }).catch(err => {
       logger.error(err);
