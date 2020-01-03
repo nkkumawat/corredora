@@ -4,13 +4,17 @@
     <% include ../partials/head %>
   </head>
   <body>
-    <% include ../partials/navbar %>
-    <div class="content">
-      <div class="row indigo" style="min-height: 100vh;">
-        <div id="site-layout-example-left" class="col s2 no-padding">
-          <% include ./partials/sidebar %>
+    <div class="ui-app">
+      <div class="ui-app__wrapper" id="app-layout-control">
+        <div id="prepage-loader" style="display: none;">
+          <div class="ui-app__prepage-loader spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+          </div>
         </div>
-        <div id="site-layout-example-right" class="col s10 grey lighten-4" style="min-height: 100vh;">
+        <% include ../partials/navbar %>
+        <% include ./partials/sidebar %>
+        <main>
           <% if(data.page) {%>
             <% if(data.page === "createGroup"){%>
               <% include ./partials/forms/group %>
@@ -32,12 +36,11 @@
               <% include ./partials/sessions %>
             <%}%>
           <%}%>
-        </div>
+        </main>
+        <%  include ../partials/footer %>
       </div>
     </div>
-    <% // include ../partials/footer %>
+    <%  include ../partials/scripts %>
     <script type="text/javascript" src="/js/admin.js" ></script>
-
   </body>
-
 </html>

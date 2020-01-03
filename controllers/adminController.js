@@ -14,8 +14,8 @@ module.exports = {
     return res.render('admin/login');
   },
   logout: (req, res, next) => {
-    res.clearCookie('bs_hack');
-    return res.redirect('/');
+    res.clearCookie(constants.APP_NAME);
+    return res.redirect('/admin/login');
   },
   renderSignUp: (req, res, next) => {
     return res.render('admin/signup');
@@ -26,7 +26,7 @@ module.exports = {
       tokenHelper.getToken({user: user}).then((token) => {
         var maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
         res.cookie(constants.APP_NAME, token, { maxAge: maxAge, httpOnly: true });
-        return res.redirect("/");
+        return res.redirect("/admin/dashboard/groups");
       }).catch((err) => {
         return res.render('error', {error: err});
       })
@@ -181,11 +181,13 @@ module.exports = {
       if(!allData){
         return res.render("error", {error: "No IDP Present"});
       }
+      var group = allData.group
+      group['idp_data.id'] = allData.id
       var data = {
         idpData: allData,
         page: "identityProvider",
         host: constants.HOST_NAME,
-        group: {id: allData['group.id'], group_name: allData['group.group_name'], 'idp_data.id': allData.id}
+        group: group
       };
       logger.info(allData)
       mapperService.getGroupMappers({group_id: group_id}).then(mappers => {
