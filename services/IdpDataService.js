@@ -86,21 +86,40 @@ module.exports = {
       })
     })
   },
+  getAllIdpDataOffsetLimit: (params) => {
+    return new Promise((resolve, reject) => {
+      models.idp_data.findAll({
+        include: [{
+          model: models.sp_data
+        }],
+        limit: parseInt(params.limit),
+        offset: parseInt(params.offset)
+      }).then(idpData => {
+        resolve(idpData);
+      }).catch(err => {
+        logger.error(err)
+        reject(constants.DEFAULT_ERROR);
+      })
+    })
+  },
   getIdpDataWithGroups: (params) => {
     return new Promise((resolve, reject) => {
       if(params.group_id == null || params.group_id == 'undefined') {
         reject(constants.MISSING_PARAMS.GROUP_ID);
       }
-      models.idp_data.findOne({
+      models.idp_data.findAll({
         include: [{
           model: models.sp_data
         }, {
           model: models.group
         }],
-        where: params,
-        raw: true
+        where: params
       }).then(idpData => {
-        resolve(idpData);
+        if(idpData){
+          resolve(idpData);
+        } else {
+          reject(constants.NOT_PRESENT.IDP)
+        }
       }).catch(err => {
         logger.error(err)
         reject(constants.DEFAULT_ERROR);
