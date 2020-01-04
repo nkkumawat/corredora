@@ -36,7 +36,7 @@ module.exports = {
         if(session){
           resolve(session)
         } else {
-          reject(null)
+          reject(constants.NOT_PRESENT.SESSION)
         }
       }).catch(err => {
         logger.error(err);
