@@ -6,6 +6,7 @@ module.exports = {
   HOST_NAME: config['host'],
   SERVER_SUPER_SECRET: config['secret'],
   ADMIN: config['admin'],
+  LOG_DIR: config['log_dir'],
   MISSING_PARAMS: {
     GROUP_ID: "Group ID is not present in params",
     MAPPER_ID: "Mapper ID is not present in params",

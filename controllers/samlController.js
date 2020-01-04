@@ -201,19 +201,19 @@ module.exports = {
             });
           }).catch(err => {
             logger.error(err);
-            return res.json(responseHelper.withFailure(err))
+            return res.render("error", {error: err})
           })
         }).catch(err => {
           logger.error(err);
-          return res.json(responseHelper.withFailure(err))
+          return res.render("error", {error: err})
         })
       }).catch(err => {
         logger.error(err);
-        return res.json(responseHelper.withFailure(err))
+        return res.render("error", {error: err})
       })
     }).catch(err => {
       logger.error(err);
-      return res.json(responseHelper.withFailure(err))
+      return res.render("error", {error: err})
     })
   }
 }

@@ -1,1 +1,2 @@
-module.exports = require('logger').createLogger('./logs/development.log');
+var constants = require('../config/constants');
+module.exports = require('logger').createLogger(`${constants.LOG_DIR}/development.log`);

@@ -1,4 +1,3 @@
-var fs = require('fs');
 const Passport = require("passport").Passport;
 var SamlStrategy = require('passport-saml').Strategy;
 var passport = new Passport();

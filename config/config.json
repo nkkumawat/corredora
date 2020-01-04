@@ -15,7 +15,8 @@
     "admin": {
       "email": "demo@gmail.com",
       "password": "password"
-    }
+    },
+    "log_dir": "./logs"
   },
   "development": {
     "database": {
@@ -33,6 +34,7 @@
     "admin": {
       "email": "demo@gmail.com",
       "password": "password"
-    }
+    },
+    "log_dir": "./logs"
   }
 }
