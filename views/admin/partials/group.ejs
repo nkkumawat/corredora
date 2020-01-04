@@ -1,6 +1,6 @@
 <div class="card ui-app__page-content">
   <div class="card-content">
-    <div class="card-title headline">All Groups</div>
+    <div class="card-title headline">Groups <% if(data.group) {%> <%= data.group.group_name%> <%}%></div>
     <div class="card-body">
       <table>
         <thead>
@@ -8,20 +8,33 @@
             <th>Group Name</th>
             <th>Succuss callback</th>
             <th>Failure callback</th>
-            <th>Login URL</th>
           </tr>
         </thead>
         <tbody>
           <% if(data.group) {%>
             <tr>
-              <td><a href="/admin/dashboard/group/<%=data.group.id%>"><%= data.group.group_name%></a></td>
+              <td><%= data.group.group_name%></td>
               <td style="word-break: break-all;"><%= data.group.succ_callback%></td>
               <td style="word-break: break-all;"><%= data.group.fail_callback%></td>
-              <td style="word-break: break-all;"><%= data.host%>/saml/<%= data.group.group_name%>/login</td>
             </tr>
           <%}%>
         </tbody>
-      </table>
+      </table>  
+    </div>
+  </div>
+</div>
+<div class="card ui-app__page-content">
+  <div class="card-content">
+    <div class="card-title headline">URLs</div>
+    <div class="card-body">
+      <b>Login URL: </b>
+      <code>
+      GET:  <%= data.host%>/saml/<%= data.group.group_name%>/login
+      </code><br>
+      <b>Logout URL: </b>
+      <code>
+        GET:  <%= data.host%>/saml/<%= data.group.group_name%>/logout
+      </code>
     </div>
   </div>
 </div>

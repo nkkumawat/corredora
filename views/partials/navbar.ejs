@@ -2,13 +2,12 @@
   <nav class="ui-app__wrapper__navbar">
     <div class="nav-wrapper">
       <div class="ui-app__wrapper__navbar__leftside--icons">
-        <a href="/admin/dashboard/groups" class="brand-logo ui-app__wrapper__navbar__leftside--icon__item">App Name</a>
- 
+        <a href="/admin/dashboard/groups" class="brand-logo ui-app__wrapper__navbar__leftside--icon__item"><% if(data.app_name){%> <%= data.app_name%><%}%></a>
       </div>
       <div class="ui-app__wrapper__navbar__rightside--icons right">
         <ul>
           <% if(data && data.currentUser){%>
-            <li><a href="/admin/logout">Logout</a></li>
+            <li><a href="/logout">Logout</a></li>
           <%}%>
         </ul>
       </div>

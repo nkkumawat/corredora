@@ -12,7 +12,7 @@ function deleteRequest(url){
       location.reload();
     },
     error: function(err) {
-      location.reload();
+      M.toast({html: 'Error'});
     }
   });
 };

@@ -95,7 +95,7 @@ module.exports = {
     }
   ),
   assertionLogin: (req, res, next) => {
-    // return res.send(req.body)
+    logger.info(req.session.passport.user)
     var nameID = req.session.passport.user.nameID;
     var sessionIndex = req.session.passport.user.sessionIndex;
     // var xml = req.session.passport.user.getSamlResponseXml();
@@ -106,15 +106,16 @@ module.exports = {
     groupService.getGroupByName({group_name: req.params.realmName}).then(group => {
       userController.createUser(group.id, userAttributes).then(user => {
         var data = {
-          user: user
+          user: user,
+          session_id: sessionIndex
         }
-        tokenHelper.getToken(data, constants.TOKEN_LIFE).then(token => {
-          var sessionData = {
-            group_id: user.group_id,
-            user_id: user.id,
-            session_id: sessionIndex
-          }
-          sessionService.createSession(sessionData).then(sess => {
+        var sessionData = {
+          group_id: user.group_id,
+          user_id: user.id,
+          session_id: sessionIndex
+        }
+        sessionService.createSession(sessionData).then(sess => {
+          tokenHelper.getToken(data, constants.TOKEN_LIFE).then(token => {
             var qry = queryString.stringify({token: token});
             logger.info("Calling external URl: " + group.succ_callback + "?" + qry)
             return res.redirect(group.succ_callback + "?" + qry)
@@ -169,9 +170,11 @@ module.exports = {
       createSPMetadata(spData).then(spData => {
         return res.redirect(`/admin/dashboard/group/${params.group_id}/identity-provider/${idpData.id}`)
       }).catch(err => {
+        logger.error(err);
         return res.render("error", {error: err})
       })
     }).catch(err => {
+      logger.error(err);
       return res.render("error", {error: err})
     })
   },
@@ -187,24 +190,29 @@ module.exports = {
           idpDataHelper.init(realmName).then(idpData => {
             var idp = new saml2.IdentityProvider(idpData);
             var options = {
-              name_id: session.user.name_id,
+              name_id: session['user.name_id'],
               session_index: sessionId
             };
+            logger.info(options);
             sp.create_logout_request_url(idp, options, function(err, logout_url) {
               if (err != null)
                 return res.send(500);
               res.redirect(logout_url);
             });
           }).catch(err => {
+            logger.error(err);
             return res.json(responseHelper.withFailure(err))
           })
         }).catch(err => {
+          logger.error(err);
           return res.json(responseHelper.withFailure(err))
         })
       }).catch(err => {
+        logger.error(err);
         return res.json(responseHelper.withFailure(err))
       })
     }).catch(err => {
+      logger.error(err);
       return res.json(responseHelper.withFailure(err))
     })
   }
