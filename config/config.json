@@ -11,7 +11,11 @@
     "secret":  "dummy",
     "certificate-life": 1000,
     "token-life": 900,
-    "password-salt-rounds": 10
+    "password-salt-rounds": 10,
+    "admin": {
+      "email": "demo@gmail.com",
+      "password": "password"
+    }
   },
   "development": {
     "database": {
@@ -25,6 +29,10 @@
     "secret":  "dummy_for_cookie_sign",
     "certificate-life": 1000,
     "token-life": 900,
-    "password-salt-rounds": 10
+    "password-salt-rounds": 10,
+    "admin": {
+      "email": "demo@gmail.com",
+      "password": "password"
+    }
   }
 }

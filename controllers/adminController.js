@@ -55,21 +55,24 @@ module.exports = {
   },
   renderDashboard: (req, res, next) => {
     var data = {
-      page: "dashboard"
+      page: "dashboard",
+      app_name: constants.APP_NAME
     }
     data['currentUser'] = req.currentUser;
     return res.render("admin/dashboard", responseHelper.withSuccess(data));
   },
   renderCreateGroup: (req, res, next) => {
     var data = {
-      page: "createGroup"
+      page: "createGroup",
+      app_name: constants.APP_NAME
     }
     data['currentUser'] = req.currentUser;
     return res.render("admin/dashboard", responseHelper.withSuccess(data));
   },
   renderCreateMapper: (req, res, next) => {
     var data = {
-      page: "createMapper"
+      page: "createMapper",
+      app_name: constants.APP_NAME
     }
     var group_id = req.params.group_id;
     groupService.getGroupById({id: group_id}).then(group => {
@@ -83,12 +86,13 @@ module.exports = {
   renderGroup: (req, res, next) => {
     var group_id = req.params.id;
     var data = {
-      page: "getGroup"
+      page: "getGroup",
+      app_name: constants.APP_NAME
     }
     groupService.getGroupById({id: group_id}).then(group => {
       data['group'] = group;
       data['currentUser'] = req.currentUser;
-      data['host'] = constants.HOST_NAME
+      data['host'] = constants.HOST_NAME;
       return res.render("admin/dashboard", responseHelper.withSuccess(data));
     }).catch(err => {
       logger.error(err);
@@ -124,7 +128,8 @@ module.exports = {
     groupService.getAllGroups().then(groups => {
       var data = {
         page: "allGroups",
-        groups: groups
+        groups: groups,
+        app_name: constants.APP_NAME
       }
       data['currentUser'] = req.currentUser;
       return res.render('admin/dashboard', responseHelper.withSuccess(data));
@@ -135,7 +140,8 @@ module.exports = {
   renderCreateIdentityProvider: (req, res, next) => {
     var data = {
       page: "createIdentityProvider",
-      nameIdPolicies: constants.NAMEID_POLICIES
+      nameIdPolicies: constants.NAMEID_POLICIES,
+      app_name: constants.APP_NAME
     }
     var currentGroupId = req.params.group_id;
     groupService.getAllGroups().then(groups => {
@@ -166,7 +172,8 @@ module.exports = {
         var data = {
           page: "groupMappers",
           group: group,
-          mappers: mappers
+          mappers: mappers,
+          app_name: constants.APP_NAME
         }
         data['currentUser'] = req.currentUser;
         return res.render('admin/dashboard', responseHelper.withSuccess(data));
@@ -188,7 +195,8 @@ module.exports = {
         idpData: allData,
         page: "identityProvider",
         host: constants.HOST_NAME,
-        group: group
+        group: group,
+        app_name: constants.APP_NAME
       };
       logger.info(allData)
       mapperService.getGroupMappers({group_id: group_id}).then(mappers => {
@@ -231,7 +239,8 @@ module.exports = {
     userService.getUsersByGroupId({group_id: group_id}).then(users => {
       var data = {
         page: "showUsers",
-        users: users
+        users: users,
+        app_name: constants.APP_NAME
       }
       console.log(users)
       groupService.getGroupById({id: group_id}).then(group => {
@@ -250,7 +259,8 @@ module.exports = {
     sessionService.getSessionByGroup({group_id: group_id}).then(sessions => {
       var data = {
         page: "showSessions",
-        sessions: sessions
+        sessions: sessions,
+        app_name: constants.APP_NAME
       }
       console.log(sessions)
       groupService.getGroupById({id: group_id}).then(group => {

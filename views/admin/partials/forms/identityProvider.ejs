@@ -9,21 +9,21 @@
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">directions</i>
-            <input id="sso_login_url" name="sso_login_url" type="text" class="validate">
+            <input id="sso_login_url" name="sso_login_url" type="text" required class="validate">
             <label for="sso_login_url">SSO Login URL</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">directions</i>
-            <input  id="sso_logout_url" name="sso_logout_url" type="text" class="validate">
+            <input  id="sso_logout_url" name="sso_logout_url" type="text" required class="validate">
             <label for="sso_logout_url">SSO Logout URL</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
             <i class="material-icons prefix">playlist_add_check</i>
-            <select name="nameid_policies" form="saveIDP">
+            <select name="nameid_policies" form="saveIDP" required>
               <option value="" disabled selected>Choose your option</option>
               <% Object.keys(data.nameIdPolicies).forEach( nameIdpolicy => {%>
                 <option value="<%=data.nameIdPolicies[nameIdpolicy]%>"><%= nameIdpolicy%></option>
@@ -52,7 +52,7 @@
             <div class="row">
               <div class="input-field col s12">
                 <i class="material-icons prefix">playlist_add_check</i>
-                <textarea form="saveIDP" id="textarea" name="certificates" class="materialize-textarea"></textarea>
+                <textarea form="saveIDP" id="textarea" name="certificates" required class="materialize-textarea"></textarea>
                 <label for="textarea">Certificate</label>
               </div>
             </div>
