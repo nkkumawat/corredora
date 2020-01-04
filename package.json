@@ -19,7 +19,7 @@
     "logger": "0.0.1",
     "morgan": "~1.9.1",
     "mysql2": "^2.0.2",
-    "node-cli-tool": "^1.0.1",
+    "node-cli-tool": "^1.0.2",
     "nodemon": "^2.0.2",
     "passport": "^0.4.1",
     "passport-http": "^0.3.0",
