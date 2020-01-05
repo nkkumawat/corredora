@@ -1,0 +1,89 @@
+## SAML SSO folder structure  <hr>
+ * bin
+   * www  
+* config
+  * config.json
+  * constants.js
+* controllers
+  * adminController.js
+  * apiController.js
+  * passportController.js
+  * samlController.js
+  * userController.js
+* docs
+  * images
+  * api.md
+  * demo.md
+  * flow.md
+  * folder.md
+* helpers
+  * certificateHelper.js
+  * idpDataHelper.js
+  * responseHelper.js
+  * samlDataHelper.js
+  * spDataHelper.js
+  * tokenHelper.js
+* logs
+  * access.log
+  * development.log
+* middlewares
+  * index.js
+* models
+  * adminUser.js
+  * group.js
+  * idpData.js
+  * index.js
+  * mapper.js
+  * session.js
+  * spData.js
+  * user.js
+* public
+  * assets
+  * css
+  * images
+  * js
+* routes
+  * admin.js
+  * api.js
+  * index.js
+  * saml.js
+* services
+  * admin
+    * adminUserService.js
+  * groupService.js
+  * idpDataService.js
+  * mapperService.js
+  * sessionService.js
+  * spDataService.js
+  * userService.js
+  * validationService.js
+* utils
+  * logger.js
+  * passport.js
+* views
+  * admin
+    * partials
+      * forms
+        * group.ejs
+        * identityProvider.ejs
+        * mapper.ejs
+      * group.ejs
+      * groups.ejs
+      * identityProvider.ejs
+      * identityProviders.ejs
+      * mappers.ejs
+      * sessions.ejs
+      * sidebar.ejs
+      * users.ejs
+    * dashboard.html
+    * login.html
+  * partials
+    * footer.ejs
+    * head.ejs
+    * navbar.ejs
+    * scripts.ejs
+  * error.html
+  * home.html
+* app.js
+* package.json
+* README.md
