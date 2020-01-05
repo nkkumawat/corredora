@@ -4,23 +4,28 @@ git clone https://github.com/nkkumawat/Saml-SSO
 cd Saml-SSO
 npm i
 ```
-
-change database credentials in config/config.json
-```
+#### Configure the app
+Change database credentials in config/config.json
+```json
 "database": {
   "username": "root", 
-  "password": "Root@1234",
-  "database": "samlApp",
+  "password": "root",
+  "database": "samlapp",
   "host": "localhost",
-  "dialect": "mysql"
-},
-"host": "http://localhost",
-"secret":  "dummy",
-"certificate-life": 1000,
-"token-life": 900,
-"password-salt-rounds": 10
+  "dialect": "mysql" //(mysql/mssql/postgres)
+}
 ```
-#### start the app
+
+<code>host</code> host name where app is running
+<code>port</code> port number where app is running
+<code>secret</code> host secret to sign jwt token
+<code>certificate-life</code> SP cerificate validity time (in days)
+<code>token-life</code> token life in seconds
+<code>admin</code> admin credentials
+<code>log-dir</code> log file directory (development.log)
+
+
+#### To start the app
 ```bash
 pm2 start
 ```

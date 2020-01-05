@@ -7,6 +7,7 @@
       "host": "localhost",
       "dialect": "mysql"
     },
+    "port": 3000,
     "host": "http://localhost:3000",
     "secret":  "dummy",
     "certificate-life": 1000,
@@ -16,7 +17,7 @@
       "email": "demo@gmail.com",
       "password": "password"
     },
-    "log_dir": "./logs"
+    "log-dir": "./logs"
   },
   "development": {
     "database": {
@@ -26,6 +27,7 @@
       "host": "localhost",
       "dialect": "mysql"
     },
+    "port": 3000,
     "host": "http://localhost:3000",
     "secret":  "dummy_for_cookie_sign",
     "certificate-life": 1000,
@@ -35,6 +37,6 @@
       "email": "demo@gmail.com",
       "password": "password"
     },
-    "log_dir": "./logs"
+    "log-dir": "./logs"
   }
 }
