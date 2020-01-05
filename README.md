@@ -16,13 +16,13 @@ Change database credentials in config/config.json
 }
 ```
 
-<code>host</code> host name where app is running
-<code>port</code> port number where app is running
-<code>secret</code> host secret to sign jwt token
-<code>certificate-life</code> SP cerificate validity time (in days)
-<code>token-life</code> token life in seconds
-<code>admin</code> admin credentials
-<code>log-dir</code> log file directory (development.log)
+<code>host</code> host name where app is running<br>
+<code>port</code> port number where app is running<br>
+<code>secret</code> host secret to sign jwt token<br>
+<code>certificate-life</code> SP cerificate validity time (in days)<br>
+<code>token-life</code> token life in seconds<br>
+<code>admin</code> admin credentials<br>
+<code>log-dir</code> log file directory (development.log)<br>
 
 
 #### To start the app
