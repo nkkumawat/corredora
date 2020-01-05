@@ -28,6 +28,7 @@ module.exports = {
         res.cookie(constants.APP_NAME, token, { maxAge: maxAge, httpOnly: true });
         return res.redirect("/admin/dashboard/groups");
       }).catch((err) => {
+        logger.error(err);
         return res.render('error', {error: err});
       })
     }).catch(err => {
