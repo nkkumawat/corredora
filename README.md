@@ -6,7 +6,7 @@ npm i
 ```
 #### Configure the app
 Change database credentials in config/config.json
-```json
+```js
 "database": {
   "username": "root", 
   "password": "root",
