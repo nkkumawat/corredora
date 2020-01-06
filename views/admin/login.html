@@ -8,28 +8,31 @@
       <div class="row">
         <div class="col s3"></div>
         <div class="col s6">
-          <div class="card" style="padding: 50px;">
-            <div class="row">
-              <form class="col s12" method="POST" action="/admin/login">
-                <div class="row">
-                  <div class="input-field col s12">
-                    <input id="email" type="email" name="email" class="validate">
-                    <label for="email">Email</label>
+          <div class="card ui-app__page-content">
+            <div class="card-content">
+              <div class="card-title title">Login into Admin Panel</div>
+              <div class="card-body">
+                <form method="POST" action="/admin/login">
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">email</i>
+                      <input placeholder="something@simething.com" id="email2" name="email" type="email">
+                      <label for="email2" class="active">Email</label>
+                    </div>
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">lock_outline</i>
+                      <input placeholder="Your Password" name="password" id="password2" type="password">
+                      <label for="password2" class="active">Password</label>
+                    </div>
+                    <div class="input-field col s12">
+                      <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+                        <i class="material-icons right">send</i>
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s12">
-                    <input id="password" type="password" name="password" class="validate">
-                    <label for="password">Password</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s12">
-                    <input id="submit" type="submit" class="validate btn waves-effect waves-light">
-                  </div>
-                </div>
-              </form>
-            </div>
+                </form>
+              </div>
+           </div>
           </div>
         </div>
         <div class="col s3"></div>

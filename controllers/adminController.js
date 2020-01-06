@@ -14,8 +14,8 @@ module.exports = {
     return res.render('admin/login');
   },
   logout: (req, res, next) => {
-    res.clearCookie('bs_hack');
-    return res.redirect('/');
+    res.clearCookie(constants.APP_NAME);
+    return res.redirect('/admin/login');
   },
   renderSignUp: (req, res, next) => {
     return res.render('admin/signup');
@@ -26,8 +26,9 @@ module.exports = {
       tokenHelper.getToken({user: user}).then((token) => {
         var maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
         res.cookie(constants.APP_NAME, token, { maxAge: maxAge, httpOnly: true });
-        return res.redirect("/");
+        return res.redirect("/admin/dashboard/groups");
       }).catch((err) => {
+        logger.error(err);
         return res.render('error', {error: err});
       })
     }).catch(err => {
@@ -55,21 +56,24 @@ module.exports = {
   },
   renderDashboard: (req, res, next) => {
     var data = {
-      page: "dashboard"
+      page: "dashboard",
+      app_name: constants.APP_NAME
     }
     data['currentUser'] = req.currentUser;
     return res.render("admin/dashboard", responseHelper.withSuccess(data));
   },
   renderCreateGroup: (req, res, next) => {
     var data = {
-      page: "createGroup"
+      page: "createGroup",
+      app_name: constants.APP_NAME
     }
     data['currentUser'] = req.currentUser;
     return res.render("admin/dashboard", responseHelper.withSuccess(data));
   },
   renderCreateMapper: (req, res, next) => {
     var data = {
-      page: "createMapper"
+      page: "createMapper",
+      app_name: constants.APP_NAME
     }
     var group_id = req.params.group_id;
     groupService.getGroupById({id: group_id}).then(group => {
@@ -83,11 +87,13 @@ module.exports = {
   renderGroup: (req, res, next) => {
     var group_id = req.params.id;
     var data = {
-      page: "getGroup"
+      page: "getGroup",
+      app_name: constants.APP_NAME
     }
     groupService.getGroupById({id: group_id}).then(group => {
       data['group'] = group;
       data['currentUser'] = req.currentUser;
+      data['host'] = constants.HOST_NAME;
       return res.render("admin/dashboard", responseHelper.withSuccess(data));
     }).catch(err => {
       logger.error(err);
@@ -123,7 +129,8 @@ module.exports = {
     groupService.getAllGroups().then(groups => {
       var data = {
         page: "allGroups",
-        groups: groups
+        groups: groups,
+        app_name: constants.APP_NAME
       }
       data['currentUser'] = req.currentUser;
       return res.render('admin/dashboard', responseHelper.withSuccess(data));
@@ -134,7 +141,8 @@ module.exports = {
   renderCreateIdentityProvider: (req, res, next) => {
     var data = {
       page: "createIdentityProvider",
-      nameIdPolicies: constants.NAMEID_POLICIES
+      nameIdPolicies: constants.NAMEID_POLICIES,
+      app_name: constants.APP_NAME
     }
     var currentGroupId = req.params.group_id;
     groupService.getAllGroups().then(groups => {
@@ -165,7 +173,8 @@ module.exports = {
         var data = {
           page: "groupMappers",
           group: group,
-          mappers: mappers
+          mappers: mappers,
+          app_name: constants.APP_NAME
         }
         data['currentUser'] = req.currentUser;
         return res.render('admin/dashboard', responseHelper.withSuccess(data));
@@ -181,11 +190,14 @@ module.exports = {
       if(!allData){
         return res.render("error", {error: "No IDP Present"});
       }
+      var group = allData.group
+      group['idp_data.id'] = allData.id
       var data = {
         idpData: allData,
         page: "identityProvider",
         host: constants.HOST_NAME,
-        group: {id: allData['group.id'], group_name: allData['group.group_name'], 'idp_data.id': allData.id}
+        group: group,
+        app_name: constants.APP_NAME
       };
       logger.info(allData)
       mapperService.getGroupMappers({group_id: group_id}).then(mappers => {
@@ -228,7 +240,8 @@ module.exports = {
     userService.getUsersByGroupId({group_id: group_id}).then(users => {
       var data = {
         page: "showUsers",
-        users: users
+        users: users,
+        app_name: constants.APP_NAME
       }
       console.log(users)
       groupService.getGroupById({id: group_id}).then(group => {
@@ -247,7 +260,8 @@ module.exports = {
     sessionService.getSessionByGroup({group_id: group_id}).then(sessions => {
       var data = {
         page: "showSessions",
-        sessions: sessions
+        sessions: sessions,
+        app_name: constants.APP_NAME
       }
       console.log(sessions)
       groupService.getGroupById({id: group_id}).then(group => {

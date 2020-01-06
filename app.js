@@ -1,17 +1,18 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var fs = require('fs')
+var fs = require('fs');
 const bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 var passport = require('./utils/passport').passport;
-
 var samlRouter = require('./routes/saml');
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 var apiRouter = require('./routes/api');
 var logger = require("./utils/logger");
+var constants = require('./config/constants');
+const cli = require('node-cli-tool');
 
 var app = express();
 
@@ -20,9 +21,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
-
 app.use(morgan('combined', {
-  stream: fs.createWriteStream(path.join(__dirname, '/logs/access.log'), { flags: 'a' })
+  stream: fs.createWriteStream(path.join(__dirname, `${constants.LOG_DIR}/access.log`), { flags: 'a' })
 }))
 
 app.use(cookieParser());
@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({
 app.use(passport.initialize())
 
 app.use(function(req, res, next) {
-  logger.info(req.method + " : " + req.originalUrl + "    Params: " + JSON.stringify(req.query))
+  logger.info(cli.fgGreen(req.method) + " : " + cli.fgYellow(req.originalUrl) + "    Params: " + cli.fgBlue(JSON.stringify(req.query)));
   if (req.method == 'POST') {
       console.log('\x1b[36m%s\x1b[0m', 'Request URL:', req.originalUrl);
       console.log(req.body);
@@ -61,6 +61,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
 
 module.exports = app;

@@ -1,86 +1,91 @@
-<div class="row">
-  <div class="col s2"></div>
-  <div class="col s8">
-    <ul id="tabs-swipe-demo" class="tabs">
-      <li class="tab col s3"><a class="active" href="#test-swipe-1">Identity Provider</a></li>
-      <li class="tab col s3"><a  href="#test-swipe-2">SP data</a></li>
-      <li class="tab col s3"><a href="#test-swipe-3">Mappers</a></li>
-    </ul>
-    <div id="test-swipe-1" class="col s12">
-      <% if(data.idpData) {%>
-        <table>
-          <tbody>
-            <tr>
-              <td>Signin URL</td>
-              <td><%=data.idpData.sso_login_url%></td>
-            </tr>
-            <tr>
-              <td>Signout URL</td>
-              <td><%=data.idpData.sso_logout_url%></td>
-            </tr>
-            <tr>
-              <td>Certificate </td>
-              <td><%=data.idpData.certificates%></td>
-            </tr>
-          </tbody>
-        </table>
-      <%}%>
-    </div>
-    <div id="test-swipe-2" class="col s12 ">
-      <% if(data.idpData) {%>
-        <table>
-          <tbody>
-            <tr>
-              <td>Entity Id</td>
-              <td><%=data.idpData['sp_datum.entity_id']%></td>
-            </tr>
-            <tr>
-              <td>ACS URL</td>
-              <td><%=data.idpData['sp_datum.assert_endpoint']%></td>
-            </tr>
-            <tr>
-              <td>Name Id Format </td>
-              <td><%=data.idpData['sp_datum.nameid_format']%></td>
-            </tr>
-            <tr>
-              <td>Metadata URL</td>
-              <td> <a target="_blank" href="<%= data.host + '/saml/' + data.idpData['group.group_name'] + '/metadata.xml'%>"><%= data.host + '/saml/' + data.idpData['group.group_name'] + '/metadata.xml'%></a>
-              </td>
-            </tr>
-            <tr style="max-height: 100px;">
-              <td>Private Key </td>
-              <td ><%=data.idpData['sp_datum.private_key']%></td>
-            </tr>
-            <tr>
-              <td>Certificate </td>
-              <td><%=data.idpData['sp_datum.certificate']%></td>
-            </tr>
-          </tbody>
-        </table>
-      <%}%>
-    </div>
-    <div id="test-swipe-3" class="col s12 ">
-      <% //include ./mappers%>
-      <table>
-        <thead>
-          <th>SAML Attribute</th>
-          <th>User Attribute</th>
-          <th>Action</th>
-        </thead>
-        <tbody>
-          <% if(data.mappers) {%>
-            <% data.mappers.forEach(mapper => {%>
-              <tr>
-                <td><%= mapper.saml_attribute%></td>
-                <td><%= mapper.user_attribute%></td>
-                <td>
-                  <button type="submit" onclick="deleteRequest('/admin/dashboard/group/<%= data.group.id%>/mapper/<%=mapper.id%>')">Delete</button>
-                </td>
-              </tr>
-            <%})%>
-          <%}%>
-        </tbody>
-      </table>
+<div class="card ui-app__page-content">
+  <div class="card-content">
+    <div class="card-body">
+        <div class="row">
+          <div class="col s2"></div>
+          <div class="col s8">
+            <ul id="tabs-swipe-demo" class="tabs">
+              <li class="tab col s3"><a class="active" href="#test-swipe-1">Identity Provider</a></li>
+              <li class="tab col s3"><a  href="#test-swipe-2">SP data</a></li>
+              <li class="tab col s3"><a href="#test-swipe-3">Mappers</a></li>
+            </ul>
+            <div id="test-swipe-1" class="col s12">
+              <% if(data.idpData) {%>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Signin URL</td>
+                      <td><%=data.idpData.sso_login_url%></td>
+                    </tr>
+                    <tr>
+                      <td>Signout URL</td>
+                      <td><%=data.idpData.sso_logout_url%></td>
+                    </tr>
+                    <tr>
+                      <td>Certificate </td>
+                      <td><%=data.idpData.certificates%></td>
+                    </tr>
+                  </tbody>
+                </table>
+              <%}%>
+            </div>
+            <div id="test-swipe-2" class="col s12 ">
+              <% if(data.idpData) {%>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Entity Id</td>
+                      <td><%=data.idpData.sp_datum.entity_id%></td>
+                    </tr>
+                    <tr>
+                      <td>ACS URL</td>
+                      <td><%=data.idpData.sp_datum.assert_endpoint%></td>
+                    </tr>
+                    <tr>
+                      <td>Name Id Format </td>
+                      <td><%=data.idpData.sp_datum.nameid_format%></td>
+                    </tr>
+                    <tr>
+                      <td>Metadata URL</td>
+                      <td> <a target="_blank" href="<%= data.host + '/saml/' + data.idpData.group.group_name + '/metadata.xml'%>"><%= data.host + '/saml/' + data.idpData.group.group_name + '/metadata.xml'%></a>
+                      </td>
+                    </tr>
+                    <tr style="max-height: 100px;">
+                      <td>Private Key </td>
+                      <td ><%=data.idpData.sp_datum.private_key%></td>
+                    </tr>
+                    <tr>
+                      <td>Certificate </td>
+                      <td><%=data.idpData.sp_datum.certificate%></td>
+                    </tr>
+                  </tbody>
+                </table>
+              <%}%>
+            </div>
+            <div id="test-swipe-3" class="col s12 ">
+              <table>
+                <thead>
+                  <th>SAML Attribute</th>
+                  <th>User Attribute</th>
+                  <th>Action</th>
+                </thead>
+                <tbody>
+                  <% if(data.mappers) {%>
+                    <% data.mappers.forEach(mapper => {%>
+                      <tr>
+                        <td><%= mapper.saml_attribute%></td>
+                        <td><%= mapper.user_attribute%></td>
+                        <td>
+                          <button type="submit" class="validate waves-effect waves-light btn " onclick="deleteRequest('/admin/dashboard/group/<%= data.group.id%>/mapper/<%=mapper.id%>')">Delete</button>
+                        </td>
+                      </tr>
+                    <%})%>
+                  <%}%>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>

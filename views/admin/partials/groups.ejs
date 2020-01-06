@@ -1,27 +1,31 @@
-<div class="row">
-  <div class="col s2"></div>
-  <div class="col s8">
-    <table>
-      <thead>
-        <th>Group Name</th>
-        <th>Succuss callback</th>
-        <th>Failure callback</th>
-        <th>Action</th>
-      </thead>
-      <tbody>
-        <% if(data.groups) {%>
-          <% data.groups.forEach(group => {%>
-            <tr>
-              <td><a href="/admin/dashboard/group/<%=group.id%>"><%= group.group_name%></a></td>
-              <td style="word-break: break-all;"><%= group.succ_callback%></td>
-              <td style="word-break: break-all;"><%= group.fail_callback%></td>
-              <td>
-                <button type="submit" onclick="deleteRequest('/admin/dashboard/group/<%=group.id%>');">Delete</button>
-              </td>
-            </tr>
-          <%})%>
-        <%}%>
-      </tbody>
-    </table>
+<div class="card ui-app__page-content">
+  <div class="card-content">
+    <div class="card-title headline">All Groups</div>
+    <div class="card-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Group Name</th>
+            <th>Succuss callback</th>
+            <th>Failure callback</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if(data.groups) {%>
+            <% data.groups.forEach(group => {%>
+              <tr>
+                <td><a href="/admin/dashboard/group/<%=group.id%>"><%= group.group_name%></a></td>
+                <td style="word-break: break-all;"><%= group.succ_callback%></td>
+                <td style="word-break: break-all;"><%= group.fail_callback%></td>
+                <td>
+                  <button type="submit" class="btn waves-effect waves-light " onclick="deleteRequest('/admin/dashboard/group/<%=group.id%>');">Delete</button>
+                </td>
+              </tr>
+            <%})%>
+          <%}%>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

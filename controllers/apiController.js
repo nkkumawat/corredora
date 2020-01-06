@@ -4,6 +4,7 @@ var tokenHelper = require('../helpers/tokenHelper');
 var idpDataService = require('../services/IdpDataService');
 var groupService = require('../services/groupService');
 var mapperService = require('../services/mapperService');
+var userService = require('../services/userService');
 var samlController = require('../controllers/samlController');
 var logger = require('../utils/logger');
 var uuidv4 = require('uuid/v4');
@@ -130,6 +131,17 @@ module.exports = {
     }
     mapperService.getGroupMappers(params).then(mappers => {
       return res.json(responseHelper.withSuccess({mappers: mappers}))
+    }).catch(err => {
+      return res.json(responseHelper.withFailure({error: err}));
+    })
+  },
+  getGroupUsers: (req, res, next) => {
+    var params = req.params;
+    if(!params.group_id){
+      return res.json(responseHelper.withFailure({message: constants.MISSING_PARAMS.GROUP_ID}))
+    }
+    userService.getUsersByGroupId(params).then(users => {
+      return res.json(responseHelper.withSuccess({users: users}))
     }).catch(err => {
       return res.json(responseHelper.withFailure({error: err}));
     })

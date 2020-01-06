@@ -5,6 +5,9 @@ module.exports = {
   APP_NAME: "myapp",
   HOST_NAME: config['host'],
   SERVER_SUPER_SECRET: config['secret'],
+  ADMIN: config['admin'],
+  PORT: config['port'],
+  LOG_DIR: config['log-dir'],
   MISSING_PARAMS: {
     GROUP_ID: "Group ID is not present in params",
     MAPPER_ID: "Mapper ID is not present in params",
@@ -24,6 +27,9 @@ module.exports = {
     SESSION: "Session is not present",
     MAPPER: "Mapper is not present",
     IDP: "Identity provider is not present"
+  },
+  PRESENT: {
+    USER: "User already present"
   },
   CERTIFICATE_LIFE: config['certificate-life'],
   NAMEID_POLICIES: {

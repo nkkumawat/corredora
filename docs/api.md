@@ -247,6 +247,35 @@ GET /api/group/<group_id>/mappers
 }
 ```
 
+## Get groups users data
+
+### request
+```
+GET /api/group/<group_id>/users
+```
+
+### response
+```json
+{
+    "status": true,
+    "data": {
+        "users": [
+            {
+                "id": 1,
+                "group_id": 2,
+                "name_id": null,
+                "email": null,
+                "username": null,
+                "attributes": null,
+                "saml_attributes": null,
+                "createdAt": "2019-10-10T00:00:00.000Z",
+                "updatedAt": "2019-10-10T00:00:00.000Z",
+                "sessions": []
+            }
+        ]
+    }
+}
+```
 ## Delete a group
 
 ### request

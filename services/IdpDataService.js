@@ -107,7 +107,7 @@ module.exports = {
       if(params.group_id == null || params.group_id == 'undefined') {
         reject(constants.MISSING_PARAMS.GROUP_ID);
       }
-      models.idp_data.findAll({
+      models.idp_data.findOne({
         include: [{
           model: models.sp_data
         }, {

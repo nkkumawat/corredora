@@ -23,7 +23,7 @@ module.exports = {
             })
           });
         } else {
-          reject("usr already exist");
+          resolve(constants.PRESENT.USER);
         }
       }).catch(err => {
         reject(err);
@@ -47,7 +47,7 @@ module.exports = {
             }
           });
         } else {
-          reject("No user exist")
+          reject(constants.NOT_PRESENT.USER)
         }
       }).catch(err => {
         reject(err);
@@ -65,7 +65,7 @@ module.exports = {
         if(usr){
           resolve(usr); 
         } else {
-          reject("No user exist")
+          reject(constants.NOT_PRESENT.USER)
         }
       }).catch(err => {
         reject(err);

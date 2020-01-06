@@ -7,11 +7,17 @@
       "host": "localhost",
       "dialect": "mysql"
     },
+    "port": 3000,
     "host": "http://localhost:3000",
     "secret":  "dummy",
     "certificate-life": 1000,
     "token-life": 900,
-    "password-salt-rounds": 10
+    "password-salt-rounds": 10,
+    "admin": {
+      "email": "demo@gmail.com",
+      "password": "password"
+    },
+    "log-dir": "./logs"
   },
   "development": {
     "database": {
@@ -21,10 +27,16 @@
       "host": "localhost",
       "dialect": "mysql"
     },
+    "port": 3000,
     "host": "http://localhost:3000",
     "secret":  "dummy_for_cookie_sign",
     "certificate-life": 1000,
     "token-life": 900,
-    "password-salt-rounds": 10
+    "password-salt-rounds": 10,
+    "admin": {
+      "email": "demo@gmail.com",
+      "password": "password"
+    },
+    "log-dir": "./logs"
   }
 }

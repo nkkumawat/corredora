@@ -1,61 +1,73 @@
-<br><br>
-<div class="row">
-  <div class="col s3"></div>
-  <form id="saveIDP" class="col s6" method="POST" action="/admin/dashboard/group/<%= data.group.id%>/identity-provider">
-    <h4>Create Identity Provider</h4>
+<div class="card ui-app__page-content">
+  <div class="card-content">
+    <div class="card-title headline">Create Identity Provider</div>
+    <div class="card-body">
     <div class="row">
-      <div class="input-field col s12">
-        <input id="sso_login_url" name="sso_login_url" type="text" class="validate">
-        <label for="sso_login_url">SSO Login URL</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <input  id="sso_logout_url" name="sso_logout_url" type="text" class="validate">
-        <label for="sso_logout_url">SSO Logout URL</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s6">
-        <select name="nameid_policies" form="saveIDP">
-          <option value="" disabled selected>Choose your option</option>
-          <% Object.keys(data.nameIdPolicies).forEach( nameIdpolicy => {%>
-            <option value="<%=data.nameIdPolicies[nameIdpolicy]%>"><%= nameIdpolicy%></option>
-          <%})%>
-        </select>
-        <label>Name Id Policies</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col s12">
-        <label>Force Authentication</label>
-        <div class="switch">
-          <label>
-            Off
-            <input type="checkbox" name="force_authn">
-            <span class="lever"></span>
-            On
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col s12">
+      <div class="col s3"></div>
+      <form id="saveIDP" class="col s6" method="POST" action="/admin/dashboard/group/<%= data.group.id%>/identity-provider">
+        <!-- <h4>Create Identity Provider</h4> -->
         <div class="row">
           <div class="input-field col s12">
-            <textarea form="saveIDP" id="textarea" name="certificates" class="materialize-textarea"></textarea>
-            <label for="textarea">Certificate</label>
+            <i class="material-icons prefix">directions</i>
+            <input id="sso_login_url" name="sso_login_url" type="text" required class="validate">
+            <label for="sso_login_url">SSO Login URL</label>
           </div>
         </div>
-      </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">directions</i>
+            <input  id="sso_logout_url" name="sso_logout_url" type="text" required class="validate">
+            <label for="sso_logout_url">SSO Logout URL</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">playlist_add_check</i>
+            <select name="nameid_policies" form="saveIDP" required>
+              <option value="" disabled selected>Choose your option</option>
+              <% Object.keys(data.nameIdPolicies).forEach( nameIdpolicy => {%>
+                <option value="<%=data.nameIdPolicies[nameIdpolicy]%>"><%= nameIdpolicy%></option>
+              <%})%>
+            </select>
+            <label>Name Id Policies</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <i class="material-icons prefix">subject</i>
+            <label>Force Authentication</label>
+            <div class="switch">
+              <label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Off
+                <input type="checkbox" name="force_authn">
+                <span class="lever"></span>
+                On
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">playlist_add_check</i>
+                <textarea form="saveIDP" id="textarea" name="certificates" required class="materialize-textarea"></textarea>
+                <label for="textarea">Certificate</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input  type="text" hidden name="group_id" value="<%= data.group.id%>">
+            <input  type="text" hidden name="group_name" value="<%= data.group.group_name%>">
+            <button  type="submit"  class="validate waves-effect waves-light btn right"> Save</button>
+          </div>
+        </div>
+      </form>
     </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <input  type="text" hidden name="group_id" value="<%= data.group.id%>">
-        <input  type="text" hidden name="group_name" value="<%= data.group.group_name%>">
-        <input  type="submit" value="Save" class="validate waves-effect waves-light btn">
-      </div>
     </div>
-  </form>
+  </div>
 </div>
-      
+          
