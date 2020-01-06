@@ -1,4 +1,4 @@
-## SAML SSO folder structure  <hr>
+### Corredora folder structure  <hr>
  * bin
    * www  
 * config
