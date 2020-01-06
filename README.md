@@ -1,8 +1,16 @@
+## Corredora 
+* SAML based communication between Service Provider and Identity Provider.
+* SP Initiated and IDP Initiated SSO with the same configuration.
+* Give Full control to Service provider to manage configurations.
+* REST APIs to Automate the configuration.
+* Choice in database (mysql/postgres/mssql) to configure the app.
+* Easy to configure.
+
 ### How to install
 ```bash
-git clone https://github.com/nkkumawat/Saml-SSO
-cd Saml-SSO
-npm i
+$ git clone https://github.com/nkkumawat/corredora
+$ cd corredora
+$ npm install
 ```
 #### Configure the app
 Change database credentials in config/config.json
@@ -31,7 +39,8 @@ Change database credentials in config/config.json
 pm2 start
 ```
 ### Documentation
-Click on the [link](./docs) for documentaion.
+Click [here](./docs) for documentaion.
+Click [Narendra Kumawat – Medium](https://medium.com/@narendra11510145) for blogs.
 
 ### Contribute
 Thank you for your interest in contributing to this open source project!
