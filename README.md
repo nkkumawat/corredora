@@ -39,7 +39,7 @@ Change database credentials in config/config.json
 pm2 start --env production
 ```
 ### Documentation
-Click [here](./docs) for documentaion.
+Click [here](./docs) for documentaion.<br>
 Click [Narendra Kumawat – Medium](https://medium.com/@narendra11510145) for blogs.
 
 ### Contribute
