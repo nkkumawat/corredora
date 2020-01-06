@@ -36,7 +36,7 @@ Change database credentials in config/config.json
 ### 
 #### To start the app
 ```bash
-pm2 start
+pm2 start --env production
 ```
 ### Documentation
 Click [here](./docs) for documentaion.

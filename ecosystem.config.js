@@ -1,12 +1,16 @@
+var constants = require('./config/constants');
 module.exports = {
   apps : [{
-    name: "SAML-SSO-APP",
-    script: "./bin/www",
+    name: constants.APP_NAME,
+    script: './bin/www',
+    autorestart: true,
+    watch: false,
+    max_memory_restart: '1G',
     env: {
-      NODE_ENV: "development",
+      NODE_ENV: 'development'
     },
     env_production: {
-      NODE_ENV: "production",
+      NODE_ENV: 'production'
     }
   }]
-}
+};
