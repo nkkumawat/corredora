@@ -1,6 +1,6 @@
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const env = process.env.NODE_ENV || 'development';
-var constants = require('../config/constants')
+const constants = require('../config/constants')
 
 module.exports = {
 	getToken: function(data, exp = null) {

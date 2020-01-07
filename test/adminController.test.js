@@ -1,8 +1,8 @@
-var req = require('chai');
-var chaiHttp = require('chai-http');
-var should = req.should();
-var app = require('../app.js');
-var constants = require('../config/constants');
+const req = require('chai');
+const chaiHttp = require('chai-http');
+const should = req.should();
+const app = require('../app.js');
+const constants = require('../config/constants');
 req.use(chaiHttp);
 
 

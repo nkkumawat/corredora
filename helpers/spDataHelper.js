@@ -1,6 +1,6 @@
-var spDataService = require('../services/spDataService');
-var groupService = require('../services/groupService');
-var fs = require('fs');
+const spDataService = require('../services/spDataService');
+const groupService = require('../services/groupService');
+const fs = require('fs');
 module.exports = {
    init: (realmName) => {
      return new Promise((resolve , reject) => {

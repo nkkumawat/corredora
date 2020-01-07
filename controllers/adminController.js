@@ -1,13 +1,13 @@
-var adminUserService = require('../services/admin/adminUserService');
-var groupService = require('../services/groupService');
-var mapperService = require('../services/mapperService');
-var tokenHelper = require('../helpers/tokenHelper');
-var constants = require("../config/constants");
-var responseHelper = require("../helpers/responseHelper");
-var idpdataService = require("../services/IdpDataService");
-var userService = require('../services/userService');
-var sessionService = require('../services/sessionService');
-var logger = require('../utils/logger');
+const adminUserService = require('../services/admin/adminUserService');
+const groupService = require('../services/groupService');
+const mapperService = require('../services/mapperService');
+const tokenHelper = require('../helpers/tokenHelper');
+const constants = require("../config/constants");
+const responseHelper = require("../helpers/responseHelper");
+const idpdataService = require("../services/IdpDataService");
+const userService = require('../services/userService');
+const sessionService = require('../services/sessionService');
+const logger = require('../utils/logger');
 
 module.exports = {
   renderLogin: (req, res, next) => {

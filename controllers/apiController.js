@@ -1,13 +1,13 @@
-var constants = require('../config/constants');
-var responseHelper = require('../helpers/responseHelper');
-var tokenHelper = require('../helpers/tokenHelper');
-var idpDataService = require('../services/IdpDataService');
-var groupService = require('../services/groupService');
-var mapperService = require('../services/mapperService');
-var userService = require('../services/userService');
-var samlController = require('../controllers/samlController');
-var logger = require('../utils/logger');
-var uuidv4 = require('uuid/v4');
+const constants = require('../config/constants');
+const responseHelper = require('../helpers/responseHelper');
+const tokenHelper = require('../helpers/tokenHelper');
+const idpDataService = require('../services/IdpDataService');
+const groupService = require('../services/groupService');
+const mapperService = require('../services/mapperService');
+const userService = require('../services/userService');
+const samlController = require('../controllers/samlController');
+const logger = require('../utils/logger');
+const uuidv4 = require('uuid/v4');
 
 
 module.exports = {

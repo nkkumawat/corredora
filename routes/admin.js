@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var adminController = require('../controllers/adminController');
-var samlController = require('../controllers/samlController');
-var middleware = require('../middlewares/index');
+const express = require('express');
+const router = express.Router();
+const adminController = require('../controllers/adminController');
+const samlController = require('../controllers/samlController');
+const middleware = require('../middlewares/index');
 
 router.use(middleware.varifyRequest);
 

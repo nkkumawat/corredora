@@ -1,5 +1,5 @@
 const Passport = require("passport").Passport;
-var SamlStrategy = require('passport-saml').Strategy;
+const SamlStrategy = require('passport-saml').Strategy;
 var passport = new Passport();
 
 passport.serializeUser(function(user, done) {

@@ -1,6 +1,6 @@
-var constants = require("../config/constants");
+const constants = require("../config/constants");
 const models = require('../models');
-var logger = require('../utils/logger');
+const logger = require('../utils/logger');
 
 module.exports = {
   getIdpData: (params) => {
