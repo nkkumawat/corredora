@@ -10,8 +10,8 @@ router.use(middleware.varifyRequest);
 
 router.get('/login', adminController.renderLogin);
 router.post('/login', adminController.verifyLogin);
-router.get('/signup', adminController.renderSignUp);
-router.post('/signup', adminController.signUp);
+// router.get('/signup', adminController.renderSignUp);
+// router.post('/signup', adminController.signUp);
 router.get('/dashboard', adminController.renderDashboard);
 
 // group routes 

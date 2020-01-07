@@ -1,4 +1,6 @@
 ## Login/Logout with OKTA
+### Admin panel login URl 
+<host_name>/admin/login
 
 ##### Step 1:
 * Create a group for your customer

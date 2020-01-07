@@ -1,11 +1,25 @@
-<%= error%><br>
-<br>
-<%= error.stack %>
-    
-
-
-
-
-
-
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ./partials/head %>
+  </head>
+  <body>
+    <div class="ui-app">
+      <div class="ui-app__wrapper" id="app-layout-control">
+        <div id="prepage-loader" style="display: none;">
+          <div class="ui-app__prepage-loader spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+          </div>
+        </div>
+        <main>
+          <%= error%><br>
+          <br>
+          <%= error.stack %>
+        </main>
+      </div>
+    </div>
+    <%  include ./partials/scripts %>
+    <script type="text/javascript" src="/js/admin.js" ></script>
+  </body>
+</html>
