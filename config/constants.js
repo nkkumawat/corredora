@@ -2,7 +2,7 @@ var env       = process.env.NODE_ENV || 'development';
 var config    = require('../config/config.json')[env];
 
 module.exports = {
-  APP_NAME: "myapp",
+  APP_NAME: "Corredora",
   HOST_NAME: config['host'],
   SERVER_SUPER_SECRET: config['secret'],
   ADMIN: config['admin'],

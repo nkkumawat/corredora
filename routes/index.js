@@ -4,7 +4,7 @@ const adminController = require('../controllers/adminController');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  return res.render('home', {})
+  return res.render('error', {error: "not found"});
 });
 router.get('/logout', adminController.logout);
 
