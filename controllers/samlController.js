@@ -1,19 +1,19 @@
-var saml2 = require('saml2-js');
-var passport = require('../utils/passport');
-var constants = require('../config/constants');
-var logger = require('../utils/logger');
-var userController = require("./userController");
-var spDataHelper = require("../helpers/spDataHelper");
-var idpDataHelper = require("../helpers/idpDataHelper");
-var responseHelper = require('../helpers/responseHelper');
-var samlDataHelper = require('../helpers/samlDataHelper');
-var groupService = require('../services/groupService');
-var spDataService = require('../services/spDataService');
-var idpDataService = require('../services/idpDataService');
-var certificateHelper = require('../helpers/certificateHelper');
-var tokenHelper = require('../helpers/tokenHelper');
-var queryString = require('query-string');
-var sessionService = require('../services/sessionService');
+const saml2 = require('saml2-js');
+const passport = require('../utils/passport');
+const constants = require('../config/constants');
+const logger = require('../utils/logger');
+const userController = require("./userController");
+const spDataHelper = require("../helpers/spDataHelper");
+const idpDataHelper = require("../helpers/idpDataHelper");
+const responseHelper = require('../helpers/responseHelper');
+const samlDataHelper = require('../helpers/samlDataHelper');
+const groupService = require('../services/groupService');
+const spDataService = require('../services/spDataService');
+const idpDataService = require('../services/idpDataService');
+const certificateHelper = require('../helpers/certificateHelper');
+const tokenHelper = require('../helpers/tokenHelper');
+const queryString = require('query-string');
+const sessionService = require('../services/sessionService');
 
 
 var createSPMetadata = (params) => { // Use this after IDP creation // send group_name from body params (hidden field)

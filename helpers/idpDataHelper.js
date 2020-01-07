@@ -1,5 +1,5 @@
-var idpDataService = require('../services/idpDataService');
-var groupService = require('../services/groupService');
+const idpDataService = require('../services/idpDataService');
+const groupService = require('../services/groupService');
 module.exports = {
   init: (realmName) => {
     return new Promise((resolve , reject) => {

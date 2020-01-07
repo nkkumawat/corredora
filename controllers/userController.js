@@ -1,5 +1,5 @@
-var mapperService = require("../services/mapperService")
-var userService = require("../services/userService")
+const mapperService = require("../services/mapperService")
+const userService = require("../services/userService")
 module.exports = {
   createUser: (groupId, attributes) => {
     return new Promise((resolve, reject) => {

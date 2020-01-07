@@ -1,4 +1,4 @@
-var xml2js = require('xml2js').parseString;
+const xml2js = require('xml2js').parseString;
 
 module.exports = {
   getAttributes: (samlData) => {

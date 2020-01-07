@@ -1,5 +1,5 @@
-var pem = require('pem');
-var constants = require("../config/constants");
+const pem = require('pem');
+const constants = require("../config/constants");
 
 module.exports = {
   getCertificates: () => {

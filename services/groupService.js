@@ -1,4 +1,4 @@
-var constants = require("../config/constants");
+const constants = require("../config/constants");
 const models = require('../models');
 
 module.exports = {

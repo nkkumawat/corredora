@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var middleware = require('../middlewares/index');
-var apiController = require('../controllers/apiController');
+const express = require('express');
+const router = express.Router();
+const middleware = require('../middlewares/index');
+const apiController = require('../controllers/apiController');
 
 router.use(middleware.apiAuth);
 

@@ -1,4 +1,4 @@
-var constants = require("../../config/constants");
+const constants = require("../../config/constants");
 const models = require('../../models');
 const bcrypt = require('bcrypt');
 const uuidv4 = require('uuid/v4');

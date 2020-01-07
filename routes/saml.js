@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var samlController = require('../controllers/samlController')
-var passport = require('../utils/passport');
+const express = require('express');
+const router = express.Router();
+const samlController = require('../controllers/samlController')
+const passport = require('../utils/passport');
 
 /* GET home page. */
 router.get('/:realmName/login', samlController.initLogin);
