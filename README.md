@@ -40,7 +40,7 @@ pm2 start --env production
 ```
 ### Documentation
 Click [here](./docs) for documentaion.<br>
-Click [Narendra Kumawat – Medium](https://medium.com/@narendra11510145) for blogs.
+Click [Narendra Kumawat – Medium](https://medium.com/@nk-kumawat) for blogs.
 
 ### Contribute
 Thank you for your interest in contributing to this open source project!
