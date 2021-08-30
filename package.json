@@ -24,7 +24,7 @@
     "nodemon": "^2.0.2",
     "passport": "^0.4.1",
     "passport-http": "^0.3.0",
-    "passport-saml": "^1.2.0",
+    "passport-saml": "^3.1.0",
     "pem": "^1.14.3",
     "pm2": "^4.2.1",
     "query-string": "^6.9.0",
